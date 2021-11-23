@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function findMissingLetter(array) {
+        let alphabet = [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g",
+          "h",
+          "i",
+          "j",
+          "k",
+          "l",
+          "m",
+          "n",
+          "o",
+          "p",
+          "q",
+          "r",
+          "s",
+          "t",
+          "u",
+          "v",
+          "w",
+          "x",
+          "y",
+          "z",
+        ];
+
+        const first = array[0];
+
+        if (first === first.toUpperCase()) {
+          alphabet = alphabet.join("").toUpperCase().split("");
+        }
+        const a_first = alphabet.indexOf(first);
+        alphabet = alphabet.splice(a_first, array.length);
+        for (let i = 0; i < alphabet.length; i++) {
+          if (array.indexOf(alphabet[i]) === -1) {
+            return alphabet[i];
+          }
+        }
+      }
+
+      console.log(findMissingLetter(["a", "b", "c", "d", "f"]));
+    </script>
+  </body>
+</html>
