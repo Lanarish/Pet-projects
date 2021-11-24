@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function pigIt(str) {
+        let word = str.split(" ");
+        return word
+          .map(function (word) {
+            let firstLetter = word.charAt(0);
+            return word.slice(1) + firstLetter + "ay";
+          })
+          .join(" ");
+      }
+
+      console.log(pigIt("This is my string"));
+    </script>
+  </body>
+</html>
