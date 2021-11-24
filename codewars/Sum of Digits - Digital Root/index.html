@@ -7,28 +7,6 @@
     <title>Document</title>
   </head>
   <body>
-    <script>
-      function digital_root(n) {
-        let arrayOfStrings = n.toString().split("");
-        let arrayOfNumbers = arrayOfStrings.map(Number);
-        let sum = arrayOfNumbers.reduce(function (a, b) {
-          return a + b;
-        }, 0);
-        if (sum > 10) {
-          sum = sum
-            .toString()
-            .split("")
-            .map(Number)
-            .reduce(function (a, b) {
-              return a + b;
-            }, 0);
-          return sum;
-        } else {
-          return sum;
-        }
-      }
-
-      console.log(digital_root(999));
-    </script>
+    <script src="index.js"></script>
   </body>
 </html>
