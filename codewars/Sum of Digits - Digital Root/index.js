@@ -8,23 +8,15 @@
 // 132189  -->  1 + 3 + 2 + 1 + 8 + 9 = 24  -->  2 + 4 = 6
 
 function digital_root(n) {
-  let arrayOfStrings = n.toString().split("");
-  let arrayOfNumbers = arrayOfStrings.map(Number);
-  let sum = arrayOfNumbers.reduce(function (a, b) {
-    return a + b;
-  }, 0);
-  if (sum > 10) {
-    sum = sum
-      .toString()
-      .split("")
-      .map(Number)
-      .reduce(function (a, b) {
-        return a + b;
-      }, 0);
-    return sum;
-  } else {
-    return sum;
-  }
-}
+  if (n < 10) return n;
 
-console.log(digital_root(999));
+  let sum = 0;
+  let number = n.toString().split("");
+
+  for (let i = 0; i < number.length; i++) {
+    sum += Number(number[i]);
+  }
+
+  return digital_root(sum);
+}
+console.log(digital_root(789));
