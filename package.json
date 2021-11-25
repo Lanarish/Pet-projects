@@ -1,0 +1,15 @@
+{
+  "name": "svetlana-maliugina",
+  "version": "1.0.0",
+  "description": "This project is your Portfolio: your future interviewer will take a look at that repo and pay attention to:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.akvelon.net:9443/bootcamp/projects/svetlana-maliugina.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
