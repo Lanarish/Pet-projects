@@ -1,6 +1,6 @@
 function productFib(prod) {
-  var n = 0;
-  var nPlus = 1;
+  let n = 0;
+  let nPlus = 1;
   while (n * nPlus < prod) {
     nPlus = nPlus + n;
     n = nPlus - n;
