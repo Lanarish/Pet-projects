@@ -12,10 +12,10 @@
         const newArray = [];
         const length = Math.max(a.length, b.length);
         for (i = 0; i < length; i++) {
-          if (a[i]) {
+          if (i < a.length) {
             newArray.push(a[i]);
           }
-          if (b[i]) {
+          if (i < b.length) {
             newArray.push(b[i]);
           }
         }
