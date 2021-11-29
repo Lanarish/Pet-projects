@@ -46,7 +46,7 @@
         const a_first = alphabet.indexOf(first);
         alphabet = alphabet.splice(a_first, array.length);
         for (let i = 0; i < alphabet.length; i++) {
-          if (array.indexOf(alphabet[i]) === -1) {
+          if (!array.includes(alphabet[i])) {
             return alphabet[i];
           }
         }
