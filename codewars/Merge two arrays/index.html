@@ -9,13 +9,13 @@
   <body>
     <script>
       function mergeArrays(a, b) {
-        let newArray = [];
+        const newArray = [];
         let length = Math.max(a.length, b.length);
         for (i = 0; i < length; i++) {
-          if (a[i] !== undefined) {
+          if (a[i]) {
             newArray.push(a[i]);
           }
-          if (b[i] !== undefined) {
+          if (b[i]) {
             newArray.push(b[i]);
           }
         }
