@@ -9,10 +9,10 @@
   <body>
     <script>
       const moveZeros = function (arr) {
-        const zeros = arr.filter((elm) => elm === 0).length;
+        const zerosLength = arr.filter((elm) => elm === 0).length;
         const result = arr.filter((elm) => elm !== 0);
 
-        for (let i = 0; i < zeros; i++) {
+        for (let i = 0; i < zerosLength; i++) {
           result.push(0);
         }
         return result;
