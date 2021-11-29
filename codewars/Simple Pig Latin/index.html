@@ -12,7 +12,7 @@
         let word = str.split(" ");
         return word
           .map(function (word) {
-            let firstLetter = word.charAt(0);
+            const firstLetter = word.charAt(0);
             return word.slice(1) + firstLetter + "ay";
           })
           .join(" ");
