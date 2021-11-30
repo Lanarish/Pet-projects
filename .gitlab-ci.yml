@@ -8,6 +8,6 @@ eslintSaga:
     - docker
   stage: lintSaga
   script:
-    - cd ./rpgsaga/saga
+    - cd ./rpgsaga/
     - npm ci
     - npm run lint
