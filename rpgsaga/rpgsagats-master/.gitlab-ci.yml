@@ -1,13 +1,13 @@
 image: node
 
 stages:
-  - lint
+  - lintSaga
 
-eslint:
+eslintSaga:
   tags:
     - docker
-  stage: lint
+  stage: lintSaga
   script:
-    - cd ./saga
+    - cd ./rpgsaga/saga
     - npm ci
     - npm run lint
