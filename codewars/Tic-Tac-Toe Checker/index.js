@@ -46,7 +46,7 @@ function isSolved(board) {
   return 0;
 }
 
-var board = [
+let board = [
   [0, 0, 1],
   [0, 1, 2],
   [2, 1, 0],
