@@ -1,13 +1,10 @@
 {
 	"folders": [
 		{
-			"name": "Configs (Root)",
-			"path": "."
-		},
-		{
 			"name": "Saga",
-			"path": "saga"
-		},
+			"path": "."
+		}
+		
 	],
 	"settings": {
 		"files.exclude": {
