@@ -14,5 +14,5 @@ function flattenMap(map) {
       }
     }
   }
-  return to_return; 
+  return to_return;
 }
