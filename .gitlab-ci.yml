@@ -1,0 +1,13 @@
+image: node
+
+stages:
+  - lintSaga
+
+eslintSaga:
+  tags:
+    - docker
+  stage: lintSaga
+  script:
+    - cd ./rpgsaga/
+    - npm ci
+    - npm run lint
