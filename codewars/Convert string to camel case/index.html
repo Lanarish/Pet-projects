@@ -9,16 +9,15 @@
   <body>
     <script>
       function toCamelCase(str) {
-        str = str.split("");
-        return str
-          .map(function (elem, i) {
-            if (elem == "-" || elem == "_") {
-              elem = str[i + 1].toUpperCase();
-              str.splice(i + 1, 1);
-            }
-            return elem;
-          })
-          .join("");
+        const array = str.split(/[-_]/);
+
+        for(let i=1;i< array.length;i++){
+          const firstLetter= array[i][0];
+        
+          array[i]=firstLetter.toUpperCase()+array[i].substr(1);
+        }
+        const completeString = array.join("");
+        return(completeString)
       }
 
       console.log(toCamelCase("The-Stealth-Warrior"));
