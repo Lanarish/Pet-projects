@@ -1,9 +1,9 @@
-//console.log('Hello world');
+import { Game } from './Game';
 
-function main(){
-const game = new Game();
-console.log(game.run)
-game.run();
+function main() {
+  const game = new Game();
+  game.run();
 }
 main();
 
+console.log('Hello world!');
