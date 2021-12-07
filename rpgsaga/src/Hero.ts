@@ -1,9 +1,12 @@
 abstract class Hero {
-  abstract name: string;
-  abstract power: number;
-  abstract health: number;
-  abstract startHealth: number;
+  names: string[] = ['Tom', 'Bot', 'Thor', 'Artur'];
+  name: string;
+  power: number;
+  health: number;
+  startHealth: number;
 
-  abstract performSuperPower(): void;
-  abstract prepareForRound(): void;
+  performSuperPower() {
+    console.log('n');
+  }
+  prepareForRound(): void;
 }

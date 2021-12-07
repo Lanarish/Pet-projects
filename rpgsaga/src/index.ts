@@ -5,5 +5,3 @@ function main() {
   game.run();
 }
 main();
-
-console.log('Hello world!');

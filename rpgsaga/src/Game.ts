@@ -1,10 +1,9 @@
- export class Game {
+export class Game {
+  run() {
+    console.log('Hello Game!');
+  }
 
-    run(){
-        console.log("Hello Game!")
-    }
-
-    private initHero():void{
-
-    }
+  //   private initPlayer() {
+  //     Random.initHeroes();
+  //   }
 }
