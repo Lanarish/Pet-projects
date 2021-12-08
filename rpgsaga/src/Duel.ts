@@ -1,5 +1,5 @@
 export class Duel {
-  startDuel() {
+  startDuel(pair) {
     console.log('duel');
   }
 }
