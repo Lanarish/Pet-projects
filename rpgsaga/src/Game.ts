@@ -17,7 +17,7 @@ export class Game {
   }
 
   private getNumbersOfHeroes() {
-    const totalAmountOfHeroes = 8;
+    const totalAmountOfHeroes = 10;
     this.makePairs(totalAmountOfHeroes);
   }
 
