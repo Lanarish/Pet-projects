@@ -8,12 +8,13 @@ export class Random {
 
   initHero() {
     const heroList: Hero[] = [];
-    for (let i = 0; i < 2; i++) {
-      const newHero: Hero = new Hero();
+
+    for (let i = 0; i < 4; i++) {
       this.initRandomTypes();
-      this.initRandomHeroName();
-      this.initRandomHeroHealth();
-      this.initRandomHeroPower();
+      const name: string = this.initRandomHeroName();
+      const power: number = this.initRandomHeroPower();
+      const health: number = this.initRandomHeroHealth();
+      const newHero: Hero = new Hero(name, power, health);
       heroList.push(newHero);
     }
     console.log(heroList);
