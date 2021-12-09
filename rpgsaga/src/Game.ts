@@ -1,15 +1,16 @@
 import { Hero } from './Hero';
 import { Generator } from './Generator';
+import { HeroPairs } from './HeroPairs';
 
-// const NUMBER_USERS = 4;
 export class Game {
   heroList: Hero[];
   random: Generator = new Generator();
-  totalAmountOfHeroes = 10;
 
+  totalAmountOfHeroes = 10;
+  newHeroArray: HeroPairs[] = [];
   run() {
-    this.getNumbersOfHeroes();
     this.initHero();
+    this.getNumbersOfHeroes();
   }
 
   initHero() {
@@ -18,6 +19,7 @@ export class Game {
 
   private getNumbersOfHeroes() {
     this.random.makePairs(this.totalAmountOfHeroes);
+    this.newHeroArray = this.random.newHeroArray();
   }
 
   gameOver(heroList: [string]) {
