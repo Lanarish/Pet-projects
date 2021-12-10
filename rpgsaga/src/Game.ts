@@ -5,7 +5,6 @@ import { HeroPairs } from './HeroPairs';
 export class Game {
   heroList: Hero[];
   random: Generator = new Generator();
-
   totalAmountOfHeroes = 10;
   newHeroArray: HeroPairs[] = [];
   run() {
