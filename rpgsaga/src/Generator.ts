@@ -1,6 +1,6 @@
 import { Hero } from './Hero';
 // import { HeroPairs } from './HeroPairs';
-import { Round } from './Round';
+// import { Round } from './Round';
 import { Logger } from './Logger';
 
 export class Generator {
@@ -25,7 +25,7 @@ export class Generator {
   heroList: Hero[] = [];
   pairsArray: [Hero, Hero][] = [];
   logger: Logger = new Logger();
-  round: Round = new Round();
+  // round: Round = new Round();
   initHero(totalAmountOfHeroes: number) {
     for (let i = 0; i < totalAmountOfHeroes; i++) {
       this.initRandomTypes();
@@ -72,7 +72,8 @@ export class Generator {
         continue;
       }
     }
-    this.round.startRound(this.pairsArray);
+    this.logger.info(this.pairsArray);
+    // this.round.startRound(this.pairsArray);
   }
 
   //   newHeroArray(): HeroPairs[] {
