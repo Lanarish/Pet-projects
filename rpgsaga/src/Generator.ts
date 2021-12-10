@@ -31,7 +31,7 @@ export class Generator {
       const name = this.initRandomHeroProperties(this.arrayOfNames);
       const power = this.initRandomHeroProperties(this.arrayOfPower);
       const health = this.initRandomHeroProperties(this.arrayOfHealth);
-      const newHero: Hero = new Hero(name, power, health);
+      const newHero: Hero = new Hero({ name, power, health });
       this.heroList.push(newHero);
     }
     // console.log(this.heroList);

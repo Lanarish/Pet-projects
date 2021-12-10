@@ -4,10 +4,10 @@ export class Hero {
   health: number;
   startHealth: number;
 
-  constructor(name, power, health) {
-    this.name = name;
-    this.power = power;
-    this.health = health;
+  constructor(options) {
+    this.name = options.name;
+    this.power = options.power;
+    this.health = options.health;
   }
   //   performSuperPower() {
   //     console.log('n');
