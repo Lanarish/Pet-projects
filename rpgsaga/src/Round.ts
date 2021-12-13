@@ -1,31 +1,28 @@
-//  import { Game } from './Game';
-// import { Duel } from './Duel';
+import { Duel } from './Duel';
+import { Hero } from './Hero';
 
-// const duel = new Duel();
-//  const game = new Game();
+const duel = new Duel();
+export class Round {
+  numberOfRound: number;
+  winnersList: [string];
+  heroOneUsedBoosts: [string];
+  heroTwoUsedBoosts: [string];
+  newPairs: [number, number][];
 
-// export class Round {
-//   numberOfRound: number;
-//   winnersList: [string];
-//   heroOneUsedBoosts: [string];
-//   heroTwoUsedBoosts: [string];
-//   newPairs: [number, number][];
+  startRound(pairsArray: [Hero, Hero][]) {
+    for (let i = 0; ; i++) {
+      // forEach
+      if (pairsArray[0]) {
+        duel.startDuel(pairsArray[0]);
+        pairsArray.splice(0, 1);
+        continue;
+      } else {
+        break;
+      }
+    }
 
-//   startRound(newHeroArray: object[]) {
-//     for (let i = 0; ; i++) {
-//       // forEach
-//       if (newHeroArray[0]) {
-//         duel.startDuel(newHeroArray[0]);
-//         newHeroArray.splice(0, 1);
-//         continue;
-//       } else {
-//         break;
-//       }
-//       console.log(newHeroArray);
-//     }
-
-//     if (game.heroList.length === 1) {
-//       game.gameOver;
-//     }
-//   }
-// }
+    // if (game.heroList.length === 1) {
+    //   game.gameOver;
+    // }
+  }
+}

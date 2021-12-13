@@ -1,6 +1,5 @@
 import { Hero } from './Hero';
-// import { HeroPairs } from './HeroPairs';
-// import { Round } from './Round';
+import { Round } from './Round';
 import { Logger } from './Logger';
 
 export class Generator {
@@ -20,12 +19,12 @@ export class Generator {
     'Kir',
     'Geralt',
   ];
-  arrayOfPower: number[] = [4, 5, 8, 6, 9, 3, 7];
+  arrayOfPower: number[] = [34, 35, 38, 46, 39, 53, 27];
   arrayOfHealth: number[] = [100, 90, 80, 70, 95, 85, 75];
   heroList: Hero[] = [];
   pairsArray: [Hero, Hero][] = [];
   logger: Logger = new Logger();
-  // round: Round = new Round();
+  round: Round = new Round();
   initHero(totalAmountOfHeroes: number) {
     for (let i = 0; i < totalAmountOfHeroes; i++) {
       this.initRandomTypes();
@@ -35,7 +34,6 @@ export class Generator {
       const newHero: Hero = new Hero({ name, power, health });
       this.heroList.push(newHero);
     }
-    // console.log(this.heroList);
     return this.heroList;
   }
 
@@ -48,8 +46,10 @@ export class Generator {
     return array[Math.floor(Math.random() * array.length)];
   }
 
-  makePairs() {
-    const totalArray: number[] = new Array(this.heroList.length).fill(1);
+  makePairs(heroArray) {
+    let newHeroArray: Hero[] = [];
+    newHeroArray = heroArray;
+    const totalArray: number[] = new Array(newHeroArray.length).fill(1);
 
     for (let i = 0; i < totalArray.length / 2; i++) {
       const randomHeroOne: number = Math.floor(Math.random() * totalArray.length);
@@ -73,28 +73,6 @@ export class Generator {
       }
     }
     this.logger.info(this.pairsArray);
-    // this.round.startRound(this.pairsArray);
+    this.round.startRound(this.pairsArray);
   }
-
-  //   newHeroArray(): HeroPairs[] {
-  //     const newHeroArray: HeroPairs[] = [];
-
-  //     for (let i = 0; i < this.pairsArray.length; i++) {
-  //       const array: HeroPairs = new HeroPairs();
-  //       for (let k = 0; k < this.pairsArray[i].length; k++) {
-  //         for (let j = 0; j < this.heroList.length; j++) {
-  //           if (this.pairsArray[i][k] === j) {
-  //             if (k === 0) {
-  //               array.firstHero = this.heroList[j];
-  //             } else {
-  //               array.secondHero = this.heroList[j];
-  //             }
-  //           }
-  //         }
-  //       }
-  //       newHeroArray.push(array);
-  //     }
-  //     this.logger.info(newHeroArray);
-  //     return newHeroArray;
-  //   }
 }
