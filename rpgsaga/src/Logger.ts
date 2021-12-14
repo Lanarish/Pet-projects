@@ -3,13 +3,11 @@ export class Logger {
     console.log('Pairs of heroes:', newHeroArray);
   }
 
-  game(a, b, pairsArray) {
-    console.log(
-      `${pairsArray[a].name} struck a blow in ${pairsArray[a].power} points. ${pairsArray[b].name}'s remaining health is ${pairsArray[b].health} points`,
-    );
+  game(a, b) {
+    console.log(`${a.name} struck a blow in ${a.power} points. ${b.name}'s remaining health is ${b.health} points`);
   }
   stopDuel(pairsArray, a) {
-    console.log(`${pairsArray[a].name} has won!
+    console.log(`${a.name} has won!
     #####################################################`);
   }
   error() {
