@@ -4,70 +4,38 @@ import { Logger } from './Logger';
 
 export class Duel {
   logger: Logger = new Logger();
-  startDuel(pairsArray: HeroPairs) {
+  startDuel(pairOfHeroes: HeroPairs) {
+    this.logger.duelStart(pairOfHeroes.firstHero, pairOfHeroes.secondHero);
+
     const turn: boolean = this.whoIsFirst();
-    let a: number;
+
+    let firstFighter;
+    let secondFighter;
     if (turn === false) {
-      a = 0;
-
-      console.log(`${pairsArray.firstHero.name} attacks first`);
+      firstFighter = pairOfHeroes.firstHero;
+      secondFighter = pairOfHeroes.secondHero;
+      this.logger.first(pairOfHeroes.firstHero);
     } else {
-      a = 1;
-
-      console.log(`${pairsArray.secondHero.name} attacks first`);
+      firstFighter = pairOfHeroes.secondHero;
+      secondFighter = pairOfHeroes.firstHero;
+      this.logger.first(pairOfHeroes.secondHero);
     }
-    while (pairsArray.firstHero.health > 0 && pairsArray.secondHero.health > 0) {
-      if (a === 0) {
-        this.fight(pairsArray.firstHero, pairsArray.secondHero);
-        if (pairsArray.secondHero.health <= 0) {
-          this.logger.stopDuel(pairsArray, pairsArray.firstHero);
-          return pairsArray.firstHero;
-        }
-        this.fight(pairsArray.secondHero, pairsArray.firstHero);
-        if (pairsArray.firstHero.health <= 0) {
-          this.logger.stopDuel(pairsArray, pairsArray.secondHero);
-          return pairsArray.secondHero;
-        }
-      } else {
-        this.fight(pairsArray.secondHero, pairsArray.firstHero);
-        if (pairsArray.firstHero.health <= 0) {
-          this.logger.stopDuel(pairsArray, pairsArray.secondHero);
-          return pairsArray.secondHero;
-        }
-        this.fight(pairsArray.firstHero, pairsArray.secondHero);
-        if (pairsArray.secondHero.health <= 0) {
-          this.logger.stopDuel(pairsArray, pairsArray.firstHero);
-          return pairsArray.firstHero;
-        }
+
+    while (firstFighter.health > 0 && secondFighter.health > 0) {
+      this.fight(firstFighter, secondFighter);
+      if (secondFighter.health <= 0) {
+        this.logger.stopDuel(firstFighter);
+        return firstFighter;
       }
-      //   if (a === 0) {
-      //     this.fight(a, b, pairsArray);
-      //     if (pairsArray[b].health <= 0) {
-      //       this.logger.stopDuel(pairsArray, a);
-      //       return pairsArray[a];
-      //     }
-      //     this.fight(b, a, pairsArray);
-      //     if (pairsArray[a].health <= 0) {
-      //       this.logger.stopDuel(pairsArray, b);
-      //       return pairsArray[b];
-      //     }
-      //   } else {
-      //     this.fight(a, b, pairsArray);
-      //     if (pairsArray[b].health <= 0) {
-      //       this.logger.stopDuel(pairsArray, a);
-      //       return pairsArray[a];
-      //     }
-      //     this.fight(b, a, pairsArray);
-      //     if (pairsArray[a].health <= 0) {
-      //       this.logger.stopDuel(pairsArray, b);
-      //       return pairsArray[b];
-      //     }
-      //   }
+      this.fight(secondFighter, firstFighter);
+      if (firstFighter.health <= 0) {
+        this.logger.stopDuel(secondFighter);
+        return secondFighter;
+      }
     }
   }
   whoIsFirst() {
-    const firstTurn = Boolean(Math.floor(Math.random() * 2));
-    return firstTurn;
+    return Boolean(Math.floor(Math.random() * 2));
   }
   fight(a: Hero, b: Hero) {
     b.health -= a.power;

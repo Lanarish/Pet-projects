@@ -1,10 +1,11 @@
 import { Hero } from './Hero';
-import { Round } from './Round';
-import { Logger } from './Logger';
 import { HeroPairs } from './HeroPairs';
+import { Archer } from './Heroes/Archer';
+import { Knight } from './Heroes/Knight';
+import { Wizard } from './Heroes/Wizard';
 
 export class Generator {
-  arrayOfHeroes: string[] = ['Witcher', 'Archer', 'Knight'];
+  arrayOfHeroes: string[] = ['Wizard', 'Archer', 'Knight'];
   arrayOfNames: string[] = [
     'Tom',
     'Bot',
@@ -20,28 +21,39 @@ export class Generator {
     'Kir',
     'Geralt',
   ];
+  arrayOfLastNames: string[] = ['Bolton', 'Prier', 'Jonson', 'Jackson', 'Bushe'];
   arrayOfPower: number[] = [34, 35, 38, 46, 39, 53, 27];
   arrayOfHealth: number[] = [100, 90, 80, 70, 95, 85, 75];
-  logger: Logger = new Logger();
-  round: Round = new Round();
 
   initHero(totalAmountOfHeroes: number) {
     const heroList: Hero[] = [];
+
     for (let i = 0; i < totalAmountOfHeroes; i++) {
-      this.initRandomTypes();
       const name = this.initRandomHeroProperties(this.arrayOfNames);
+      const lastName = this.initRandomHeroProperties(this.arrayOfLastNames);
       const power = this.initRandomHeroProperties(this.arrayOfPower);
       const health = this.initRandomHeroProperties(this.arrayOfHealth);
-      const newHero: Hero = new Hero(name, power, health);
+      const newHero = this.initHeroType(name.toString(), lastName.toString(), Number(power), health);
 
       heroList.push(newHero);
     }
     return heroList;
   }
+  initHeroType(name: string, lastName: string, power: number, health: number | string) {
+    let completeHero: Hero;
+    switch (this.initRandomHeroProperties(this.arrayOfHeroes)) {
+      case 'Wizard':
+        completeHero = new Wizard(name, lastName, power, health);
+        break;
+      case 'Archer':
+        completeHero = new Archer(name, lastName, power, health);
+        break;
+      case 'Knight':
+        completeHero = new Knight(name, lastName, power, health);
+        break;
+    }
 
-  initRandomTypes() {
-    const heroType: string = this.arrayOfHeroes[Math.floor(Math.random() * this.arrayOfHeroes.length)];
-    return heroType;
+    return completeHero;
   }
 
   initRandomHeroProperties(array: Array<string | number>): string | number {
@@ -74,7 +86,6 @@ export class Generator {
         continue;
       }
     }
-    this.logger.info(pairsArray);
     return pairsArray;
   }
   mathRandom(array: number[]): number {
