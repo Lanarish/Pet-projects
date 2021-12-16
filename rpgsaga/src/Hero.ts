@@ -2,7 +2,6 @@ export class Hero {
   name: string;
   power: number;
   health: number;
-  startHealth: number;
   lastName: string;
 
   constructor(name, lastName, power, health) {
