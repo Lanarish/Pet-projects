@@ -9,7 +9,7 @@ export class Duel {
 
     let firstFighter;
     let secondFighter;
-    if (turn === false) {
+    if (!turn) {
       firstFighter = pairOfHeroes.firstHero;
       secondFighter = pairOfHeroes.secondHero;
       console.log(`${firstFighter.name} attacks first`);
@@ -19,7 +19,7 @@ export class Duel {
       console.log(`${firstFighter.name} attacks first`);
     }
 
-    while (firstFighter.health > 0 && secondFighter.health > 0) {
+    while (firstFighter.health && secondFighter.health) {
       this.fight(firstFighter, secondFighter);
       if (secondFighter.health <= 0) {
         this.logger.stopDuel(firstFighter);

@@ -20,7 +20,7 @@ export class Generator {
     'Meriadoc',
     'Radagast',
     'Thorin',
-    ' Elrond',
+    'Elrond',
   ];
   arrayOfLastNames: string[] = [
     'Brandybuck',
