@@ -5,21 +5,35 @@ import { Logger } from './Logger';
 export class Generator {
   arrayOfHeroes: string[] = ['Witcher', 'Archer', 'Knight'];
   arrayOfNames: string[] = [
-    'Tom',
-    'Bot',
-    'Thor',
-    'Artur',
-    'Igor',
-    'Jane',
-    'Paul',
-    'Travis',
-    'Troy',
-    'Mike',
-    'Denis',
-    'Kir',
+    'Vesemir',
     'Geralt',
+    'Lyutik',
+    'Aragorn',
+    'Legolas',
+    'Gimli',
+    'Boromir',
+    'Faramir',
+    'Gandalf',
+    'Frodo',
+    'Sam',
+    'Peregrin',
+    'Meriadoc',
+    'Radagast',
+    'Thorin',
+    ' Elrond',
   ];
-  arrayOfLastNames: string[] = ['Bolton', 'Prier', 'Jonson', 'Jackson', 'Bushe', 'Gramm', 'Tomme', 'Tudor'];
+  arrayOfLastNames: string[] = [
+    'Brandybuck',
+    'Prier',
+    'Jonson',
+    'Jackson',
+    'Bushe',
+    'Gramm',
+    'Took',
+    'Tudor',
+    'Oakenshield',
+    'Merigold',
+  ];
   logger: Logger = new Logger();
 
   initHero(totalAmountOfHeroes: number) {
@@ -55,25 +69,22 @@ export class Generator {
 
   makePairs(heroList): HeroPairs[] {
     const pairsArray: HeroPairs[] = [];
-    console.log(heroList);
-    const totalArray: number[] = new Array(heroList.length).fill(1);
+    const copyHeroList = [...heroList];
 
-    for (let i = 0; i < totalArray.length / 2; i++) {
-      const randomHeroOne: number = this.mathRandom(totalArray);
-      const randomHeroTwo: number = this.mathRandom(totalArray);
-      if (totalArray[randomHeroOne] === 0 || totalArray[randomHeroTwo] === 0) {
+    for (let i = 0; i < heroList.length / 2; i++) {
+      const randomHeroOne: number = this.mathRandom(copyHeroList);
+      const randomHeroTwo: number = this.mathRandom(copyHeroList);
+      if (randomHeroOne === randomHeroTwo) {
         i--;
         continue;
       }
-
-      if (randomHeroOne !== randomHeroTwo) {
-        const newPair = new HeroPairs(heroList[randomHeroOne], heroList[randomHeroTwo]);
-        pairsArray.push(newPair);
-        totalArray[randomHeroOne] = 0;
-        totalArray[randomHeroTwo] = 0;
+      const newPair = new HeroPairs(copyHeroList[randomHeroOne], copyHeroList[randomHeroTwo]);
+      pairsArray.push(newPair);
+      copyHeroList.splice(randomHeroOne, 1);
+      if (randomHeroTwo > randomHeroOne) {
+        copyHeroList.splice(randomHeroTwo - 1, 1);
       } else {
-        i--;
-        continue;
+        copyHeroList.splice(randomHeroTwo, 1);
       }
     }
     this.logger.info(pairsArray);
