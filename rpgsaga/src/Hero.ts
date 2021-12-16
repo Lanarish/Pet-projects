@@ -3,9 +3,11 @@ export class Hero {
   power: number;
   health: number;
   startHealth: number;
+  lastName: string;
 
-  constructor(name, power, health) {
+  constructor(name, lastName, power, health) {
     this.name = name;
+    this.lastName = lastName;
     this.power = power;
     this.health = health;
   }

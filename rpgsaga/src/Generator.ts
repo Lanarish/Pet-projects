@@ -1,7 +1,6 @@
 import { Hero } from './Hero';
-import { Round } from './Round';
-import { Logger } from './Logger';
 import { HeroPairs } from './HeroPairs';
+import { Logger } from './Logger';
 
 export class Generator {
   arrayOfHeroes: string[] = ['Witcher', 'Archer', 'Knight'];
@@ -20,46 +19,49 @@ export class Generator {
     'Kir',
     'Geralt',
   ];
-  arrayOfPower: number[] = [34, 35, 38, 46, 39, 53, 27];
-  arrayOfHealth: number[] = [100, 90, 80, 70, 95, 85, 75];
+  arrayOfLastNames: string[] = ['Bolton', 'Prier', 'Jonson', 'Jackson', 'Bushe', 'Gramm', 'Tomme', 'Tudor'];
   logger: Logger = new Logger();
-  round: Round = new Round();
 
   initHero(totalAmountOfHeroes: number) {
     const heroList: Hero[] = [];
+
     for (let i = 0; i < totalAmountOfHeroes; i++) {
-      this.initRandomTypes();
-      const name = this.initRandomHeroProperties(this.arrayOfNames);
-      const power = this.initRandomHeroProperties(this.arrayOfPower);
-      const health = this.initRandomHeroProperties(this.arrayOfHealth);
-      const newHero: Hero = new Hero(name, power, health);
+      const name: string = this.initRandomHeroName();
+      const lastName: string = this.initRandomHeroLastName();
+      const power: number = this.initRandomHeroPower();
+      const health: number = this.initRandomHeroHealth();
+      const newHero = new Hero(name, lastName, power, health);
 
       heroList.push(newHero);
     }
     return heroList;
   }
 
-  initRandomTypes() {
-    const heroType: string = this.arrayOfHeroes[Math.floor(Math.random() * this.arrayOfHeroes.length)];
-    return heroType;
+  initRandomHeroType() {
+    return this.arrayOfHeroes[Math.floor(Math.random() * this.arrayOfHeroes.length)];
   }
-
-  initRandomHeroProperties(array: Array<string | number>): string | number {
-    return array[Math.floor(Math.random() * array.length)];
+  initRandomHeroName() {
+    return this.arrayOfNames[Math.floor(Math.random() * this.arrayOfNames.length)];
+  }
+  initRandomHeroLastName() {
+    return this.arrayOfLastNames[Math.floor(Math.random() * this.arrayOfLastNames.length)];
+  }
+  initRandomHeroPower() {
+    return Math.floor(Math.random() * 20) + 15;
+  }
+  initRandomHeroHealth() {
+    return Math.floor(Math.random() * 31) + 70;
   }
 
   makePairs(heroList): HeroPairs[] {
     const pairsArray: HeroPairs[] = [];
+    console.log(heroList);
     const totalArray: number[] = new Array(heroList.length).fill(1);
 
     for (let i = 0; i < totalArray.length / 2; i++) {
       const randomHeroOne: number = this.mathRandom(totalArray);
-      if (totalArray[randomHeroOne] === 0) {
-        i--;
-        continue;
-      }
       const randomHeroTwo: number = this.mathRandom(totalArray);
-      if (totalArray[randomHeroTwo] === 0) {
+      if (totalArray[randomHeroOne] === 0 || totalArray[randomHeroTwo] === 0) {
         i--;
         continue;
       }

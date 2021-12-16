@@ -6,7 +6,7 @@ export class Logger {
   game(a, b) {
     console.log(`${a.name} struck a blow in ${a.power} points. ${b.name}'s remaining health is ${b.health} points`);
   }
-  stopDuel(pairsArray, a) {
+  stopDuel(a) {
     console.log(`${a.name} has won!
     #####################################################`);
   }
