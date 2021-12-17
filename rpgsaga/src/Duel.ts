@@ -5,10 +5,12 @@ import { Logger } from './Logger';
 export class Duel {
   logger: Logger = new Logger();
   startDuel(pairOfHeroes: HeroPairs) {
+    this.logger.duelStart(pairOfHeroes.firstHero, pairOfHeroes.secondHero);
     const turn: boolean = this.whoIsFirst();
 
     let firstFighter;
     let secondFighter;
+
     if (!turn) {
       firstFighter = pairOfHeroes.firstHero;
       secondFighter = pairOfHeroes.secondHero;

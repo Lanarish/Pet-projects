@@ -1,9 +1,11 @@
 import { Hero } from './Hero';
 import { HeroPairs } from './HeroPairs';
-import { Logger } from './Logger';
+import { Archer } from './Heroes/Archer';
+import { Knight } from './Heroes/Knight';
+import { Wizard } from './Heroes/Wizard';
 
 export class Generator {
-  arrayOfHeroes: string[] = ['Witcher', 'Archer', 'Knight'];
+  arrayOfHeroes: string[] = ['Wizard', 'Archer', 'Knight'];
   arrayOfNames: string[] = [
     'Vesemir',
     'Geralt',
@@ -34,7 +36,6 @@ export class Generator {
     'Oakenshield',
     'Merigold',
   ];
-  logger: Logger = new Logger();
 
   initHero(totalAmountOfHeroes: number) {
     const heroList: Hero[] = [];
@@ -44,13 +45,27 @@ export class Generator {
       const lastName: string = this.initRandomHeroLastName();
       const power: number = this.initRandomHeroPower();
       const health: number = this.initRandomHeroHealth();
-      const newHero = new Hero(name, lastName, power, health);
+      const newHero = this.initHeroType(name, lastName, power, health);
 
       heroList.push(newHero);
     }
     return heroList;
   }
-
+  initHeroType(name: string, lastName: string, power: number, health: number) {
+    let completeHero: Hero;
+    switch (this.initRandomHeroType()) {
+      case 'Wizard':
+        completeHero = new Wizard(name, lastName, power, health);
+        break;
+      case 'Archer':
+        completeHero = new Archer(name, lastName, power, health);
+        break;
+      case 'Knight':
+        completeHero = new Knight(name, lastName, power, health);
+        break;
+    }
+    return completeHero;
+  }
   initRandomHeroType() {
     return this.arrayOfHeroes[Math.floor(Math.random() * this.arrayOfHeroes.length)];
   }
@@ -87,7 +102,6 @@ export class Generator {
         copyHeroList.splice(randomHeroTwo, 1);
       }
     }
-    this.logger.info(pairsArray);
     return pairsArray;
   }
   mathRandom(array: number[]): number {

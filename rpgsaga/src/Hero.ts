@@ -1,8 +1,10 @@
 export class Hero {
   name: string;
+  lastName: string;
   power: number;
   health: number;
-  lastName: string;
+  type: string;
+  startHealth: number;
 
   constructor(name, lastName, power, health) {
     this.name = name;
@@ -10,10 +12,4 @@ export class Hero {
     this.power = power;
     this.health = health;
   }
-  //   performSuperPower() {
-  //     console.log('n');
-  //   }
-  //   prepareForRound() {
-  //     console.log('n');
-  //   }
 }
