@@ -8,7 +8,7 @@ export class Round {
   winnersList: string[];
   logger: Logger = new Logger();
   startRound(pairsArray: HeroPairs[]) {
-    this.logger.info(pairsArray);
+    this.logger.infoAboutPairs(pairsArray);
     pairsArray.forEach(pair => duel.startDuel(pair));
   }
 }

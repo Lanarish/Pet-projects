@@ -1,9 +1,12 @@
 import { Hero } from './Hero';
 import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
+import { Generator } from './Generator';
 
 export class Duel {
   logger: Logger = new Logger();
+  generator: Generator = new Generator();
+  setWinnerList: Hero[] = [];
   startDuel(pairOfHeroes: HeroPairs) {
     this.logger.duelStart(pairOfHeroes.firstHero, pairOfHeroes.secondHero);
     const turn: boolean = this.whoIsFirst();
@@ -14,23 +17,24 @@ export class Duel {
     if (!turn) {
       firstFighter = pairOfHeroes.firstHero;
       secondFighter = pairOfHeroes.secondHero;
-      console.log(`${firstFighter.name} attacks first`);
+      this.logger.firstTurn(firstFighter);
     } else {
       firstFighter = pairOfHeroes.secondHero;
       secondFighter = pairOfHeroes.firstHero;
-      console.log(`${firstFighter.name} attacks first`);
+      this.logger.firstTurn(firstFighter);
     }
 
     while (firstFighter.health && secondFighter.health) {
       this.fight(firstFighter, secondFighter);
       if (secondFighter.health <= 0) {
-        this.logger.stopDuel(firstFighter);
-        return firstFighter;
+        this.logger.showWinner(firstFighter);
+        return this.setWinner(firstFighter);
       }
+
       this.fight(secondFighter, firstFighter);
       if (firstFighter.health <= 0) {
-        this.logger.stopDuel(secondFighter);
-        return secondFighter;
+        this.logger.showWinner(secondFighter);
+        return this.setWinner(secondFighter);
       }
     }
   }
@@ -40,6 +44,14 @@ export class Duel {
 
   fight(a: Hero, b: Hero) {
     b.health -= a.power;
-    this.logger.game(a, b);
+    this.logger.gameProcess(a, b);
   }
+  setWinner(winner) {
+    this.setWinnerList.push(winner);
+    this.logger.showWinnerList(this.setWinnerList);
+    return this.setWinnerList;
+  }
+  //   nextRound(setWinnerList: Hero[]) {
+  //     return (this.generator.makePairs = this.setWinnerList);
+  //   }
 }

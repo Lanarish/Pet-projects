@@ -2,7 +2,7 @@ import { Hero } from './Hero';
 import { HeroPairs } from './HeroPairs';
 
 export class Logger {
-  info(pairsArray: HeroPairs[]) {
+  infoAboutPairs(pairsArray: HeroPairs[]) {
     console.log('There are pairs of heroes:');
     for (let i = 0; i < pairsArray.length; i++) {
       console.log(
@@ -19,21 +19,25 @@ export class Logger {
                                                                                                    `,
     );
   }
-  first(fighter) {
+  firstTurn(fighter) {
     console.log(`${fighter.name} ${fighter.lastName} attacks first.`);
   }
-  game(a: Hero, b: Hero) {
+  gameProcess(a: Hero, b: Hero) {
     console.log(
       `${a.name} ${a.lastName} struck a blow in ${a.power} points. ${b.name} ${b.lastName}'s remaining health is ${b.health} points.`,
     );
   }
 
-  stopDuel(a: Hero) {
+  showWinner(a: Hero) {
     console.log(` -------------------------------
     ${a.name} ${a.lastName} has won!
                                                          `);
   }
-  error() {
-    console.log('N');
+
+  showWinnerList(winnerList) {
+    console.log(`The winners of the first round are:`);
+    for (let i = 0; i < winnerList.length; i++) {
+      console.log(`${winnerList[i].name},`);
+    }
   }
 }
