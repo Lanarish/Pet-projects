@@ -11,7 +11,7 @@ export class Game {
   random: Generator = new Generator();
   round: Round = new Round();
   logger: Logger = new Logger();
-  totalAmountOfHeroes = 10;
+  totalAmountOfHeroes = 8;
   run() {
     this.initHero();
     this.populate();
@@ -28,6 +28,9 @@ export class Game {
       this.restartHealth();
       this.pairsArray = this.random.makePairs(this.round.winnersList);
       this.round.runRound(this.pairsArray);
+    }
+    if (this.round.winnersList.length === 1) {
+      this.logger.showWinnerList(this.round.winnersList);
     }
   }
   restartHealth() {

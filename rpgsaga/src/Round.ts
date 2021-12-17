@@ -14,6 +14,5 @@ export class Round {
     this.logger.infoAboutPairs(pairsArray);
     pairsArray.forEach(pair => this.duel.startDuel(pair));
     this.winnersList = this.duel.setWinnerList;
-    this.logger.showWinnerList(this.winnersList);
   }
 }

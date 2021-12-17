@@ -46,10 +46,9 @@ export class Duel {
     b.health -= a.power;
     this.logger.gameProcess(a, b);
   }
-  setWinner(winner = undefined) {
-    if (winner) {
-      this.setWinnerList.push(winner);
-    }
+  setWinner(winner) {
+    this.setWinnerList.push(winner);
+
     return this.setWinnerList;
   }
   //   nextRound(setWinnerList: Hero[]) {

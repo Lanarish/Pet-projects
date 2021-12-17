@@ -3,7 +3,8 @@ import { HeroPairs } from './HeroPairs';
 
 export class Logger {
   infoAboutPairs(pairsArray: HeroPairs[]) {
-    console.log('There are pairs of heroes:');
+    console.log(`
+    There are pairs of heroes:`);
     for (let i = 0; i < pairsArray.length; i++) {
       console.log(
         `Pair №${[i + 1]} is ${pairsArray[i].firstHero.type} ${pairsArray[i].firstHero.name} ${
@@ -14,9 +15,10 @@ export class Logger {
   }
   duelStart(a, b) {
     console.log(
-      `
-      The duel between ${a.type} ${a.name} ${a.lastName} and ${b.type} ${b.name} ${b.lastName} has started!
-                                                                                                   `,
+      `     
+      | The duel between ${a.type} ${a.name} ${a.lastName} and ${b.type} ${b.name} ${b.lastName} has started! |
+                                                                                                   
+      `,
     );
   }
   firstTurn(fighter) {
@@ -24,7 +26,7 @@ export class Logger {
   }
   gameProcess(a: Hero, b: Hero) {
     console.log(
-      `${a.name} ${a.lastName} struck a blow in ${a.power} points. ${b.name} ${b.lastName}'s remaining health is ${b.health} points.`,
+      `${a.name} ${a.lastName} struck a blow in ${a.power} points => ${b.name} ${b.lastName}'s remaining health is ${b.health} points.`,
     );
   }
 
@@ -35,9 +37,12 @@ export class Logger {
   }
 
   showWinnerList(winnerList) {
-    console.log(`The winners of the first round are:`);
-    for (let i = 0; i < winnerList.length; i++) {
-      console.log(`${winnerList[i].name},`);
+    console.log(`THE WINNER OF THE GAME IS ${winnerList[0].name} ${winnerList[0].lastName}! CONGRADULATIONS!!!`);
+  }
+
+  roundNumber(number) {
+    for (let i = 0; i < number; i++) {
+      console.log(`Round #${[i]}`);
     }
   }
 }
