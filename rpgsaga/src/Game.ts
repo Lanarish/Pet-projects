@@ -6,11 +6,12 @@ import { Logger } from './Logger';
 
 export class Game {
   heroList: Hero[];
+  winnerList: Hero[];
   pairsArray: HeroPairs[] = [];
   random: Generator = new Generator();
   round: Round = new Round();
   logger: Logger = new Logger();
-  totalAmountOfHeroes = 12;
+  totalAmountOfHeroes = 10;
   run() {
     this.initHero();
     this.populate();
@@ -22,9 +23,18 @@ export class Game {
 
   private populate() {
     this.pairsArray = this.random.makePairs(this.heroList);
-    this.round.startRound(this.pairsArray);
+    this.round.runRound(this.pairsArray);
+    while (this.round.winnersList.length > 1) {
+      this.restartHealth();
+      this.pairsArray = this.random.makePairs(this.round.winnersList);
+      this.round.runRound(this.pairsArray);
+    }
   }
-
+  restartHealth() {
+    this.round.winnersList.forEach(hero => {
+      hero.health = this.random.initRandomHeroHealth();
+    });
+  }
   gameOver(heroList: [string]) {
     console.log(`Game is over. The winner is ${heroList[0]}! `);
   }
