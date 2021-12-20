@@ -22,9 +22,8 @@ export class Game {
   }
 
   private populate() {
-    let restartHealth: boolean = false;
-    //this.pairsArray = this.random.makePairs(this.heroList);
-    //this.round.runRound(this.pairsArray);
+    let restartHealth = false;
+
     while (this.round.winnersList.length > 1) {
       this.restartHealth(restartHealth);
       restartHealth = true;

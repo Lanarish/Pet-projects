@@ -91,10 +91,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': ['error'],
     '@typescript-eslint/naming-convention': [
       'error',
-      {
-        selector: 'default',
-        format: ['camelCase'],
-      },
+
       {
         selector: ['enumMember', 'variable'],
         format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
