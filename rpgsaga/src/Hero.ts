@@ -1,4 +1,4 @@
-export abstract class Hero {
+export class Hero {
   private type: string;
   private name: string;
   private lastName: string;
@@ -12,34 +12,34 @@ export abstract class Hero {
     this.power = power;
     this.health = health;
   }
-  setHeroType(type: string) {
+  public set Type(type: string) {
     this.type = type;
   }
-  getHeroType() {
+  public get Type() {
     return this.type;
   }
-  setFirstName(name: string) {
+  public set FirstName(name: string) {
     this.name = name;
   }
-  getFirstName() {
+  public get FirstName() {
     return this.name;
   }
-  setLastName(lastName: string) {
+  public set LastName(lastName: string) {
     this.lastName = lastName;
   }
-  getLastName() {
+  public get LastName() {
     return this.lastName;
   }
-  setPower(power: number) {
+  public set Power(power: number) {
     this.power = power;
   }
-  getPower() {
+  public get Power() {
     return this.power;
   }
-  setHealth(health: number) {
+  public set Health(health: number) {
     this.health = health;
   }
-  getHealth() {
+  public get Health() {
     return this.health;
   }
 }

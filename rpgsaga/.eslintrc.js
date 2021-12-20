@@ -22,7 +22,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'prettier', 'import'],
   ignorePatterns: ['.eslintrc.js', 'react-app-env.d.ts'],
   rules: {
-    'no-param-reassign': ['error'],
+    'no-param-reassign': ['error', 'Hero'],
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'linebreak-style': 0,
     'arrow-body-style': [

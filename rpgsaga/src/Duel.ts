@@ -17,13 +17,11 @@ export class Duel {
     if (!turn) {
       firstFighter = pairOfHeroes.firstHero;
       secondFighter = pairOfHeroes.secondHero;
-      this.logger.firstTurn(firstFighter);
     } else {
       firstFighter = pairOfHeroes.secondHero;
       secondFighter = pairOfHeroes.firstHero;
-      this.logger.firstTurn(firstFighter);
     }
-
+    this.logger.firstTurn(firstFighter);
     while (firstFighter.health && secondFighter.health) {
       this.fight(firstFighter, secondFighter);
       if (secondFighter.health <= 0) {
@@ -43,7 +41,7 @@ export class Duel {
   }
 
   fight(a: Hero, b: Hero) {
-    b.setHealth(b.getHealth() - a.getPower());
+    b.Health -= a.Power;
     this.logger.gameProcess(a, b);
   }
   setWinner(winner) {

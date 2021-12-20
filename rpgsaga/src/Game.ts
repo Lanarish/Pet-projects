@@ -6,7 +6,7 @@ import { Logger } from './Logger';
 
 export class Game {
   heroList: Hero[];
-  winnerList: Hero[];
+  winnersList: Hero[];
   pairsArray: HeroPairs[] = [];
   random: Generator = new Generator();
   round: Round = new Round();
@@ -18,14 +18,16 @@ export class Game {
   }
 
   initHero() {
-    this.heroList = this.random.initHero(this.totalAmountOfHeroes);
+    this.round.winnersList = this.random.initHero(this.totalAmountOfHeroes);
   }
 
   private populate() {
-    this.pairsArray = this.random.makePairs(this.heroList);
-    this.round.runRound(this.pairsArray);
+    let restartHealth: boolean = false;
+    //this.pairsArray = this.random.makePairs(this.heroList);
+    //this.round.runRound(this.pairsArray);
     while (this.round.winnersList.length > 1) {
-      this.restartHealth();
+      this.restartHealth(restartHealth);
+      restartHealth = true;
       this.pairsArray = this.random.makePairs(this.round.winnersList);
       this.round.runRound(this.pairsArray);
     }
@@ -33,9 +35,12 @@ export class Game {
       this.logger.showWinnerList(this.round.winnersList);
     }
   }
-  restartHealth() {
+  restartHealth(restartHealth) {
+    if (!restartHealth) {
+      return;
+    }
     this.round.winnersList.forEach(hero => {
-      hero.setHealth(this.random.initRandomHeroHealth());
+      hero.Health = this.random.initRandomHeroHealth();
     });
   }
   gameOver(heroList: [string]) {

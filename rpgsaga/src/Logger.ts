@@ -7,9 +7,9 @@ export class Logger {
     There are pairs of heroes:`);
     for (let i = 0; i < pairsArray.length; i++) {
       console.log(
-        `Pair №${[i + 1]} is ${pairsArray[i].firstHero.getHeroType()} ${pairsArray[
-          i
-        ].firstHero.toString()}  vs ${pairsArray[i].secondHero.getHeroType()} ${pairsArray[i].secondHero.toString()}`,
+        `Pair №${[i + 1]} is ${pairsArray[i].firstHero.Type} ${pairsArray[i].firstHero.toString()}  vs ${
+          pairsArray[i].secondHero.Type
+        } ${pairsArray[i].secondHero.toString()}`,
       );
     }
   }
@@ -26,7 +26,7 @@ export class Logger {
   }
   gameProcess(a: Hero, b: Hero) {
     console.log(
-      `${a.toString()} struck a blow in ${a.getPower()} points => ${b.toString()}'s remaining health is ${b.getHealth()} points.`,
+      `${a.toString()} struck a blow in ${a.Power} points => ${b.toString()}'s remaining health is ${b.Health} points.`,
     );
   }
 
