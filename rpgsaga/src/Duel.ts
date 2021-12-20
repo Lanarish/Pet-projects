@@ -43,15 +43,11 @@ export class Duel {
   }
 
   fight(a: Hero, b: Hero) {
-    b.health -= a.power;
+    b.setHealth(b.getHealth() - a.getPower());
     this.logger.gameProcess(a, b);
   }
   setWinner(winner) {
     this.setWinnerList.push(winner);
-
     return this.setWinnerList;
   }
-  //   nextRound(setWinnerList: Hero[]) {
-  //     return (this.generator.makePairs = this.setWinnerList);
-  //   }
 }

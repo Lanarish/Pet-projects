@@ -35,7 +35,7 @@ export class Game {
   }
   restartHealth() {
     this.round.winnersList.forEach(hero => {
-      hero.health = this.random.initRandomHeroHealth();
+      hero.setHealth(this.random.initRandomHeroHealth());
     });
   }
   gameOver(heroList: [string]) {
