@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
+// import * as readline from 'node:readline';
+
 import { Hero } from './Hero';
 import { Generator } from './Generator';
 import { HeroPairs } from './HeroPairs';
@@ -11,6 +14,7 @@ export class Game {
   round: Round = new Round();
   logger: Logger = new Logger();
   totalAmountOfHeroes = 8;
+
   run() {
     this.initHero();
     this.populate();
