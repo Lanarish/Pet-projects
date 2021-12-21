@@ -5,7 +5,6 @@ import { Round } from './Round';
 import { Logger } from './Logger';
 
 export class Game {
-  heroList: Hero[];
   winnersList: Hero[];
   pairsArray: HeroPairs[] = [];
   random: Generator = new Generator();
@@ -41,8 +40,5 @@ export class Game {
     this.round.winnersList.forEach(hero => {
       hero.Health = this.random.initRandomHeroHealth();
     });
-  }
-  gameOver(heroList: [string]) {
-    console.log(`Game is over. The winner is ${heroList[0]}! `);
   }
 }
