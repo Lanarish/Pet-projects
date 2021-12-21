@@ -3,6 +3,13 @@ import { HeroPairs } from './HeroPairs';
 import { Archer } from './Heroes/Archer';
 import { Knight } from './Heroes/Knight';
 import { Wizard } from './Heroes/Wizard';
+import { FireArrows } from './Super_Powers/FireArrows';
+import { Bewitchment } from './Super_Powers/Bewitchment';
+import { Nemesis } from './Super_Powers/Nemesis';
+
+const fireArrows = new FireArrows();
+const nemesis = new Nemesis();
+const bewitchment = new Bewitchment();
 
 export class Generator {
   arrayOfHeroes: string[] = ['Wizard', 'Archer', 'Knight'];
@@ -36,6 +43,7 @@ export class Generator {
     'Oakenshield',
     'Merigold',
   ];
+  arrayOfSuperPowers = [fireArrows, nemesis, bewitchment];
 
   initHero(totalAmountOfHeroes: number) {
     const heroList: Hero[] = [];
@@ -59,18 +67,19 @@ export class Generator {
     return heroList;
   }
   initHeroType(type: string, name: string, lastName: string, power: number, health: number) {
-    let completeHero: Hero;
+    let completeHero;
     switch (type) {
       case 'Wizard':
-        completeHero = new Wizard(type, name, lastName, power, health);
+        completeHero = new Wizard(type, name, lastName, power, health, this.arrayOfSuperPowers[2]);
         break;
       case 'Archer':
-        completeHero = new Archer(type, name, lastName, power, health);
+        completeHero = new Archer(type, name, lastName, power, health, this.arrayOfSuperPowers[0]);
         break;
       case 'Knight':
-        completeHero = new Knight(type, name, lastName, power, health);
+        completeHero = new Knight(type, name, lastName, power, health, this.arrayOfSuperPowers[1]);
         break;
     }
+    console.log(completeHero);
     return completeHero;
   }
   initRandomHeroType() {

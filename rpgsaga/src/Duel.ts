@@ -1,11 +1,13 @@
 import { Hero } from './Hero';
 import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
-import { Generator } from './Generator';
+
+// import { Generator } from './Generator';
 
 export class Duel {
   logger: Logger = new Logger();
-  generator: Generator = new Generator();
+
+  // generator: Generator = new Generator();
   setWinnerList: Hero[] = [];
   startDuel(pairOfHeroes: HeroPairs) {
     this.logger.duelStart(pairOfHeroes.firstHero, pairOfHeroes.secondHero);
@@ -40,10 +42,11 @@ export class Duel {
     return Boolean(Math.floor(Math.random() * 2));
   }
 
-  fight(a: Hero, b: Hero) {
-    b.Health -= a.Power;
-    this.logger.gameProcess(a, b);
-  }
+  //   fight(a: Hero, b: Hero) {
+  //     a.useSuperPower();
+  //     b.Health -= a.Power;
+  //     this.logger.gameProcess(a, b);
+  //   }
   setWinner(winner) {
     this.setWinnerList.push(winner);
     return this.setWinnerList;

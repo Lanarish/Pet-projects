@@ -1,16 +1,20 @@
+import { SuperPower } from './Super_Powers/SuperPower';
+
 export class Hero {
   private type: string;
   private name: string;
   private lastName: string;
   private power: number;
   private health: number;
+  protected superPower: SuperPower;
 
-  constructor(type, name, lastName, power, health) {
+  constructor(type, name, lastName, power, health, superPower) {
     this.type = type;
     this.name = name;
     this.lastName = lastName;
     this.power = power;
     this.health = health;
+    this.superPower = superPower;
   }
   public set Type(type: string) {
     this.type = type;
@@ -41,6 +45,14 @@ export class Hero {
   }
   public get Health() {
     return this.health;
+  }
+  attackPreparation(a, b) {
+    a.superPower.useSuperPower(a, b);
+  }
+
+  fight(a: Hero, b: Hero) {
+    b.Health -= a.Power;
+    this.logger.gameProcess(a, b);
   }
 }
 Hero.prototype.toString = function (): string {

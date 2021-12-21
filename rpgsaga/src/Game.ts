@@ -10,7 +10,7 @@ export class Game {
   random: Generator = new Generator();
   round: Round = new Round();
   logger: Logger = new Logger();
-  totalAmountOfHeroes = 8;
+  totalAmountOfHeroes = 4;
   run() {
     this.initHero();
     this.populate();
