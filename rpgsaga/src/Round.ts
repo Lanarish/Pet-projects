@@ -8,7 +8,7 @@ export class Round {
   private logger: Logger;
   private roundNumber: number;
 
-  constructor(logger: Logger, roundNumber: number) {
+  constructor(roundNumber: number, logger: Logger) {
     this.logger = logger;
     this.roundNumber = roundNumber;
   }

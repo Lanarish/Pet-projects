@@ -31,7 +31,7 @@ export class Game {
     this.pairsArray = this.random.makePairs(this.heroList);
   }
   private makeRound(i: number) {
-    const round: Round = new Round(this.logger, i);
+    const round: Round = new Round(i, this.logger);
     this.heroList = round.runRound(this.pairsArray);
   }
   private gameEnd() {
