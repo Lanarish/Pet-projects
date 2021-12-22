@@ -4,11 +4,12 @@ import { Logger } from './Logger';
 
 export class Duel {
   private logger: Logger;
-
   private firstFighter: Hero;
   private secondFighter: Hero;
+
   constructor(pairOfHeroes: HeroPairs, logger: Logger) {
     this.logger = logger;
+
     const turn: boolean = this.whoIsFirst();
 
     if (!turn) {
@@ -21,7 +22,6 @@ export class Duel {
   }
   startDuel() {
     this.logger.duelStart(this.firstFighter, this.secondFighter);
-
     this.logger.firstTurn(this.firstFighter);
     let winner: Hero;
     while (this.firstFighter.Health && this.secondFighter.Health) {
@@ -44,8 +44,8 @@ export class Duel {
     return Boolean(Math.floor(Math.random() * 2));
   }
 
-  fight(a: Hero, b: Hero) {
-    b.Health -= a.Power;
-    this.logger.gameProcess(a, b);
+  fight(attacker: Hero, opponent: Hero) {
+    opponent.Health -= attacker.Power;
+    this.logger.gameProcess(attacker, opponent);
   }
 }

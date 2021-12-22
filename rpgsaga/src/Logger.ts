@@ -2,6 +2,9 @@ import { Hero } from './Hero';
 import { HeroPairs } from './HeroPairs';
 
 export class Logger {
+  startGame() {
+    console.log(`Start game!`);
+  }
   infoAboutPairs(pairsArray: HeroPairs[]) {
     console.log(`
     There are pairs of heroes:`);
@@ -41,8 +44,6 @@ export class Logger {
   }
 
   roundNumber(number) {
-    for (let i = 0; i < number; i++) {
-      console.log(`Round #${[i]}`);
-    }
+    console.log(`ROUND #${[number + 1]}`);
   }
 }
