@@ -1,7 +1,7 @@
 import { SuperPower } from './SuperPower';
 
 export class Nemesis extends SuperPower {
-  useSuperPower(userPower, opponent) {
-    opponent.Health -= userPower.Power * 0.3;
+  useSuperPower(attacker, opponent) {
+    opponent.Health -= attacker.Power * 0.3;
   }
 }

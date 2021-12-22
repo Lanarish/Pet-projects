@@ -6,7 +6,7 @@ export class Hero {
   private lastName: string;
   private power: number;
   private health: number;
-  protected superPower: SuperPower;
+  private superPower: SuperPower;
 
   constructor(type, name, lastName, power, health, superPower) {
     this.type = type;
@@ -46,13 +46,35 @@ export class Hero {
   public get Health() {
     return this.health;
   }
-  attackPreparation(a, b) {
-    a.superPower.useSuperPower(a, b);
+  public set SuperPower(type: SuperPower) {
+    this.superPower = superPower;
   }
+  public get SuperPower() {
+    return this.superPower;
+  }
+  //   attackPreparation(attacker: Hero, opponent: Hero) {
+  //     if (attacker.superPower.BoostStatus === false) {
+  //       const chance: number = Math.floor(Math.random() * 3);
+  //       if (chance === 3 || chance === 2) {
+  //         attacker.superPower.useSuperPower(attacker, opponent);
+  //       }
+  //     }
+  //     if (attacker instanceof Archer && attacker.superPower.BoostJustNow === true) {
+  //       opponent.Health = opponent.Health - (attacker.Power + 3);
+  //     } else {
+  //       this.fight(attacker, opponent);
+  //     }
+  //     if (attacker instanceof Archer && attacker.superPower.BoostJustNow === true) {
+  //       attacker.superPower.BoostJustNow = false;
+  //       return;
+  //     } else {
+  //       this.fight(attacker, opponent);
+  //     }
+  //   }
 
-  fight(a: Hero, b: Hero) {
-    b.Health -= a.Power;
-    this.logger.gameProcess(a, b);
+  fight(attacker: Hero, opponent: Hero) {
+    attacker.Health -= opponent.Power;
+    // this.logger.gameProcess(a, b);
   }
 }
 Hero.prototype.toString = function (): string {
