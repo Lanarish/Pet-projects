@@ -57,7 +57,7 @@ module.exports = {
     'no-restricted-imports': [
       'error',
       {
-        patterns: ['../*'],
+        patterns: ['Hero/*'],
       },
     ],
     'import/extensions': [
@@ -91,10 +91,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': ['error'],
     '@typescript-eslint/naming-convention': [
       'error',
-      {
-        selector: 'default',
-        format: ['camelCase'],
-      },
+
       {
         selector: ['enumMember', 'variable'],
         format: ['camelCase', 'PascalCase', 'UPPER_CASE'],

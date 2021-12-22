@@ -2,38 +2,48 @@ import { Hero } from './Hero';
 import { HeroPairs } from './HeroPairs';
 
 export class Logger {
-  info(pairsArray: HeroPairs[]) {
-    console.log('There are pairs of heroes:');
+  startGame() {
+    console.log(`Start game!`);
+  }
+  infoAboutPairs(pairsArray: HeroPairs[]) {
+    console.log(`
+    There are pairs of heroes:`);
     for (let i = 0; i < pairsArray.length; i++) {
       console.log(
-        `Pair №${[i + 1]} is ${pairsArray[i].firstHero.type} ${pairsArray[i].firstHero.name} ${
-          pairsArray[i].firstHero.lastName
-        } vs ${pairsArray[i].secondHero.type} ${pairsArray[i].secondHero.name} ${pairsArray[i].secondHero.lastName}`,
+        `Pair №${[i + 1]} is ${pairsArray[i].firstHero.Type} ${pairsArray[i].firstHero.toString()}  vs ${
+          pairsArray[i].secondHero.Type
+        } ${pairsArray[i].secondHero.toString()}`,
       );
     }
   }
   duelStart(a, b) {
     console.log(
-      `
-      The duel between ${a.type} ${a.name} ${a.lastName} and ${b.type} ${b.name} ${b.lastName} has started!
-                                                                                                   `,
+      `     
+      | The duel between ${a.type} ${a.name} ${a.lastName} and ${b.type} ${b.name} ${b.lastName} has started! |
+                                                                                                   
+      `,
     );
   }
-  first(fighter) {
+  firstTurn(fighter) {
     console.log(`${fighter.name} ${fighter.lastName} attacks first.`);
   }
-  game(a: Hero, b: Hero) {
+  gameProcess(a: Hero, b: Hero) {
     console.log(
-      `${a.name} ${a.lastName} struck a blow in ${a.power} points. ${b.name} ${b.lastName}'s remaining health is ${b.health} points.`,
+      `${a.toString()} struck a blow in ${a.Power} points => ${b.toString()}'s remaining health is ${b.Health} points.`,
     );
   }
 
-  stopDuel(a: Hero) {
+  showWinner(a: Hero) {
     console.log(` -------------------------------
-    ${a.name} ${a.lastName} has won!
+    ${a.toString()} has won!
                                                          `);
   }
-  error() {
-    console.log('N');
+
+  showWinnerList(winnerList) {
+    console.log(`THE WINNER OF THE GAME IS ${winnerList[0].name} ${winnerList[0].lastName}! CONGRADULATIONS!!!`);
+  }
+
+  roundNumber(number) {
+    console.log(`ROUND #${[number + 1]}`);
   }
 }

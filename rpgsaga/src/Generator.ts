@@ -41,27 +41,34 @@ export class Generator {
     const heroList: Hero[] = [];
 
     for (let i = 0; i < totalAmountOfHeroes; i++) {
+      const type: string = this.initRandomHeroType();
       const name: string = this.initRandomHeroName();
       const lastName: string = this.initRandomHeroLastName();
       const power: number = this.initRandomHeroPower();
       const health: number = this.initRandomHeroHealth();
-      const newHero = this.initHeroType(name, lastName, power, health);
+      const newHero = this.initHeroType(type, name, lastName, power, health);
+
+      newHero.Type = type;
+      newHero.FirstName = name;
+      newHero.LastName = lastName;
+      newHero.Power = power;
+      newHero.Health = health;
 
       heroList.push(newHero);
     }
     return heroList;
   }
-  initHeroType(name: string, lastName: string, power: number, health: number) {
+  initHeroType(type: string, name: string, lastName: string, power: number, health: number) {
     let completeHero: Hero;
-    switch (this.initRandomHeroType()) {
+    switch (type) {
       case 'Wizard':
-        completeHero = new Wizard(name, lastName, power, health);
+        completeHero = new Wizard(type, name, lastName, power, health);
         break;
       case 'Archer':
-        completeHero = new Archer(name, lastName, power, health);
+        completeHero = new Archer(type, name, lastName, power, health);
         break;
       case 'Knight':
-        completeHero = new Knight(name, lastName, power, health);
+        completeHero = new Knight(type, name, lastName, power, health);
         break;
     }
     return completeHero;
