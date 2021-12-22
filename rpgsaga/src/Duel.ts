@@ -5,35 +5,40 @@ import { Logger } from './Logger';
 // import { Generator } from './Generator';
 
 export class Duel {
-  logger: Logger = new Logger();
-  startDuel(pairOfHeroes: HeroPairs) {
-    this.logger.duelStart(pairOfHeroes.firstHero, pairOfHeroes.secondHero);
+  private logger: Logger;
+  private firstFighter: Hero;
+  private secondFighter: Hero;
+
+  constructor(pairOfHeroes: HeroPairs, logger: Logger) {
+    this.logger = logger;
     const turn: boolean = this.whoIsFirst();
-
-    let firstFighter;
-    let secondFighter;
-
     if (!turn) {
-      firstFighter = pairOfHeroes.firstHero;
-      secondFighter = pairOfHeroes.secondHero;
+      this.firstFighter = pairOfHeroes.firstHero;
+      this.secondFighter = pairOfHeroes.secondHero;
     } else {
-      firstFighter = pairOfHeroes.secondHero;
-      secondFighter = pairOfHeroes.firstHero;
+      this.firstFighter = pairOfHeroes.secondHero;
+      this.secondFighter = pairOfHeroes.firstHero;
     }
-    this.logger.firstTurn(firstFighter);
-    while (firstFighter.health && secondFighter.health) {
-      this.fightChecker(firstFighter, secondFighter);
-      if (secondFighter.health <= 0) {
-        this.logger.showWinner(firstFighter);
-        return firstFighter;
+  }
+  startDuel() {
+    this.logger.duelStart(this.firstFighter, this.secondFighter);
+    this.logger.firstTurn(this.firstFighter);
+    let winner: Hero;
+    while (this.firstFighter.Health && this.secondFighter.Health) {
+      this.fightChecker(this.firstFighter, this.secondFighter);
+      if (this.secondFighter.Health <= 0) {
+        winner = this.firstFighter;
+        break;
       }
 
-      this.fightChecker(secondFighter, firstFighter);
-      if (firstFighter.health <= 0) {
-        this.logger.showWinner(secondFighter);
-        return secondFighter;
+      this.fightChecker(this.secondFighter, this.firstFighter);
+      if (this.firstFighter.Health <= 0) {
+        winner = this.firstFighter;
+        break;
       }
     }
+    this.logger.showWinner(this.firstFighter);
+    return winner;
   }
   whoIsFirst() {
     return Boolean(Math.floor(Math.random() * 2));
@@ -66,13 +71,4 @@ export class Duel {
       this.logger.gameProcess(attacker, opponent);
     }
   }
-  //   fight(a: Hero, b: Hero) {
-  //     a.useSuperPower();
-  //     b.Health -= a.Power;
-  //     this.logger.gameProcess(a, b);
-  //   }
-  //   setWinner(winner) {
-  //     this.setWinnerList.push(winner);
-  //     return this.setWinnerList;
-  //   }
 }
