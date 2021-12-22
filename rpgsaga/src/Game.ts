@@ -8,14 +8,18 @@ export class Game {
   private heroList: Hero[];
   private pairsArray: HeroPairs[] = [];
   private random: Generator = new Generator();
-  private round: Round = new Round();
-  private logger: Logger = new Logger();
+  // private round: Round = new Round();
+  private logger: Logger;
   private totalAmountOfHeroes = 8;
-
+  constructor() {
+    this.logger = new Logger();
+  }
   run() {
     this.initHero();
-    this.populate();
-    this.makeRound();
+    while (this.heroList.length > 1) {
+      this.populate();
+      this.makeRound();
+    }
   }
 
   private initHero() {
@@ -26,7 +30,9 @@ export class Game {
     this.pairsArray = this.random.makePairs(this.heroList);
   }
   private makeRound() {
-    this.heroList = this.round.runRound(this.pairsArray);
+    const round: Round = new Round(this.logger);
+
+    this.heroList = round.runRound(this.pairsArray);
 
     console.log(this.heroList);
   }
