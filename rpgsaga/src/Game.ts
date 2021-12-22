@@ -1,6 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
-// import * as readline from 'node:readline';
-
 import { Hero } from './Hero';
 import { Generator } from './Generator';
 import { HeroPairs } from './HeroPairs';
@@ -8,41 +5,48 @@ import { Round } from './Round';
 import { Logger } from './Logger';
 
 export class Game {
-  winnersList: Hero[];
-  pairsArray: HeroPairs[] = [];
-  random: Generator = new Generator();
-  round: Round = new Round();
-  logger: Logger = new Logger();
-  totalAmountOfHeroes = 8;
+  private heroList: Hero[];
+  private pairsArray: HeroPairs[] = [];
+  private random: Generator = new Generator();
+  private round: Round = new Round();
+  private logger: Logger = new Logger();
+  private totalAmountOfHeroes = 8;
 
   run() {
     this.initHero();
     this.populate();
+    this.makeRound();
   }
 
-  initHero() {
-    this.round.winnersList = this.random.initHero(this.totalAmountOfHeroes);
+  private initHero() {
+    this.heroList = this.random.initHero(this.totalAmountOfHeroes);
   }
 
   private populate() {
-    let restartHealth = false;
+    this.pairsArray = this.random.makePairs(this.heroList);
+  }
+  private makeRound() {
+    this.heroList = this.round.runRound(this.pairsArray);
 
-    while (this.round.winnersList.length > 1) {
-      this.restartHealth(restartHealth);
-      restartHealth = true;
-      this.pairsArray = this.random.makePairs(this.round.winnersList);
-      this.round.runRound(this.pairsArray);
-    }
-    if (this.round.winnersList.length === 1) {
-      this.logger.showWinnerList(this.round.winnersList);
-    }
+    console.log(this.heroList);
   }
-  restartHealth(restartHealth) {
-    if (!restartHealth) {
-      return;
-    }
-    this.round.winnersList.forEach(hero => {
-      hero.Health = this.random.initRandomHeroHealth();
-    });
-  }
+
+  //     let restartHealth = false;
+
+  //     while (this.round.winnersList.length > 1) {
+  //       this.restartHealth(restartHealth);
+  //       restartHealth = true;
+
+  //     }
+  //     if (this.round.winnersList.length === 1) {
+  //       this.logger.showWinnerList(this.round.winnersList);
+  //     }
+  //   }
+  //   restartHealth(restartHealth) {
+  //     if (!restartHealth) {
+  //       return;
+  //     }
+  //     this.round.winnersList.forEach(hero => {
+  //       hero.Health = this.random.initRandomHeroHealth();
+  //     });
 }

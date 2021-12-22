@@ -1,12 +1,10 @@
 import { Hero } from './Hero';
 import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
-import { Generator } from './Generator';
 
 export class Duel {
-  logger: Logger = new Logger();
-  generator: Generator = new Generator();
-  setWinnerList: Hero[] = [];
+  private logger: Logger = new Logger();
+  private winner: Hero;
   startDuel(pairOfHeroes: HeroPairs) {
     this.logger.duelStart(pairOfHeroes.firstHero, pairOfHeroes.secondHero);
     const turn: boolean = this.whoIsFirst();
@@ -25,16 +23,18 @@ export class Duel {
     while (firstFighter.health && secondFighter.health) {
       this.fight(firstFighter, secondFighter);
       if (secondFighter.health <= 0) {
-        this.logger.showWinner(firstFighter);
-        return this.setWinner(firstFighter);
+        this.winner = firstFighter;
+        break;
       }
 
       this.fight(secondFighter, firstFighter);
       if (firstFighter.health <= 0) {
-        this.logger.showWinner(secondFighter);
-        return this.setWinner(secondFighter);
+        this.winner = secondFighter;
+        break;
       }
     }
+    this.logger.showWinner(this.winner);
+    return this.winner;
   }
   whoIsFirst() {
     return Boolean(Math.floor(Math.random() * 2));
@@ -43,9 +43,5 @@ export class Duel {
   fight(a: Hero, b: Hero) {
     b.Health -= a.Power;
     this.logger.gameProcess(a, b);
-  }
-  setWinner(winner) {
-    this.setWinnerList.push(winner);
-    return this.setWinnerList;
   }
 }

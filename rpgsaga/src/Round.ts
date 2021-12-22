@@ -4,15 +4,17 @@ import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
 
 export class Round {
-  numberOfRound: number;
-  winnersList: Hero[];
-  logger: Logger = new Logger();
-  duel: Duel = new Duel();
+  private numberOfRound: number;
+  private winnersList: Hero[] = [];
+  private logger: Logger = new Logger();
+  private duel: Duel = new Duel();
 
   runRound(pairsArray: HeroPairs[]) {
-    this.duel.setWinnerList = [];
     this.logger.infoAboutPairs(pairsArray);
-    pairsArray.forEach(pair => this.duel.startDuel(pair));
-    this.winnersList = this.duel.setWinnerList;
+    pairsArray.forEach(pair => {
+      const winnerHero = this.duel.startDuel(pair);
+      this.winnersList.push(winnerHero);
+    });
+    return this.winnersList;
   }
 }
