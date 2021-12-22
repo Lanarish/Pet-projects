@@ -1,7 +1,8 @@
 import { SuperPower } from './SuperPower';
 
 export class FireArrows extends SuperPower {
-  useSuperPower(attacker, opponent) {
-    opponent.Health - 2;
+  useSuperPower(attacker) {
+    attacker.superPower.BoostInRoundStatus = true;
+    attacker.superPower.BoostJustNow = true;
   }
 }

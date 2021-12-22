@@ -71,6 +71,10 @@ export class Hero {
     attacker.Health -= opponent.Power;
     // this.logger.gameProcess(a, b);
   }
+  prepareForRound() {
+    // восстанавливает здоровье
+    // обнуляет значение супер сил тру переводит в фалс
+  }
 }
 Hero.prototype.toString = function (): string {
   return `${this.name} ${this.lastName.substring(0, 1)}.`;
