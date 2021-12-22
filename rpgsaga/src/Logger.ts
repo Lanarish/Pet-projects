@@ -45,4 +45,11 @@ export class Logger {
       console.log(`Round #${[i]}`);
     }
   }
+
+  missTurn(fighter) {
+    console.log(`${fighter.name} use Bewitchment!`);
+  }
+  usedFireArrowsEffect(fighter) {
+    console.log(`${fighter.name} lost his health becouse of FireArrows!`);
+  }
 }

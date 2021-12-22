@@ -40,10 +40,10 @@ export class Duel {
   }
   fightChecker(attacker: Hero, opponent: Hero) {
     if (opponent.Type === 'Wizard' && opponent.superPower.BoostJustNow === true) {
-      // this.logger.missTurn(attaker);
+      this.logger.missTurn(attacker);
       opponent.superPower.BoostJustNow = false;
     } else {
-      attacker.attackPreparation(attacker, opponent);
+      this.attackPreparation(attacker, opponent);
     }
   }
   attackPreparation(attacker: Hero, opponent: Hero) {
@@ -55,6 +55,7 @@ export class Duel {
     }
     if (attacker.Type === 'Archer' && attacker.superPower.BoostStatus === true) {
       opponent.Health = opponent.Health - 3;
+      this.logger.usedFireArrowsEffect(opponent);
     }
 
     if (attacker.Type === 'Archer' && attacker.superPower.BoostJustNow === true) {

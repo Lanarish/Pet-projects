@@ -6,7 +6,7 @@ export class Hero {
   private lastName: string;
   private power: number;
   private health: number;
-  private superPower: SuperPower;
+  superPower: SuperPower;
 
   constructor(type, name, lastName, power, health, superPower) {
     this.type = type;
@@ -46,12 +46,7 @@ export class Hero {
   public get Health() {
     return this.health;
   }
-  public set SuperPower(type: SuperPower) {
-    this.superPower = superPower;
-  }
-  public get SuperPower() {
-    return this.superPower;
-  }
+
   //   attackPreparation(attacker: Hero, opponent: Hero) {
   //     if (attacker.superPower.BoostStatus === false) {
   //       const chance: number = Math.floor(Math.random() * 3);
