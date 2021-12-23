@@ -43,7 +43,6 @@ export class Generator {
     'Oakenshield',
     'Merigold',
   ];
-  // arrayOfSuperPowers = ['FireArrows', 'Nemesis', 'Bewitchment'];
 
   initHero(totalAmountOfHeroes: number) {
     const heroList: Hero[] = [];
@@ -79,7 +78,7 @@ export class Generator {
         completeHero = new Knight(type, name, lastName, power, health, new Nemesis());
         break;
     }
-    console.log(completeHero);
+
     return completeHero;
   }
   initRandomHeroType() {

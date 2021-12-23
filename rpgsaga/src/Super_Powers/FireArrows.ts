@@ -1,8 +1,13 @@
+import { Hero } from '../Hero';
+import { Logger } from '../Logger';
+
 import { SuperPower } from './SuperPower';
 
 export class FireArrows extends SuperPower {
-  useSuperPower(attacker) {
-    attacker.superPower.BoostInRoundStatus = true;
-    attacker.superPower.BoostJustNow = true;
+  logger: Logger = new Logger();
+  useSuperPower(attacker: Hero) {
+    attacker.superPower.SuperPowerInRoundStatus = true;
+    attacker.superPower.SuperPowerJustNow = true;
+    this.logger.useFireArrows(attacker);
   }
 }

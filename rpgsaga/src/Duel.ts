@@ -2,8 +2,6 @@ import { Hero } from './Hero';
 import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
 
-// import { Generator } from './Generator';
-
 export class Duel {
   private logger: Logger;
   private firstFighter: Hero;
@@ -25,46 +23,46 @@ export class Duel {
     this.logger.firstTurn(this.firstFighter);
     let winner: Hero;
     while (this.firstFighter.Health && this.secondFighter.Health) {
-      this.fightChecker(this.firstFighter, this.secondFighter);
+      this.attackChecker(this.firstFighter, this.secondFighter);
       if (this.secondFighter.Health <= 0) {
         winner = this.firstFighter;
         break;
       }
 
-      this.fightChecker(this.secondFighter, this.firstFighter);
+      this.attackChecker(this.secondFighter, this.firstFighter);
       if (this.firstFighter.Health <= 0) {
-        winner = this.firstFighter;
+        winner = this.secondFighter;
         break;
       }
     }
-    this.logger.showWinner(this.firstFighter);
+    this.logger.showWinner(winner);
     return winner;
   }
   whoIsFirst() {
     return Boolean(Math.floor(Math.random() * 2));
   }
-  fightChecker(attacker: Hero, opponent: Hero) {
-    if (opponent.Type === 'Wizard' && opponent.superPower.BoostJustNow === true) {
+  attackChecker(attacker: Hero, opponent: Hero) {
+    if (opponent.Type === 'Wizard' && opponent.superPower.SuperPowerJustNow === true) {
       this.logger.missTurn(attacker);
-      opponent.superPower.BoostJustNow = false;
+      opponent.superPower.SuperPowerJustNow = false;
     } else {
       this.attackPreparation(attacker, opponent);
     }
   }
   attackPreparation(attacker: Hero, opponent: Hero) {
-    if (attacker.superPower.BoostStatus === false) {
+    if (attacker.superPower.SuperPowerInRoundStatus === false) {
       const chance: number = Math.floor(Math.random() * 3);
       if (chance === 3 || chance === 2) {
         attacker.superPower.useSuperPower(attacker, opponent);
       }
     }
-    if (attacker.Type === 'Archer' && attacker.superPower.BoostStatus === true) {
+    if (attacker.Type === 'Archer' && attacker.superPower.SuperPowerInRoundStatus === true) {
       opponent.Health = opponent.Health - 3;
       this.logger.usedFireArrowsEffect(opponent);
     }
 
-    if (attacker.Type === 'Archer' && attacker.superPower.BoostJustNow === true) {
-      attacker.superPower.BoostJustNow = false;
+    if (attacker.Type === 'Archer' && attacker.superPower.SuperPowerJustNow === true) {
+      attacker.superPower.SuperPowerJustNow = false;
       return;
     } else {
       attacker.fight(attacker, opponent);

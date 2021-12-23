@@ -9,7 +9,7 @@ export class Game {
   private pairsArray: HeroPairs[] = [];
   private random: Generator = new Generator();
   private logger: Logger;
-  private totalAmountOfHeroes = 8;
+  private totalAmountOfHeroes = 4;
 
   constructor() {
     this.logger = new Logger();
@@ -34,7 +34,11 @@ export class Game {
   private makeRound(i: number) {
     const round: Round = new Round(i, this.logger);
     this.heroList = round.runRound(this.pairsArray);
+    this.heroList.forEach((hero: Hero) => {
+      hero.preparationForRound();
+    });
   }
+
   private gameEnd() {
     this.logger.showWinnerList(this.heroList);
   }
