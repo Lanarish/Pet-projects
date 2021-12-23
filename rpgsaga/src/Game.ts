@@ -27,7 +27,6 @@ export class Game {
   initHero() {
     this.heroList = this.random.initHero(this.totalAmountOfHeroes);
   }
-
   private populate() {
     this.pairsArray = this.random.makePairs(this.heroList);
   }
