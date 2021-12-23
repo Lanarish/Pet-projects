@@ -7,10 +7,6 @@ import { FireArrows } from './Super_Powers/FireArrows';
 import { Bewitchment } from './Super_Powers/Bewitchment';
 import { Nemesis } from './Super_Powers/Nemesis';
 
-// const fireArrows = new FireArrows();
-// const nemesis = new Nemesis();
-// const bewitchment = new Bewitchment();
-
 export class Generator {
   arrayOfHeroes: string[] = ['Wizard', 'Archer', 'Knight'];
   arrayOfNames: string[] = [
