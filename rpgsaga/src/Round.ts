@@ -12,10 +12,6 @@ export class Round {
     this.roundNumber = roundNumber;
   }
 
-  constructor(roundNumber: number, logger: Logger) {
-    this.logger = logger;
-    this.roundNumber = roundNumber;
-  }
   runRound(pairsArray: HeroPairs[]) {
     this.logger.roundNumber(this.roundNumber);
     this.logger.infoAboutPairs(pairsArray);

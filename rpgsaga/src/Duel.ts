@@ -1,4 +1,6 @@
 import { Hero } from './Hero';
+import { Archer } from './Heroes/Archer';
+import { Wizard } from './Heroes/Wizard';
 import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
 
@@ -42,7 +44,7 @@ export class Duel {
     return Boolean(Math.floor(Math.random() * 2));
   }
   attackChecker(attacker: Hero, opponent: Hero) {
-    if (opponent.Type === 'Wizard' && opponent.superPower.SuperPowerJustNow === true) {
+    if (opponent instanceof Wizard && opponent.superPower.SuperPowerJustNow) {
       this.logger.missTurn(attacker);
       opponent.superPower.SuperPowerJustNow = false;
     } else {
@@ -50,20 +52,19 @@ export class Duel {
     }
   }
   attackPreparation(attacker: Hero, opponent: Hero) {
-    if (attacker.superPower.SuperPowerInRoundStatus === false) {
+    if (!attacker.superPower.SuperPowerInRoundStatus) {
       const chance: number = Math.floor(Math.random() * 3);
       if (chance === 3 || chance === 2) {
         attacker.superPower.useSuperPower(attacker, opponent);
       }
     }
-    if (attacker.Type === 'Archer' && attacker.superPower.SuperPowerInRoundStatus === true) {
+    if (attacker instanceof Archer && attacker.superPower.SuperPowerInRoundStatus) {
       opponent.Health = opponent.Health - 3;
       this.logger.usedFireArrowsEffect(opponent);
     }
 
-    if (attacker.Type === 'Archer' && attacker.superPower.SuperPowerJustNow === true) {
+    if (attacker instanceof Archer && attacker.superPower.SuperPowerJustNow) {
       attacker.superPower.SuperPowerJustNow = false;
-      return;
     } else {
       attacker.fight(attacker, opponent);
       this.logger.gameProcess(attacker, opponent);

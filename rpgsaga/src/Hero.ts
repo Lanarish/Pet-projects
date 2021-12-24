@@ -55,7 +55,7 @@ export class Hero {
   fight(attacker: Hero, opponent: Hero) {
     opponent.Health -= attacker.Power;
   }
-  preparationForRound() {
+  restoreHealth() {
     this.Health = this.StartHealth;
     this.superPower.SuperPowerInRoundStatus = false;
     this.superPower.SuperPowerJustNow = false;

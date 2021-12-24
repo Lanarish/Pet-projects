@@ -6,10 +6,11 @@ import { Wizard } from './Heroes/Wizard';
 import { FireArrows } from './Super_Powers/FireArrows';
 import { Bewitchment } from './Super_Powers/Bewitchment';
 import { Nemesis } from './Super_Powers/Nemesis';
+import { Logger } from './Logger';
 
 export class Generator {
-  arrayOfHeroes: string[] = ['Wizard', 'Archer', 'Knight'];
-  arrayOfNames: string[] = [
+  private arrayOfHeroes: string[] = ['Wizard', 'Archer', 'Knight'];
+  private arrayOfNames: string[] = [
     'Vesemir',
     'Geralt',
     'Lyutik',
@@ -27,7 +28,7 @@ export class Generator {
     'Thorin',
     'Elrond',
   ];
-  arrayOfLastNames: string[] = [
+  private arrayOfLastNames: string[] = [
     'Brandybuck',
     'Prier',
     'Jonson',
@@ -39,6 +40,11 @@ export class Generator {
     'Oakenshield',
     'Merigold',
   ];
+  private logger: Logger;
+
+  constructor(logger: Logger) {
+    this.logger = logger;
+  }
 
   initHero(totalAmountOfHeroes: number) {
     const heroList: Hero[] = [];
@@ -65,13 +71,13 @@ export class Generator {
     let completeHero;
     switch (type) {
       case 'Wizard':
-        completeHero = new Wizard(type, name, lastName, power, health, new Bewitchment());
+        completeHero = new Wizard(type, name, lastName, power, health, new Bewitchment(this.logger));
         break;
       case 'Archer':
-        completeHero = new Archer(type, name, lastName, power, health, new FireArrows());
+        completeHero = new Archer(type, name, lastName, power, health, new FireArrows(this.logger));
         break;
       case 'Knight':
-        completeHero = new Knight(type, name, lastName, power, health, new Nemesis());
+        completeHero = new Knight(type, name, lastName, power, health, new Nemesis(this.logger));
         break;
     }
 
