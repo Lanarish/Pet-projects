@@ -3,13 +3,11 @@ import { HeroPairs } from './HeroPairs';
 import { Archer } from './Heroes/Archer';
 import { Knight } from './Heroes/Knight';
 import { Wizard } from './Heroes/Wizard';
-import { FireArrows } from './Super_Powers/FireArrows';
-import { Bewitchment } from './Super_Powers/Bewitchment';
-import { Nemesis } from './Super_Powers/Nemesis';
 import { Logger } from './Logger';
+import { HeroTypes } from './HeroTypes';
 
 export class Generator {
-  private arrayOfHeroes: string[] = ['Wizard', 'Archer', 'Knight'];
+  private arrayOfHeroes: string[] = [HeroTypes.Archer, HeroTypes.Knight, HeroTypes.Knight];
   private arrayOfNames: string[] = [
     'Vesemir',
     'Geralt',
@@ -46,7 +44,7 @@ export class Generator {
     this.logger = logger;
   }
 
-  initHero(totalAmountOfHeroes: number) {
+  initHero(totalAmountOfHeroes: number): Hero[] {
     const heroList: Hero[] = [];
 
     for (let i = 0; i < totalAmountOfHeroes; i++) {
@@ -67,35 +65,35 @@ export class Generator {
     }
     return heroList;
   }
-  initHeroType(type: string, name: string, lastName: string, power: number, health: number) {
-    let completeHero;
+  initHeroType(type: string, name: string, lastName: string, power: number, health: number): Hero {
+    let completeHero: Hero;
     switch (type) {
-      case 'Wizard':
-        completeHero = new Wizard(type, name, lastName, power, health, new Bewitchment(this.logger));
+      case HeroTypes.Wizard:
+        completeHero = new Wizard(type, name, lastName, power, health, this.logger);
         break;
-      case 'Archer':
-        completeHero = new Archer(type, name, lastName, power, health, new FireArrows(this.logger));
+      case HeroTypes.Archer:
+        completeHero = new Archer(type, name, lastName, power, health, this.logger);
         break;
-      case 'Knight':
-        completeHero = new Knight(type, name, lastName, power, health, new Nemesis(this.logger));
+      case HeroTypes.Knight:
+        completeHero = new Knight(type, name, lastName, power, health, this.logger);
         break;
     }
 
     return completeHero;
   }
-  initRandomHeroType() {
+  initRandomHeroType(): string {
     return this.arrayOfHeroes[Math.floor(Math.random() * this.arrayOfHeroes.length)];
   }
-  initRandomHeroName() {
+  initRandomHeroName(): string {
     return this.arrayOfNames[Math.floor(Math.random() * this.arrayOfNames.length)];
   }
-  initRandomHeroLastName() {
+  initRandomHeroLastName(): string {
     return this.arrayOfLastNames[Math.floor(Math.random() * this.arrayOfLastNames.length)];
   }
-  initRandomHeroPower() {
+  initRandomHeroPower(): number {
     return Math.floor(Math.random() * 20) + 15;
   }
-  initRandomHeroHealth() {
+  initRandomHeroHealth(): number {
     return Math.floor(Math.random() * 31) + 70;
   }
 

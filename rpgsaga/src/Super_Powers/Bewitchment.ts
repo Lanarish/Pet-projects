@@ -4,10 +4,8 @@ import { Logger } from '../Logger';
 import { SuperPower } from './SuperPower';
 
 export class Bewitchment extends SuperPower {
-  logger: Logger;
   constructor(logger: Logger) {
-    super();
-    this.logger = logger;
+    super(logger);
   }
   useSuperPower(attacker: Hero) {
     attacker.superPower.SuperPowerInRoundStatus = true;

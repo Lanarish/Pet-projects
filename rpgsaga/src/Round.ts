@@ -12,7 +12,7 @@ export class Round {
     this.roundNumber = roundNumber;
   }
 
-  runRound(pairsArray: HeroPairs[]) {
+  runRound(pairsArray: HeroPairs[]): Hero[] {
     this.logger.roundNumber(this.roundNumber);
     this.logger.infoAboutPairs(pairsArray);
     pairsArray.forEach(pair => {

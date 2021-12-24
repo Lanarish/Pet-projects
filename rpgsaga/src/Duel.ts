@@ -4,6 +4,7 @@ import { Wizard } from './Heroes/Wizard';
 import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
 
+const ADD_DAMAGE = 2;
 export class Duel {
   private logger: Logger;
   private firstFighter: Hero;
@@ -20,7 +21,7 @@ export class Duel {
       this.secondFighter = pairOfHeroes.firstHero;
     }
   }
-  startDuel() {
+  startDuel(): Hero {
     this.logger.duelStart(this.firstFighter, this.secondFighter);
     this.logger.firstTurn(this.firstFighter);
     let winner: Hero;
@@ -40,7 +41,7 @@ export class Duel {
     this.logger.showWinner(winner);
     return winner;
   }
-  whoIsFirst() {
+  whoIsFirst(): boolean {
     return Boolean(Math.floor(Math.random() * 2));
   }
   attackChecker(attacker: Hero, opponent: Hero) {
@@ -59,14 +60,14 @@ export class Duel {
       }
     }
     if (attacker instanceof Archer && attacker.superPower.SuperPowerInRoundStatus) {
-      opponent.Health = opponent.Health - 3;
+      opponent.Health = opponent.Health - ADD_DAMAGE;
       this.logger.usedFireArrowsEffect(opponent);
     }
 
     if (attacker instanceof Archer && attacker.superPower.SuperPowerJustNow) {
       attacker.superPower.SuperPowerJustNow = false;
     } else {
-      attacker.fight(attacker, opponent);
+      opponent.getDamage(attacker.Power);
       this.logger.gameProcess(attacker, opponent);
     }
   }

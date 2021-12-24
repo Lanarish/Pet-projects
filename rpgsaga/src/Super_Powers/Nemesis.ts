@@ -3,14 +3,13 @@ import { Logger } from '../Logger';
 
 import { SuperPower } from './SuperPower';
 
+const ADD_DAMAGE = 0.3;
 export class Nemesis extends SuperPower {
-  logger: Logger;
   constructor(logger: Logger) {
-    super();
-    this.logger = logger;
+    super(logger);
   }
   useSuperPower(attacker: Hero, opponent: Hero) {
-    opponent.Health -= Math.floor(attacker.Power * 0.3);
+    opponent.Health -= Math.floor(attacker.Power * ADD_DAMAGE);
     this.logger.useNemesis(attacker, opponent);
   }
 }
