@@ -40,10 +40,28 @@ export class Logger {
   }
 
   showWinnerList(winnerList) {
-    console.log(`THE WINNER OF THE GAME IS ${winnerList[0].name} ${winnerList[0].lastName}! CONGRADULATIONS!!!`);
+    console.log(`THE WINNER OF THE GAME IS ${winnerList[0].toString()}! CONGRADULATIONS!!!`);
   }
 
-  roundNumber(number) {
+  roundNumber(number: number) {
     console.log(`ROUND #${[number + 1]}`);
+  }
+
+  useBewitchment(fighter: Hero) {
+    console.log(`* ${fighter.toString()} use Bewitchment! *`);
+  }
+  missTurn(fighter: Hero) {
+    console.log(`* ${fighter.toString()} miss turn *`);
+  }
+  useFireArrows(fighter: Hero) {
+    console.log(`* ${fighter.toString()} use FireArrows! *`);
+  }
+  useNemesis(fighter: Hero, opponent: Hero) {
+    console.log(`* ${fighter.toString()} use Nemesis! ${opponent.toString()} remaining health is ${opponent.Health} *`);
+  }
+  usedFireArrowsEffect(fighter: Hero) {
+    console.log(
+      `* ${fighter.toString()} lost his health becouse of FireArrows! His health is ${fighter.Health} now. *`,
+    );
   }
 }

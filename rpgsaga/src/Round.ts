@@ -7,12 +7,12 @@ export class Round {
   private winnersList: Hero[] = [];
   private logger: Logger;
   private roundNumber: number;
-
   constructor(roundNumber: number, logger: Logger) {
     this.logger = logger;
     this.roundNumber = roundNumber;
   }
-  runRound(pairsArray: HeroPairs[]) {
+
+  runRound(pairsArray: HeroPairs[]): Hero[] {
     this.logger.roundNumber(this.roundNumber);
     this.logger.infoAboutPairs(pairsArray);
     pairsArray.forEach(pair => {
@@ -20,6 +20,7 @@ export class Round {
       const winnerHero = duel.startDuel();
       this.winnersList.push(winnerHero);
     });
+
     return this.winnersList;
   }
 }
