@@ -1,13 +1,7 @@
-image: node
-
 stages:
-  - lintSaga
+  - build_saga
+  - build_shop
 
-eslintSaga:
-  tags:
-    - docker
-  stage: lintSaga
-  script:
-    - cd ./rpgsaga/
-    - npm ci
-    - npm run lint
+include:
+  - local: /rpgsaga/.gitlab-ci.yml
+  - local: /onlineshop/.gitlab-ci.yml
