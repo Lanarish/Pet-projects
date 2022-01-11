@@ -1,3 +1,5 @@
+import prompts = require('prompts');
+
 import { Hero } from './Hero';
 import { Generator } from './Generator';
 import { HeroPairs } from './HeroPairs';
@@ -9,7 +11,7 @@ export class Game {
   private pairsArray: HeroPairs[];
   private random: Generator;
   private logger: Logger;
-  private totalAmountOfHeroes = 1;
+  private totalAmountOfHeroes;
 
   constructor() {
     this.logger = new Logger();
@@ -17,7 +19,9 @@ export class Game {
     this.pairsArray = [];
     this.random = new Generator(this.logger);
   }
-  run() {
+
+  async run() {
+    await this.prompt();
     let i = 0;
     this.logger.startGame();
     this.initHero();
@@ -27,31 +31,71 @@ export class Game {
       i++;
     }
     this.gameEnd();
+    // run() {
+    //     const questions = [
+    //       {
+    //         type: 'number',
+    //         name: 'value',
+    //         message: 'Please, enter a number of players',
+    //       },
+    //     ];
+    //     (async () => {
+    //       const response = await prompts(questions);
+    //       this.totalAmountOfHeroes = response.value;
+    //       console.log(this.totalAmountOfHeroes);
+    //       let i = 0;
+    //       this.logger.startGame();
+    //       this.initHero();
+    //       while (this.heroList.length > 1) {
+    //         this.populate();
+    //         this.makeRound(i);
+    //         i++;
+    //       }
+    //       this.gameEnd();
+    //     })();
+    // let i = 0;
+    // this.logger.startGame();
+    // this.initHero();
+    // while (this.heroList.length > 1) {
+    //   this.populate();
+    //   this.makeRound(i);
+    //   i++;
+    // }
+    // this.gameEnd();
   }
 
-  initHero() {
+  async prompt() {
+    const questions = [
+      {
+        type: 'number',
+        name: 'value',
+        message: 'Please, enter a number of players',
+      },
+    ];
     try {
-      if (typeof this.totalAmountOfHeroes === 'string') {
-        throw 'ErrorString';
+      const response = await prompts(questions);
+      if (response.value < 2) {
+        throw new Error('Error2');
       }
-      if (this.totalAmountOfHeroes <= 0) {
-        throw 'Error0';
+      if ((response.value & (response.value - 1)) !== 0) {
+        throw new Error('Error1');
       }
-      if (this.totalAmountOfHeroes === 1) {
-        throw 'Error1';
-      }
-      this.heroList = this.random.initHero(this.totalAmountOfHeroes);
+
+      this.totalAmountOfHeroes = response.value;
+      console.log(this.totalAmountOfHeroes);
     } catch (error) {
-      if (error === 'Error0') {
-        console.log('Number should be more than 0!');
+      if (error.message === 'Error1') {
+        console.error('POWER 2');
       }
-      if (error === 'Error1') {
-        console.log('Please use minimum 2 players');
+      if (error.message === 'Error2') {
+        console.error('More than 2');
       }
-      if (error === 'ErrorString') {
-        console.log('Should use JUST NUMBERS!');
-      }
+      console.error('ERROR');
+      await this.prompt();
     }
+  }
+  initHero() {
+    this.heroList = this.random.initHero(this.totalAmountOfHeroes);
   }
   private populate() {
     this.pairsArray = this.random.makePairs(this.heroList);
