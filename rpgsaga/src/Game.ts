@@ -9,7 +9,7 @@ export class Game {
   private pairsArray: HeroPairs[];
   private random: Generator;
   private logger: Logger;
-  private totalAmountOfHeroes = 8;
+  private totalAmountOfHeroes = 'i';
 
   constructor() {
     this.logger = new Logger();
@@ -30,7 +30,28 @@ export class Game {
   }
 
   initHero() {
-    this.heroList = this.random.initHero(this.totalAmountOfHeroes);
+    try {
+      if (typeof this.totalAmountOfHeroes === 'string') {
+        throw 'ErrorString';
+      }
+      if (this.totalAmountOfHeroes <= 0) {
+        throw 'Error0';
+      }
+      if (this.totalAmountOfHeroes === 1) {
+        throw 'Error1';
+      }
+      this.heroList = this.random.initHero(this.totalAmountOfHeroes);
+    } catch (error) {
+      if (error === 'Error0') {
+        console.log('Number should be more than 0!');
+      }
+      if (error === 'Error1') {
+        console.log('Please use minimum 2 players');
+      }
+      if (error === 'ErrorString') {
+        console.log('Should use JUST NUMBERS!');
+      }
+    }
   }
   private populate() {
     this.pairsArray = this.random.makePairs(this.heroList);
