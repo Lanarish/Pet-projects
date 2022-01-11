@@ -9,7 +9,7 @@ export class Game {
   private pairsArray: HeroPairs[];
   private random: Generator;
   private logger: Logger;
-  private totalAmountOfHeroes = 'i';
+  private totalAmountOfHeroes = 2;
 
   constructor() {
     this.logger = new Logger();
