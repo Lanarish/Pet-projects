@@ -1,4 +1,4 @@
-import prompts = require('prompts');
+// import prompts = require('prompts');
 
 import { Hero } from './Hero';
 import { Generator } from './Generator';
@@ -11,7 +11,7 @@ export class Game {
   private pairsArray: HeroPairs[];
   private random: Generator;
   private logger: Logger;
-  private totalAmountOfHeroes;
+  private totalAmountOfHeroes = 8;
 
   constructor() {
     this.logger = new Logger();
@@ -21,7 +21,7 @@ export class Game {
   }
 
   async run() {
-    await this.prompt();
+    // await this.prompt();
     let i = 0;
     this.logger.startGame();
     this.initHero();
@@ -33,34 +33,34 @@ export class Game {
     this.gameEnd();
   }
 
-  async prompt() {
-    const question = [
-      {
-        type: 'number',
-        name: 'value',
-        message: 'Please, enter a number of players in power 2',
-      },
-    ];
-    try {
-      const response = await prompts(question);
-      if (response.value < 2) {
-        throw new Error('Error1');
-      }
-      if ((response.value & (response.value - 1)) !== 0) {
-        throw new Error('Error2');
-      }
+  //   async prompt() {
+  //     const question = [
+  //       {
+  //         type: 'number',
+  //         name: 'value',
+  //         message: 'Please, enter a number of players in power 2',
+  //       },
+  //     ];
+  //     try {
+  //       const response = await prompts(question);
+  //       if (response.value < 2) {
+  //         throw new Error('Error1');
+  //       }
+  //       if ((response.value & (response.value - 1)) !== 0) {
+  //         throw new Error('Error2');
+  //       }
 
-      this.totalAmountOfHeroes = response.value;
-    } catch (error) {
-      if (error.message === 'Error2') {
-        this.logger.error2();
-      }
-      if (error.message === 'Error1') {
-        this.logger.error1();
-      }
-      await this.prompt();
-    }
-  }
+  //       this.totalAmountOfHeroes = response.value;
+  //     } catch (error) {
+  //       if (error.message === 'Error2') {
+  //         this.logger.error2();
+  //       }
+  //       if (error.message === 'Error1') {
+  //         this.logger.error1();
+  //       }
+  //       await this.prompt();
+  //     }
+  //   }
   initHero() {
     this.heroList = this.random.initHero(this.totalAmountOfHeroes);
   }

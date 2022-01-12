@@ -1,5 +1,6 @@
 import { Hero } from './Hero';
 import { Archer } from './Heroes/Archer';
+import { Farmer } from './Heroes/Farmer';
 import { Wizard } from './Heroes/Wizard';
 import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
@@ -45,13 +46,30 @@ export class Duel {
     return Boolean(Math.floor(Math.random() * 2));
   }
   attackChecker(attacker: Hero, opponent: Hero) {
-    if (opponent instanceof Wizard && opponent.superPower.SuperPowerJustNow) {
-      this.logger.missTurn(attacker);
-      opponent.superPower.SuperPowerJustNow = false;
-    } else {
+    try {
+      if (attacker instanceof Farmer) {
+        attacker.Power = 0;
+        throw new Error('Error1');
+      }
+      if (opponent instanceof Farmer) {
+        opponent.Health = 0;
+        throw new Error('Error2');
+      }
+      if (opponent instanceof Wizard && opponent.superPower.SuperPowerJustNow) {
+        this.logger.missTurn(attacker);
+        opponent.superPower.SuperPowerJustNow = false;
+      }
       this.attackPreparation(attacker, opponent);
+    } catch (error) {
+      if (error.message === 'Error1') {
+        console.error(`${attacker.toString()} is Farmer. He can't attack`);
+      }
+      if (error.message === 'Error2') {
+        console.error(`${opponent.toString()} is Farmer. He quits from the game`);
+      }
     }
   }
+
   attackPreparation(attacker: Hero, opponent: Hero) {
     if (!attacker.superPower.SuperPowerInRoundStatus) {
       const chance: number = Math.floor(Math.random() * 3);
