@@ -6,44 +6,54 @@ import { Wizard } from '../src/Heroes/Wizard';
 import { HeroTypes } from '../src/HeroTypes';
 import { Logger } from '../src/Logger';
 
-let logger;
-let random;
-beforeEach(() => {
-  logger = new Logger();
-  random = new Generator(logger);
+describe('Test random number from:', () => {
+  let logger;
+  let random;
+  beforeEach(() => {
+    logger = new Logger();
+    random = new Generator(logger);
+  });
+
+  const testCase = {
+    from: 15,
+    to: 35,
+  };
+
+  it(`initRandomHeroPower function. Range from:${testCase.from} to:${testCase.to}`, () => {
+    const res = random.initRandomHeroPower();
+    expect(res).toBeGreaterThanOrEqual(testCase.from);
+    expect(res).toBeLessThanOrEqual(testCase.to);
+  });
 });
 
 describe('Test random number from:', () => {
-  const testCases = [
-    {
-      from: 15,
-      to: 35,
-    },
-  ];
-  testCases.forEach(test => {
-    it(`initRandomHeroPower function. Range from:${test.from} to:${test.to}`, () => {
-      const res = random.initRandomHeroPower();
-      expect(res).toBeGreaterThanOrEqual(test.from);
-      expect(res).toBeLessThanOrEqual(test.to);
-    });
+  let logger;
+  let random;
+  beforeEach(() => {
+    logger = new Logger();
+    random = new Generator(logger);
+  });
+
+  const testCase = {
+    from: 70,
+    to: 100,
+  };
+
+  it(`initRandomHeroHealth function. Range from:${testCase.from} to:${testCase.to}`, () => {
+    const res = random.initRandomHeroHealth();
+    expect(res).toBeGreaterThanOrEqual(testCase.from);
+    expect(res).toBeLessThanOrEqual(testCase.to);
   });
 });
-describe('Test random number from:', () => {
-  const testCases = [
-    {
-      from: 70,
-      to: 100,
-    },
-  ];
-  testCases.forEach(test => {
-    it(`initRandomHeroHealth function. Range from:${test.from} to:${test.to}`, () => {
-      const res = random.initRandomHeroHealth();
-      expect(res).toBeGreaterThanOrEqual(test.from);
-      expect(res).toBeLessThanOrEqual(test.to);
-    });
-  });
-});
+
 describe('Test random hero:', () => {
+  let logger;
+  let random;
+  beforeEach(() => {
+    logger = new Logger();
+    random = new Generator(logger);
+  });
+
   const output = [
     {
       names: [
@@ -74,6 +84,13 @@ describe('Test random hero:', () => {
   });
 });
 describe('Test random hero:', () => {
+  let logger;
+  let random;
+  beforeEach(() => {
+    logger = new Logger();
+    random = new Generator(logger);
+  });
+
   const output = [
     {
       lastNames: [
@@ -98,23 +115,47 @@ describe('Test random hero:', () => {
   });
 });
 describe('Test initHeroType function:', () => {
-  const wizard = HeroTypes.Wizard;
-  const archer = HeroTypes.Archer;
-  const knight = HeroTypes.Knight;
-  const name = 'Tom';
-  const lastName = 'Brendibug';
-  const power = 23;
-  const health = 80;
+  let logger: Logger;
+  let random: Generator;
+  let name: string;
+  let lastName: string;
+  let power: number;
+  let health: number;
+  beforeEach(() => {
+    logger = new Logger();
+    random = new Generator(logger);
+    name = 'Tom';
+    lastName = 'Brendibug';
+    power = 23;
+    health = 80;
+  });
+
   it('return hero of class Wizard', () => {
-    const res: Hero = random.initHeroType(wizard, name, lastName, power, health);
+    const res: Hero = random.initHeroType(HeroTypes.Wizard, name, lastName, power, health);
     expect(res).toBeInstanceOf(Wizard);
   });
   it('return hero of class Archer', () => {
-    const res: Hero = random.initHeroType(archer, name, lastName, power, health);
+    const res: Hero = random.initHeroType(HeroTypes.Archer, name, lastName, power, health);
     expect(res).toBeInstanceOf(Archer);
   });
   it('return hero of class Knight', () => {
-    const res: Hero = random.initHeroType(knight, name, lastName, power, health);
+    const res: Hero = random.initHeroType(HeroTypes.Knight, name, lastName, power, health);
     expect(res).toBeInstanceOf(Knight);
+  });
+  it('passed the right name of hero', () => {
+    const initType = random.initHeroType(HeroTypes.Wizard, name, lastName, power, health);
+    expect(initType.FirstName).toBe(name);
+  });
+  it('passed the right lastName of hero', () => {
+    const initType = random.initHeroType(HeroTypes.Wizard, name, lastName, power, health);
+    expect(initType.LastName).toBe(lastName);
+  });
+  it('passed the right number of power', () => {
+    const initType = random.initHeroType(HeroTypes.Wizard, name, lastName, power, health);
+    expect(initType.Power).toBe(power);
+  });
+  it('passed the right number of health', () => {
+    const initType = random.initHeroType(HeroTypes.Wizard, name, lastName, power, health);
+    expect(initType.Health).toBe(health);
   });
 });

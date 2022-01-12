@@ -5,12 +5,11 @@ import { Wizard } from '../src/Heroes/Wizard';
 import { HeroPairs } from '../src/HeroPairs';
 import { Logger } from '../src/Logger';
 
-let logger;
-beforeEach(() => {
-  logger = new Logger();
-});
-
 describe('winnerHero', () => {
+  let logger;
+  beforeEach(() => {
+    logger = new Logger();
+  });
   it('is an instance of a class Hero', () => {
     const hero1 = new Archer('Archer', 'Sam', 'Jonson', 34, 80, logger);
     const hero2 = new Wizard('Wizard', 'Tom', 'Tailor', 35, 90, logger);
