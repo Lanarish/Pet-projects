@@ -32,10 +32,12 @@ export class Duel {
       } catch (error) {
         if (error.message === 'Error1') {
           console.error(`${this.firstFighter.toString()} is Farmer. He can't attack`);
+          this.logger.showWinner(this.secondFighter);
           return this.secondFighter;
         }
         if (error.message === 'Error2') {
           console.error(`${this.secondFighter.toString()} is Farmer. He quits from the game`);
+          this.logger.showWinner(this.firstFighter);
           return this.firstFighter;
         }
       }
