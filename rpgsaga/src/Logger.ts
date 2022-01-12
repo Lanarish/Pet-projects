@@ -2,6 +2,12 @@ import { Hero } from './Hero';
 import { HeroPairs } from './HeroPairs';
 
 export class Logger {
+  error1() {
+    console.error('The number should be more than 2');
+  }
+  error2() {
+    console.error('Please, just numbers in power 2(e.g. 4, 8, 16, 32..)');
+  }
   startGame() {
     console.log(`Start game!`);
   }
