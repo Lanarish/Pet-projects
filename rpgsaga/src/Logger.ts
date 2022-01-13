@@ -1,18 +1,18 @@
 import { Hero } from './Hero';
-import { HeroPairs } from './HeroPairs';
+import { Pair } from './Pair';
 
 export class Logger {
   startGame() {
     console.log(`Start game!`);
   }
-  infoAboutPairs(pairsArray: HeroPairs[]) {
+  infoAboutPairs(pairsArray: Pair<Hero>[]) {
     console.log(`
     There are pairs of heroes:`);
     for (let i = 0; i < pairsArray.length; i++) {
       console.log(
-        `Pair №${[i + 1]} is ${pairsArray[i].firstHero.Type} ${pairsArray[i].firstHero.toString()}  vs ${
-          pairsArray[i].secondHero.Type
-        } ${pairsArray[i].secondHero.toString()}`,
+        `Pair №${[i + 1]} is ${pairsArray[i].first.Type} ${pairsArray[i].first.toString()}  vs ${
+          pairsArray[i].second.Type
+        } ${pairsArray[i].second.toString()}`,
       );
     }
   }

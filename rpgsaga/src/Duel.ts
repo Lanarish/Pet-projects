@@ -1,8 +1,8 @@
 import { Hero } from './Hero';
 import { Archer } from './Heroes/Archer';
 import { Wizard } from './Heroes/Wizard';
-import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
+import { Pair } from './Pair';
 
 const ADD_DAMAGE = 2;
 export class Duel {
@@ -10,15 +10,15 @@ export class Duel {
   private firstFighter: Hero;
   private secondFighter: Hero;
 
-  constructor(pairOfHeroes: HeroPairs, logger: Logger) {
+  constructor(pairOfHeroes: Pair<Hero>, logger: Logger) {
     this.logger = logger;
     const turn: boolean = this.whoIsFirst();
     if (!turn) {
-      this.firstFighter = pairOfHeroes.firstHero;
-      this.secondFighter = pairOfHeroes.secondHero;
+      this.firstFighter = pairOfHeroes.first;
+      this.secondFighter = pairOfHeroes.second;
     } else {
-      this.firstFighter = pairOfHeroes.secondHero;
-      this.secondFighter = pairOfHeroes.firstHero;
+      this.firstFighter = pairOfHeroes.second;
+      this.secondFighter = pairOfHeroes.first;
     }
   }
   startDuel(): Hero {

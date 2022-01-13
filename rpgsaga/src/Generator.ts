@@ -1,10 +1,10 @@
 import { Hero } from './Hero';
-import { HeroPairs } from './HeroPairs';
 import { Archer } from './Heroes/Archer';
 import { Knight } from './Heroes/Knight';
 import { Wizard } from './Heroes/Wizard';
 import { Logger } from './Logger';
 import { HeroTypes } from './HeroTypes';
+import { Pair } from './Pair';
 
 export class Generator {
   private arrayOfHeroes: string[] = [HeroTypes.Archer, HeroTypes.Knight, HeroTypes.Knight];
@@ -97,8 +97,8 @@ export class Generator {
     return Math.floor(Math.random() * 31) + 70;
   }
 
-  makePairs(heroList): HeroPairs[] {
-    const pairsArray: HeroPairs[] = [];
+  makePairs(heroList): Pair<Hero>[] {
+    const pairsArray: Pair<Hero>[] = [];
     const copyHeroList = [...heroList];
 
     for (let i = 0; i < heroList.length / 2; i++) {
@@ -108,7 +108,7 @@ export class Generator {
         i--;
         continue;
       }
-      const newPair = new HeroPairs(copyHeroList[randomHeroOne], copyHeroList[randomHeroTwo]);
+      const newPair = new Pair<Hero>(copyHeroList[randomHeroOne], copyHeroList[randomHeroTwo]);
       pairsArray.push(newPair);
       copyHeroList.splice(randomHeroOne, 1);
       if (randomHeroTwo > randomHeroOne) {

@@ -1,7 +1,7 @@
 import { Duel } from './Duel';
 import { Hero } from './Hero';
-import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
+import { Pair } from './Pair';
 
 export class Round {
   private winnersList: Hero[] = [];
@@ -12,7 +12,7 @@ export class Round {
     this.roundNumber = roundNumber;
   }
 
-  runRound(pairsArray: HeroPairs[]): Hero[] {
+  runRound(pairsArray: Pair<Hero>[]): Hero[] {
     this.logger.roundNumber(this.roundNumber);
     this.logger.infoAboutPairs(pairsArray);
     pairsArray.forEach(pair => {
