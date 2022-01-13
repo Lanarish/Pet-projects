@@ -1,4 +1,5 @@
 import { Duel } from '../src/Duel';
+import { Hero } from '../src/Hero';
 import { Archer } from '../src/Heroes/Archer';
 import { Wizard } from '../src/Heroes/Wizard';
 import { HeroPairs } from '../src/HeroPairs';
@@ -31,25 +32,38 @@ describe('attackChecker function:', () => {
     expect(secondHero.superPower.SuperPowerJustNow).toBeFalsy();
   });
 });
-describe('', () => {
-  let logger;
-  let firstHero;
-  let secondHero;
-  let heroPair;
-  let duel;
+describe('Check that at getDamage function opponents health', () => {
+  let attacker: Archer;
+  let opponent: Wizard;
+  let logger: Logger;
   beforeEach(() => {
-    logger = new Logger();
-    firstHero = new Archer('Archer', 'Sam', 'Jonson', 34, 80, logger);
-    secondHero = new Wizard('Wizard', 'Sam', 'Jonson', 34, 80, logger);
-    heroPair = new HeroPairs(firstHero, secondHero);
-    duel = new Duel(heroPair, logger);
+    attacker = new Archer('Archer', 'Sam', 'Jonson', 34, 80, logger);
+    opponent = new Wizard('Wizard', 'Sam', 'Jonson', 34, 80, logger);
   });
-  it('', () => {
-    const firstHeroHealth = firstHero.Health;
-    const secondHeroPower = secondHero.Power;
-    const res = firstHeroHealth - secondHeroPower;
-    duel.attackPreparation(firstHero, secondHero);
-    firstHero.getDamage(secondHeroPower);
-    expect(firstHero.getDamage(secondHeroPower)).toBe(res);
+  it('decreases exactly by the attackers power', () => {
+    const firstHeroHealth = opponent.Health;
+    const secondHeroPower = attacker.Power;
+    opponent.getDamage(secondHeroPower);
+    const newOpponentHealth = opponent.Health;
+    expect(newOpponentHealth).toEqual(firstHeroHealth - secondHeroPower);
+  });
+});
+
+describe('Check that if opponent health less or equal 0', () => {
+  let attacker: Archer;
+  let opponent: Wizard;
+  let logger: Logger;
+  let winner: Hero;
+  beforeEach(() => {
+    attacker = new Archer('Archer', 'Sam', 'Jonson', 34, 80, logger);
+    opponent = new Wizard('Wizard', 'Sam', 'Jonson', 34, 33, logger);
+  });
+  it('the winner is attacker', () => {
+    opponent.getDamage(attacker.Power);
+    const newOpponentHealth = opponent.Health;
+    if (newOpponentHealth <= 0) {
+      winner = attacker;
+    }
+    expect(attacker).toBe(winner);
   });
 });

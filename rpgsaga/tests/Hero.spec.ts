@@ -1,7 +1,5 @@
 import { Generator } from '../src/Generator';
 import { Hero } from '../src/Hero';
-import { Archer } from '../src/Heroes/Archer';
-import { Wizard } from '../src/Heroes/Wizard';
 import { Logger } from '../src/Logger';
 
 describe('Name function:', () => {
@@ -133,21 +131,5 @@ describe('Health function:', () => {
       expect(res).toBeGreaterThanOrEqual(test.from);
       expect(res).toBeLessThanOrEqual(test.to);
     });
-  });
-});
-describe('', () => {
-  let attacker: Archer;
-  let opponent: Wizard;
-  let logger: Logger;
-  beforeEach(() => {
-    attacker = new Archer('Archer', 'Sam', 'Jonson', 34, 80, logger);
-    opponent = new Wizard('Wizard', 'Sam', 'Jonson', 34, 80, logger);
-  });
-  it('', () => {
-    const firstHeroHealth = opponent.Health;
-    const secondHeroPower = attacker.Power;
-    opponent.getDamage(secondHeroPower);
-    const newHealth = opponent.Health;
-    expect(newHealth).toEqual(firstHeroHealth - secondHeroPower);
   });
 });
