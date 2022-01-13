@@ -71,8 +71,8 @@ describe('pass all checks and perforn the attack', () => {
   let attacker: Knight;
   let opponent: Knight;
   let logger: Logger;
-  let heroPair;
-  let duel;
+  let heroPair: HeroPairs;
+  let duel: Duel;
   let damage: number;
 
   beforeEach(() => {
