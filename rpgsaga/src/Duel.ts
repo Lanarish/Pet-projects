@@ -31,12 +31,12 @@ export class Duel {
         this.attackChecker(this.firstFighter, this.secondFighter);
       } catch (error) {
         if (error.message === 'Error1') {
-          console.error(`${this.firstFighter.toString()} is Farmer. He can't attack`);
+          this.logger.farmerNotAttack(this.firstFighter);
           this.logger.showWinner(this.secondFighter);
           return this.secondFighter;
         }
         if (error.message === 'Error2') {
-          console.error(`${this.secondFighter.toString()} is Farmer. He quits from the game`);
+          this.logger.removeFarmer(this.secondFighter);
           this.logger.showWinner(this.firstFighter);
           return this.firstFighter;
         }
