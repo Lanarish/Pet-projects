@@ -44,8 +44,8 @@ export class Generator {
     this.logger = logger;
   }
 
-  initHero(totalAmountOfHeroes: number): Hero[] {
-    const heroList: Hero[] = [];
+  initHero(totalAmountOfHeroes: number): Array<Hero> {
+    const heroList: Array<Hero> = [];
 
     for (let i = 0; i < totalAmountOfHeroes; i++) {
       const type: string = this.initRandomHeroType();

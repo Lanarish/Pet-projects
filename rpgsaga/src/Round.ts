@@ -4,7 +4,7 @@ import { Logger } from './Logger';
 import { Pair } from './Pair';
 
 export class Round {
-  private winnersList: Hero[] = [];
+  private winnersList: Array<Hero> = [];
   private logger: Logger;
   private roundNumber: number;
   constructor(roundNumber: number, logger: Logger) {
