@@ -44,17 +44,16 @@ export class Game {
     while (!this.totalAmountOfHeroes) {
       try {
         const response = await prompts(question);
-
-        if (!/^\d+$/.test(response.value)) {
-          throw new Error('ErrorString');
-        }
         if (response.value < 2) {
           throw new Error('ErrorLess0');
+        }
+        if (!/^\d+$/.test(response.value)) {
+          throw new Error('ErrorString');
         }
         if ((response.value & (response.value - 1)) !== 0) {
           throw new Error('ErrorInvalidNumber');
         }
-        this.totalAmountOfHeroes = response.value;
+        this.totalAmountOfHeroes = Number(response.value);
       } catch (error) {
         if (error.message === 'ErrorInvalidNumber') {
           this.logger.error('Please, just numbers in power 2(e.g. 4, 8, 16, 32..)');
@@ -64,9 +63,6 @@ export class Game {
         }
         if (error.message === 'ErrorString') {
           this.logger.error('Please use just numbers!');
-        }
-        if (error) {
-          this.logger.error(error.message);
         }
       }
     }
@@ -79,6 +75,7 @@ export class Game {
   }
   private makeRound(i: number) {
     const round: Round = new Round(i, this.logger);
+
     this.heroList = round.runRound(this.pairsArray);
     this.heroList.forEach((hero: Hero) => {
       hero.restoreHealth();
