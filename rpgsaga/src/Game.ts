@@ -36,29 +36,39 @@ export class Game {
   async prompt() {
     const question = [
       {
-        type: 'number',
+        type: 'text',
         name: 'value',
         message: 'Please, enter a number of players in power 2',
       },
     ];
-    try {
-      const response = await prompts(question);
-      if (response.value < 2) {
-        throw new Error('Error1');
-      }
-      if ((response.value & (response.value - 1)) !== 0) {
-        throw new Error('Error2');
-      }
+    while (!this.totalAmountOfHeroes) {
+      try {
+        const response = await prompts(question);
 
-      this.totalAmountOfHeroes = response.value;
-    } catch (error) {
-      if (error.message === 'Error2') {
-        this.logger.error2();
+        if (!/^\d+$/.test(response.value)) {
+          throw new Error('ErrorString');
+        }
+        if (response.value < 2) {
+          throw new Error('ErrorLess0');
+        }
+        if ((response.value & (response.value - 1)) !== 0) {
+          throw new Error('ErrorInvalidNumber');
+        }
+        this.totalAmountOfHeroes = response.value;
+      } catch (error) {
+        if (error.message === 'ErrorInvalidNumber') {
+          this.logger.error('Please, just numbers in power 2(e.g. 4, 8, 16, 32..)');
+        }
+        if (error.message === 'ErrorLess0') {
+          this.logger.error('The number should be more than 2');
+        }
+        if (error.message === 'ErrorString') {
+          this.logger.error('Please use just numbers!');
+        }
+        if (error) {
+          this.logger.error(error.message);
+        }
       }
-      if (error.message === 'Error1') {
-        this.logger.error1();
-      }
-      await this.prompt();
     }
   }
   initHero() {
