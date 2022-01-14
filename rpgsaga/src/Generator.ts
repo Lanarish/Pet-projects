@@ -56,12 +56,6 @@ export class Generator {
       const health: number = this.initRandomHeroHealth();
       const newHero = this.initHeroType(type, name, lastName, power, health);
 
-      newHero.Type = type;
-      newHero.FirstName = name;
-      newHero.LastName = lastName;
-      newHero.Power = power;
-      newHero.Health = health;
-
       heroList.push(newHero);
     }
     return heroList;

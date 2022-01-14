@@ -1,6 +1,5 @@
 import { Hero } from './Hero';
 import { Archer } from './Heroes/Archer';
-import { Farmer } from './Heroes/Farmer';
 import { Wizard } from './Heroes/Wizard';
 import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
@@ -30,26 +29,30 @@ export class Duel {
       try {
         this.attackChecker(this.firstFighter, this.secondFighter);
       } catch (error) {
-        if (error.message === 'Error1') {
-          this.logger.error(`${this.firstFighter.toString()} is Farmer. He can't attack`);
+        if (error) {
+          this.logger.error(
+            `${this.firstFighter.Type} ${this.firstFighter.toString()} can't attack. He quit from the game`,
+          );
           this.logger.showWinner(this.secondFighter);
           return this.secondFighter;
-        }
-        if (error.message === 'Error2') {
-          this.logger.error(`${this.secondFighter.toString()} is Farmer. He quits from the game`);
-          this.logger.showWinner(this.firstFighter);
-          return this.firstFighter;
-        }
-        if (error) {
-          this.logger.error(error.message);
         }
       }
       if (this.secondFighter.Health <= 0) {
         winner = this.firstFighter;
         break;
       }
+      try {
+        this.attackChecker(this.secondFighter, this.firstFighter);
+      } catch (error) {
+        if (error) {
+          this.logger.error(
+            `${this.secondFighter.Type}  ${this.secondFighter.toString()} can't attack. He quit from the game`,
+          );
+          this.logger.showWinner(this.firstFighter);
+          return this.firstFighter;
+        }
+      }
 
-      this.attackChecker(this.secondFighter, this.firstFighter);
       if (this.firstFighter.Health <= 0) {
         winner = this.secondFighter;
         break;
@@ -64,12 +67,6 @@ export class Duel {
   }
 
   attackChecker(attacker: Hero, opponent: Hero) {
-    if (attacker instanceof Farmer) {
-      throw new Error('Error1');
-    }
-    if (opponent instanceof Farmer) {
-      throw new Error('Error2');
-    }
     if (opponent instanceof Wizard && opponent.superPower.SuperPowerJustNow) {
       this.logger.missTurn(attacker);
       opponent.superPower.SuperPowerJustNow = false;

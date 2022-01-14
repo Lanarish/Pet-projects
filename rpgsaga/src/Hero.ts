@@ -52,6 +52,9 @@ export class Hero {
   }
 
   getDamage(power: number) {
+    if (!power) {
+      throw new Error('powerError');
+    }
     this.Health -= power;
   }
   restoreHealth() {

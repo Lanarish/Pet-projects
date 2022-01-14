@@ -64,6 +64,7 @@ export class Game {
         if (error.message === 'ErrorString') {
           this.logger.error('Please use just numbers!');
         }
+        this.logger.error(error.message || error);
       }
     }
   }
