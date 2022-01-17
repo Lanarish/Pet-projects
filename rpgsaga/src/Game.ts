@@ -58,7 +58,7 @@ export class Game {
       } catch (error) {
         switch (error.message) {
           case 'ErrorInvalidNumber':
-            this.logger.error('Please, just numbers in power 2(e.g. 4, 8, 16, 32..)');
+            this.logger.error('Please, just numbers in power 2(e.g. 4, 8, 16, 32...)');
             break;
           case 'ErrorLess0':
             this.logger.error('The number should be more than 2');
