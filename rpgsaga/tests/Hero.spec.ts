@@ -1,5 +1,7 @@
 import { Generator } from '../src/Generator';
 import { Hero } from '../src/Hero';
+import { Archer } from '../src/Heroes/Archer';
+import { Wizard } from '../src/Heroes/Wizard';
 import { Logger } from '../src/Logger';
 
 describe('Name function:', () => {
@@ -84,7 +86,6 @@ describe('Power function:', () => {
   let random;
   let logger;
   beforeEach(() => {
-    hero = new Hero('Archer', 'Sam', 'Jonson', 34, 80);
     random = new Generator(logger);
   });
   const testCases = [
@@ -95,6 +96,7 @@ describe('Power function:', () => {
   ];
 
   it('should be return number', () => {
+    hero = new Hero('Archer', 'Sam', 'Jonson', 34, 80);
     const power = 34;
     expect(hero.Power).toEqual(power);
   });
@@ -131,5 +133,25 @@ describe('Health function:', () => {
       expect(res).toBeGreaterThanOrEqual(test.from);
       expect(res).toBeLessThanOrEqual(test.to);
     });
+  });
+});
+
+describe('Check that after restoreHealth function', () => {
+  let attacker: Archer;
+  let opponent: Wizard;
+  let logger: Logger;
+
+  beforeEach(() => {
+    attacker = new Archer('Archer', 'Sam', 'Jonson', 35, 80, logger);
+    opponent = new Wizard('Wizard', 'Sam', 'Jonson', 30, 60, logger);
+  });
+  it('the winner health is restore', () => {
+    opponent.getDamage(attacker.Power);
+    attacker.getDamage(opponent.Power);
+    opponent.getDamage(attacker.Power);
+    if (opponent.Health <= 0) {
+      attacker.restoreHealth();
+    }
+    expect(attacker.Health).toBe(attacker.StartHealth);
   });
 });

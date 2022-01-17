@@ -5,18 +5,27 @@ import { Logger } from '../src/Logger';
 
 describe('Wizard does not lose health after using superpower', () => {
   let logger: Logger;
+  let attacker;
+  let opponent;
+  let duel;
+  let heroPair;
   beforeEach(() => {
     logger = new Logger();
+    attacker = new Wizard('Wizard', 'Sam', 'Buche', 40, 90, logger);
+    opponent = new Wizard('Wizard', 'Tom', 'Drago', 30, 100, logger);
+    heroPair = new HeroPairs(attacker, opponent);
+    duel = new Duel(heroPair, logger);
   });
-  it('should stay the same', () => {
-    const firstHero = new Wizard('Wizard', 'Sam', 'Buche', 45, 89, logger);
-    const secondHero = new Wizard('Wizard', 'Tom', 'Drago', 35, 99, logger);
-    const heroPairs = new HeroPairs(firstHero, secondHero);
-    const duel = new Duel(heroPairs, logger);
+  it('and SuperPowerInRoundStatus and SuperPowerJustNow change their value from false to true', () => {
+    attacker.superPower.useSuperPower(attacker, opponent);
 
-    firstHero.superPower.useSuperPower(firstHero, secondHero);
-
-    expect(firstHero.superPower.SuperPowerInRoundStatus).toBeTruthy();
-    expect(firstHero.superPower.SuperPowerJustNow).toBeTruthy();
+    expect(attacker.superPower.SuperPowerInRoundStatus).toBeTruthy();
+    expect(attacker.superPower.SuperPowerJustNow).toBeTruthy();
+  });
+  it('in duel', () => {
+    attacker.superPower.useSuperPower(attacker, opponent);
+    duel.attackChecker(attacker, opponent);
+    duel.attackChecker(opponent, attacker);
+    expect(attacker.StartHealth).toEqual(attacker.Health);
   });
 });

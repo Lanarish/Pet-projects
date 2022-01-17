@@ -7,7 +7,7 @@ import { Logger } from './Logger';
 import { HeroTypes } from './HeroTypes';
 
 export class Generator {
-  private arrayOfHeroes: string[] = [HeroTypes.Archer, HeroTypes.Knight, HeroTypes.Knight];
+  private arrayOfHeroes: string[] = [HeroTypes.Archer, HeroTypes.Wizard, HeroTypes.Knight];
   private arrayOfNames: string[] = [
     'Vesemir',
     'Geralt',
