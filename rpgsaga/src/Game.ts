@@ -46,31 +46,30 @@ export class Game {
         const response = await prompts(question);
 
         if (Number(response.value) < 2) {
-          console.log(typeof response.value);
-          console.log(typeof Number(response.value));
-
           throw new Error('ErrorLess0');
         }
         if (!/^\d+$/.test(response.value)) {
-          console.log(typeof response.value);
           throw new Error('ErrorString');
         }
         if ((response.value & (response.value - 1)) !== 0) {
-          console.log(typeof response.value);
           throw new Error('ErrorInvalidNumber');
         }
         this.totalAmountOfHeroes = Number(response.value);
       } catch (error) {
-        if (error.message === 'ErrorInvalidNumber') {
-          this.logger.error('Please, just numbers in power 2(e.g. 4, 8, 16, 32..)');
+        switch (error.message) {
+          case 'ErrorInvalidNumber':
+            this.logger.error('Please, just numbers in power 2(e.g. 4, 8, 16, 32..)');
+            break;
+          case 'ErrorLess0':
+            this.logger.error('The number should be more than 2');
+            break;
+          case 'ErrorString':
+            this.logger.error('Please use just numbers!');
+            break;
+          default:
+            this.logger.error(error.message || error);
+            break;
         }
-        if (error.message === 'ErrorLess0') {
-          this.logger.error('The number should be more than 2');
-        }
-        if (error.message === 'ErrorString') {
-          this.logger.error('Please use just numbers!');
-        }
-        this.logger.error(error.message || error);
       }
     }
   }
