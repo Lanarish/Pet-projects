@@ -44,13 +44,19 @@ export class Game {
     while (!this.totalAmountOfHeroes) {
       try {
         const response = await prompts(question);
-        if (response.value < 2) {
+
+        if (Number(response.value) < 2) {
+          console.log(typeof response.value);
+          console.log(typeof Number(response.value));
+
           throw new Error('ErrorLess0');
         }
         if (!/^\d+$/.test(response.value)) {
+          console.log(typeof response.value);
           throw new Error('ErrorString');
         }
         if ((response.value & (response.value - 1)) !== 0) {
+          console.log(typeof response.value);
           throw new Error('ErrorInvalidNumber');
         }
         this.totalAmountOfHeroes = Number(response.value);
