@@ -1,6 +1,7 @@
 import { Duel } from '../src/Duel';
 import { Hero } from '../src/Hero';
 import { Archer } from '../src/Heroes/Archer';
+import { Knight } from '../src/Heroes/Knight';
 import { Wizard } from '../src/Heroes/Wizard';
 import { HeroPairs } from '../src/HeroPairs';
 import { Logger } from '../src/Logger';
@@ -63,5 +64,36 @@ describe('Check that if opponent health less or equal 0', () => {
       winner = attacker;
     }
     expect(attacker).toBe(winner);
+  });
+});
+describe('pass all checks and perform the attack', () => {
+  let attacker: Knight;
+  let opponent: Knight;
+  let logger: Logger;
+  let heroPair: HeroPairs;
+  let duel: Duel;
+  let damage: number;
+
+  beforeEach(() => {
+    attacker = new Knight('Knight', 'Sam', 'Jonson', 34, 80, logger);
+    opponent = new Knight('Knight', 'Tom', 'Jonson', 24, 83, logger);
+    heroPair = new HeroPairs(attacker, opponent);
+    logger = new Logger();
+    duel = new Duel(heroPair, logger);
+    damage = 0.3;
+  });
+  it('should be successful', () => {
+    duel.attackChecker(attacker, opponent);
+    if (attacker.superPower.SuperPowerJustNow === false) {
+      expect(opponent.Health).toBe(opponent.StartHealth - attacker.Power);
+    } else {
+      if (attacker instanceof Archer && attacker.superPower.SuperPowerJustNow) {
+        expect(opponent.Health).toBe(opponent.StartHealth);
+      } else if (attacker instanceof Knight && attacker.superPower.SuperPowerJustNow) {
+        expect(opponent.Health).toBe(opponent.StartHealth - attacker.Power - Math.floor(attacker.Power * damage));
+      } else {
+        expect(opponent.Health).toBe(opponent.StartHealth - attacker.Power);
+      }
+    }
   });
 });
