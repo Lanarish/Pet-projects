@@ -15,7 +15,6 @@ describe('Wizard does not lose health after using superpower', () => {
     const duel = new Duel(heroPairs, logger);
 
     firstHero.superPower.useSuperPower(firstHero, secondHero);
-    duel.attackChecker(firstHero, secondHero);
 
     expect(firstHero.superPower.SuperPowerInRoundStatus).toBeTruthy();
     expect(firstHero.superPower.SuperPowerJustNow).toBeTruthy();
