@@ -29,13 +29,11 @@ export class Duel {
       try {
         this.attackChecker(this.firstFighter, this.secondFighter);
       } catch (error) {
-        if (error) {
-          this.logger.error(
-            `${this.firstFighter.Type} ${this.firstFighter.toString()} can't attack. He quit from the game`,
-          );
-          this.logger.showWinner(this.secondFighter);
-          return this.secondFighter;
-        }
+        this.logger.error(
+          `${this.firstFighter.Type} ${this.firstFighter.toString()} can't attack. He quit from the game`,
+        );
+        this.logger.showWinner(this.secondFighter);
+        return this.secondFighter;
       }
       if (this.secondFighter.Health <= 0) {
         winner = this.firstFighter;
@@ -44,13 +42,11 @@ export class Duel {
       try {
         this.attackChecker(this.secondFighter, this.firstFighter);
       } catch (error) {
-        if (error) {
-          this.logger.error(
-            `${this.secondFighter.Type}  ${this.secondFighter.toString()} can't attack. He quit from the game`,
-          );
-          this.logger.showWinner(this.firstFighter);
-          return this.firstFighter;
-        }
+        this.logger.error(
+          `${this.secondFighter.Type}  ${this.secondFighter.toString()} can't attack. He quit from the game`,
+        );
+        this.logger.showWinner(this.firstFighter);
+        return this.firstFighter;
       }
 
       if (this.firstFighter.Health <= 0) {
