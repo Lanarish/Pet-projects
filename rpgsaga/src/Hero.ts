@@ -59,6 +59,9 @@ export class Hero {
   }
   restoreHealth() {
     this.Health = this.StartHealth;
+    if (!this.superPower) {
+      return;
+    }
     this.superPower.SuperPowerInRoundStatus = false;
     this.superPower.SuperPowerJustNow = false;
   }

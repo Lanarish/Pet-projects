@@ -73,7 +73,7 @@ export class Generator {
         completeHero = new Knight(type, name, lastName, power, health, this.logger);
         break;
       case HeroTypes.Farmer:
-        completeHero = new Farmer(type, name, lastName, power, health, this.logger);
+        completeHero = new Farmer(type, name, lastName, power, health);
         break;
     }
     return completeHero;
