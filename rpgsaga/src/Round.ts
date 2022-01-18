@@ -13,7 +13,7 @@ export class Round {
   }
 
   runRound(pairsArray: HeroPairs[]): Hero[] {
-    if (pairsArray === undefined) {
+    if (!pairsArray) {
       return;
     }
     this.logger.roundNumber(this.roundNumber);
