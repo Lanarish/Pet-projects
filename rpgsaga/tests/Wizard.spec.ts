@@ -3,7 +3,7 @@ import { Wizard } from '../src/Heroes/Wizard';
 import { HeroPairs } from '../src/HeroPairs';
 import { Logger } from '../src/Logger';
 
-describe('Wizard does not lose health after using superpower', () => {
+describe('Wizard ', () => {
   let logger: Logger;
   let attacker;
   let opponent;
@@ -16,13 +16,13 @@ describe('Wizard does not lose health after using superpower', () => {
     heroPair = new HeroPairs(attacker, opponent);
     duel = new Duel(heroPair, logger);
   });
-  it('and SuperPowerInRoundStatus and SuperPowerJustNow change their value from false to true', () => {
+  it(' SuperPowerInRoundStatus and SuperPowerJustNow change their value from false to true after use', () => {
     attacker.superPower.useSuperPower(attacker, opponent);
 
     expect(attacker.superPower.SuperPowerInRoundStatus).toBeTruthy();
     expect(attacker.superPower.SuperPowerJustNow).toBeTruthy();
   });
-  it('in duel', () => {
+  it('does not lose health after using superpower in duel', () => {
     attacker.superPower.useSuperPower(attacker, opponent);
     duel.attackChecker(attacker, opponent);
     duel.attackChecker(opponent, attacker);

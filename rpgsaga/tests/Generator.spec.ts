@@ -11,8 +11,6 @@ describe('Test random number from:', () => {
   let random;
   beforeAll(() => {
     logger = new Logger();
-  });
-  beforeEach(() => {
     random = new Generator(logger);
   });
 
@@ -31,7 +29,8 @@ describe('Test random number from:', () => {
 describe('Test random number from:', () => {
   let logger;
   let random;
-  beforeEach(() => {
+  beforeAll(() => {
+    logger = new Logger();
     random = new Generator(logger);
   });
 
@@ -50,7 +49,8 @@ describe('Test random number from:', () => {
 describe('Test random hero:', () => {
   let logger;
   let random;
-  beforeEach(() => {
+  beforeAll(() => {
+    logger = new Logger();
     random = new Generator(logger);
   });
 
@@ -86,7 +86,8 @@ describe('Test random hero:', () => {
 describe('Test random hero:', () => {
   let logger;
   let random;
-  beforeEach(() => {
+  beforeAll(() => {
+    logger = new Logger();
     random = new Generator(logger);
   });
 
@@ -120,7 +121,7 @@ describe('Test initHeroType function:', () => {
   let lastName: string;
   let power: number;
   let health: number;
-  beforeEach(() => {
+  beforeAll(() => {
     random = new Generator(logger);
     name = 'Tom';
     lastName = 'Brendibug';

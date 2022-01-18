@@ -1,7 +1,9 @@
+import { Duel } from '../src/Duel';
 import { Generator } from '../src/Generator';
 import { Hero } from '../src/Hero';
 import { Archer } from '../src/Heroes/Archer';
 import { Wizard } from '../src/Heroes/Wizard';
+import { HeroPairs } from '../src/HeroPairs';
 import { Logger } from '../src/Logger';
 
 describe('Name function:', () => {
@@ -140,18 +142,20 @@ describe('Check that after restoreHealth function', () => {
   let attacker: Archer;
   let opponent: Wizard;
   let logger: Logger;
-
+  let duel: Duel;
+  let heroPair: HeroPairs;
+  beforeAll(() => {
+    logger = new Logger();
+  });
   beforeEach(() => {
     attacker = new Archer('Archer', 'Sam', 'Jonson', 35, 80, logger);
     opponent = new Wizard('Wizard', 'Sam', 'Jonson', 30, 60, logger);
+    heroPair = new HeroPairs(attacker, opponent);
+    duel = new Duel(heroPair, logger);
   });
   it('the winner health is restore', () => {
-    opponent.getDamage(attacker.Power);
-    attacker.getDamage(opponent.Power);
-    opponent.getDamage(attacker.Power);
-    if (opponent.Health <= 0) {
-      attacker.restoreHealth();
-    }
+    duel.startDuel();
+    attacker.restoreHealth();
     expect(attacker.Health).toBe(attacker.StartHealth);
   });
 });

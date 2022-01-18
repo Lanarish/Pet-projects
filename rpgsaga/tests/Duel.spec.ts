@@ -55,19 +55,22 @@ describe('Check that if opponent health less or equal 0', () => {
   let opponent: Wizard;
   let logger: Logger;
   let winner: Hero;
-  beforeEach(() => {
-    attacker = new Archer('Archer', 'Sam', 'Jonson', 34, 80, logger);
-    opponent = new Wizard('Wizard', 'Sam', 'Jonson', 34, 33, logger);
+  let duel: Duel;
+  let heroPair: HeroPairs;
+  beforeAll(() => {
+    logger = new Logger();
   });
   it('the winner is attacker', () => {
-    opponent.getDamage(attacker.Power);
-    const newOpponentHealth = opponent.Health;
-    if (newOpponentHealth <= 0) {
-      winner = attacker;
-    }
+    attacker = new Archer('Archer', 'Tom', 'Jonson', 38, 100, logger);
+    opponent = new Wizard('Wizard', 'Sam', 'Jonson', 24, 60, logger);
+    heroPair = new HeroPairs(attacker, opponent);
+    duel = new Duel(heroPair, logger);
+
+    winner = duel.startDuel();
     expect(attacker).toBe(winner);
   });
 });
+
 describe('pass all checks and perform the attack', () => {
   let attacker: Knight;
   let opponent: Knight;
@@ -80,7 +83,7 @@ describe('pass all checks and perform the attack', () => {
   });
   beforeEach(() => {
     attacker = new Knight('Knight', 'Sam', 'Jonson', 34, 80, logger);
-    opponent = new Knight('Knight', 'Tom', 'Jonson', 24, 83, logger);
+    opponent = new Knight('Knight', 'Tom', 'Jonson', 24, 88, logger);
     heroPair = new HeroPairs(attacker, opponent);
     duel = new Duel(heroPair, logger);
     damage = 0.3;
