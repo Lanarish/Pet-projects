@@ -9,7 +9,7 @@ describe('Wizard ', () => {
   let opponent;
   let duel;
   let heroPair;
-  beforeEach(() => {
+  beforeAll(() => {
     logger = new Logger();
     attacker = new Wizard('Wizard', 'Sam', 'Buche', 40, 90, logger);
     opponent = new Wizard('Wizard', 'Tom', 'Drago', 30, 100, logger);

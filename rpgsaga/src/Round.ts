@@ -13,9 +13,16 @@ export class Round {
   }
 
   runRound(pairsArray: HeroPairs[]): Hero[] {
+    if (pairsArray === undefined) {
+      return;
+    }
     this.logger.roundNumber(this.roundNumber);
-    this.logger.infoAboutPairs(pairsArray);
-    pairsArray.forEach(pair => {
+
+    pairsArray.forEach((pair, index) => {
+      if (!pair?.firstHero || !pair?.secondHero) {
+        return;
+      }
+      this.logger.infoAboutPair(pair, index);
       const duel: Duel = new Duel(pair, this.logger);
       const winnerHero = duel.startDuel();
       this.winnersList.push(winnerHero);

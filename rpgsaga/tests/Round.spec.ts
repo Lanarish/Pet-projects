@@ -1,21 +1,35 @@
-import { Duel } from '../src/Duel';
-import { Hero } from '../src/Hero';
 import { Archer } from '../src/Heroes/Archer';
-import { Wizard } from '../src/Heroes/Wizard';
-import { HeroPairs } from '../src/HeroPairs';
 import { Logger } from '../src/Logger';
+import { Round } from '../src/Round';
 
-describe('winnerHero', () => {
+describe('Check if in runRound function', () => {
   let logger;
+  let round;
+  const i = 1;
   beforeEach(() => {
     logger = new Logger();
+    round = new Round(i, logger);
   });
-  it('is an instance of a class Hero', () => {
-    const hero1 = new Archer('Archer', 'Sam', 'Jonson', 34, 80, logger);
-    const hero2 = new Wizard('Wizard', 'Tom', 'Tailor', 35, 90, logger);
-    const heroPairs = new HeroPairs(hero1, hero2);
-    const duel = new Duel(heroPairs, logger);
-    const winnerHero = duel.startDuel();
-    expect(winnerHero).toBeInstanceOf(Hero);
+  it('comes null value instead of pairArray', () => {
+    const array = [null];
+    const res = round.runRound(array);
+
+    expect(res).toStrictEqual([]);
+  });
+
+  it('comes null value instead of firstHero and valid value of secondHero', () => {
+    const archer = new Archer('Archer', 'Sam', 'Jonson', 35, 80, logger);
+
+    const array = [{ firstHero: null, secondHero: archer }];
+    const res = round.runRound(array);
+
+    expect(res).toStrictEqual([]);
+  });
+
+  it('comes underfined', () => {
+    const array = undefined;
+    const res = round.runRound(array);
+
+    expect(res).toStrictEqual(undefined);
   });
 });

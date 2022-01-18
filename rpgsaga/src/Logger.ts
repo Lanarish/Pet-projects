@@ -5,16 +5,14 @@ export class Logger {
   startGame() {
     console.log(`Start game!`);
   }
-  infoAboutPairs(pairsArray: HeroPairs[]) {
+  infoAboutPair(pairsArray: HeroPairs, index: number) {
     console.log(`
     There are pairs of heroes:`);
-    for (let i = 0; i < pairsArray.length; i++) {
-      console.log(
-        `Pair №${[i + 1]} is ${pairsArray[i].firstHero.Type} ${pairsArray[i].firstHero.toString()}  vs ${
-          pairsArray[i].secondHero.Type
-        } ${pairsArray[i].secondHero.toString()}`,
-      );
-    }
+    console.log(
+      `Pair №${index + 1} is ${pairsArray.firstHero.Type} ${pairsArray.firstHero.toString()}  vs ${
+        pairsArray.secondHero.Type
+      } ${pairsArray.secondHero.toString()}`,
+    );
   }
   duelStart(a, b) {
     console.log(
