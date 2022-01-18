@@ -18,7 +18,7 @@ describe('Check if in runRound function', () => {
   });
 
   it('comes null value instead of firstHero and valid value of secondHero', () => {
-    const archer = new Archer('Archer', 'Sam', 'Jonson', 35, 80, logger);
+    const archer = new Archer('Archer', 'Sam', 'Jonson', 30, 80, logger);
 
     const array = [{ firstHero: null, secondHero: archer }];
     const res = round.runRound(array);
