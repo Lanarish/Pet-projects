@@ -9,8 +9,10 @@ import { Logger } from '../src/Logger';
 describe('Test random number from:', () => {
   let logger;
   let random;
-  beforeEach(() => {
+  beforeAll(() => {
     logger = new Logger();
+  });
+  beforeEach(() => {
     random = new Generator(logger);
   });
 
@@ -30,7 +32,6 @@ describe('Test random number from:', () => {
   let logger;
   let random;
   beforeEach(() => {
-    logger = new Logger();
     random = new Generator(logger);
   });
 
@@ -50,7 +51,6 @@ describe('Test random hero:', () => {
   let logger;
   let random;
   beforeEach(() => {
-    logger = new Logger();
     random = new Generator(logger);
   });
 
@@ -87,7 +87,6 @@ describe('Test random hero:', () => {
   let logger;
   let random;
   beforeEach(() => {
-    logger = new Logger();
     random = new Generator(logger);
   });
 
@@ -122,7 +121,6 @@ describe('Test initHeroType function:', () => {
   let power: number;
   let health: number;
   beforeEach(() => {
-    logger = new Logger();
     random = new Generator(logger);
     name = 'Tom';
     lastName = 'Brendibug';

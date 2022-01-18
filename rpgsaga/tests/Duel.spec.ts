@@ -12,8 +12,10 @@ describe('attackChecker function:', () => {
   let secondHero;
   let heroPair;
   let duel;
-  beforeEach(() => {
+  beforeAll(() => {
     logger = new Logger();
+  });
+  beforeEach(() => {
     firstHero = new Archer('Archer', 'Sam', 'Jonson', 34, 80, logger);
     secondHero = new Wizard('Wizard', 'Sam', 'Jonson', 34, 80, logger);
     heroPair = new HeroPairs(firstHero, secondHero);
@@ -73,16 +75,17 @@ describe('pass all checks and perform the attack', () => {
   let heroPair: HeroPairs;
   let duel: Duel;
   let damage: number;
-
+  beforeAll(() => {
+    logger = new Logger();
+  });
   beforeEach(() => {
     attacker = new Knight('Knight', 'Sam', 'Jonson', 34, 80, logger);
     opponent = new Knight('Knight', 'Tom', 'Jonson', 24, 83, logger);
     heroPair = new HeroPairs(attacker, opponent);
-    logger = new Logger();
     duel = new Duel(heroPair, logger);
     damage = 0.3;
   });
-  it('should be successful', () => {
+  it('should be successful comlpleted', () => {
     duel.attackChecker(attacker, opponent);
     if (attacker.superPower.SuperPowerJustNow === false) {
       expect(opponent.Health).toBe(opponent.StartHealth - attacker.Power);
