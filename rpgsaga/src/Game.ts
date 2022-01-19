@@ -2,13 +2,13 @@ import prompts = require('prompts');
 
 import { Hero } from './Hero';
 import { Generator } from './Generator';
-import { HeroPairs } from './HeroPairs';
 import { Round } from './Round';
 import { Logger } from './Logger';
+import { Pair } from './Pair';
 
 export class Game {
   private heroList: Hero[];
-  private pairsArray: HeroPairs[];
+  private pairsArray: Pair<Hero>[];
   private random: Generator;
   private logger: Logger;
   private totalAmountOfHeroes: number;

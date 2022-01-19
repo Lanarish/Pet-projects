@@ -1,5 +1,5 @@
 import { Hero } from './Hero';
-import { HeroPairs } from './HeroPairs';
+import { Pair } from './Pair';
 
 export class Logger {
   error(errorText: string) {
@@ -8,13 +8,13 @@ export class Logger {
   startGame() {
     console.log(`Start game!`);
   }
-  infoAboutPair(pairsArray: HeroPairs, index: number) {
+  infoAboutPair(pairsArray: Pair<Hero>, index: number) {
     console.log(`
     There are pairs of heroes:`);
     console.log(
-      `Pair №${index + 1} is ${pairsArray.firstHero.Type} ${pairsArray.firstHero.toString()}  vs ${
-        pairsArray.secondHero.Type
-      } ${pairsArray.secondHero.toString()}`,
+      `Pair №${index + 1} is ${pairsArray.first.Type} ${pairsArray.first.toString()}  vs ${
+        pairsArray.second.Type
+      } ${pairsArray.second.toString()}`,
     );
   }
   duelStart(a, b) {

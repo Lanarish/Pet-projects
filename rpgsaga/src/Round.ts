@@ -1,10 +1,10 @@
 import { Duel } from './Duel';
 import { Hero } from './Hero';
-import { HeroPairs } from './HeroPairs';
 import { Logger } from './Logger';
+import { Pair } from './Pair';
 
 export class Round {
-  private winnersList: Hero[] = [];
+  private winnersList: Array<Hero> = [];
   private logger: Logger;
   private roundNumber: number;
   constructor(roundNumber: number, logger: Logger) {
@@ -12,14 +12,14 @@ export class Round {
     this.roundNumber = roundNumber;
   }
 
-  runRound(pairsArray: HeroPairs[]): Hero[] {
+  runRound(pairsArray: Pair<Hero>[]): Hero[] {
     if (!pairsArray) {
       return;
     }
     this.logger.roundNumber(this.roundNumber);
 
     pairsArray.forEach((pair, index) => {
-      if (!pair?.firstHero || !pair?.secondHero) {
+      if (!pair?.first || !pair?.second) {
         return;
       }
       this.logger.infoAboutPair(pair, index);
