@@ -1,4 +1,4 @@
-import prompts = require('prompts');
+// import prompts = require('prompts');
 
 import { Hero } from './Hero';
 import { Generator } from './Generator';
@@ -11,7 +11,7 @@ export class Game {
   private pairsArray: Pair<Hero>[];
   private random: Generator;
   private logger: Logger;
-  private totalAmountOfHeroes: number;
+  private totalAmountOfHeroes = 8;
 
   constructor() {
     this.logger = new Logger();
@@ -21,7 +21,7 @@ export class Game {
   }
 
   async run() {
-    await this.prompt();
+    // await this.prompt();
     let i = 0;
     this.logger.startGame();
     this.initHero();
@@ -33,46 +33,46 @@ export class Game {
     this.gameEnd();
   }
 
-  async prompt() {
-    const question = [
-      {
-        type: 'text',
-        name: 'value',
-        message: 'Please, enter a number of players in power 2',
-      },
-    ];
-    while (!this.totalAmountOfHeroes) {
-      try {
-        const response = await prompts(question);
+  //   async prompt() {
+  //     const question = [
+  //       {
+  //         type: 'text',
+  //         name: 'value',
+  //         message: 'Please, enter a number of players in power 2',
+  //       },
+  //     ];
+  //     while (!this.totalAmountOfHeroes) {
+  //       try {
+  //         const response = await prompts(question);
 
-        if (Number(response.value) < 2) {
-          throw new Error('ErrorLess0');
-        }
-        if (!/^\d+$/.test(response.value)) {
-          throw new Error('ErrorString');
-        }
-        if ((response.value & (response.value - 1)) !== 0) {
-          throw new Error('ErrorInvalidNumber');
-        }
-        this.totalAmountOfHeroes = Number(response.value);
-      } catch (error) {
-        switch (error.message) {
-          case 'ErrorInvalidNumber':
-            this.logger.error('Please, just numbers in power 2(e.g. 4, 8, 16, 32...)');
-            break;
-          case 'ErrorLess0':
-            this.logger.error('The number should be more than 2');
-            break;
-          case 'ErrorString':
-            this.logger.error('Please use just numbers!');
-            break;
-          default:
-            this.logger.error(error.message || error);
-            break;
-        }
-      }
-    }
-  }
+  //         if (Number(response.value) < 2) {
+  //           throw new Error('ErrorLess0');
+  //         }
+  //         if (!/^\d+$/.test(response.value)) {
+  //           throw new Error('ErrorString');
+  //         }
+  //         if ((response.value & (response.value - 1)) !== 0) {
+  //           throw new Error('ErrorInvalidNumber');
+  //         }
+  //         this.totalAmountOfHeroes = Number(response.value);
+  //       } catch (error) {
+  //         switch (error.message) {
+  //           case 'ErrorInvalidNumber':
+  //             this.logger.error('Please, just numbers in power 2(e.g. 4, 8, 16, 32...)');
+  //             break;
+  //           case 'ErrorLess0':
+  //             this.logger.error('The number should be more than 2');
+  //             break;
+  //           case 'ErrorString':
+  //             this.logger.error('Please use just numbers!');
+  //             break;
+  //           default:
+  //             this.logger.error(error.message || error);
+  //             break;
+  //         }
+  //       }
+  //     }
+  //   }
   initHero() {
     this.heroList = this.random.initHero(this.totalAmountOfHeroes);
   }

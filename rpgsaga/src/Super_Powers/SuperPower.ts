@@ -22,6 +22,17 @@ export abstract class SuperPower {
   public get SuperPowerInRoundStatus(): boolean {
     return this.superPowerUsedInRound;
   }
+  tryUseBoost(attacker: Hero, opponent: Hero) {
+    if (!attacker.superPower.SuperPowerInRoundStatus) {
+      const chance: number = Math.floor(Math.random() * 3);
+      if (chance === 3 || chance === 2) {
+        attacker.superPower.useSuperPower(attacker, opponent);
+      }
+    }
+    return false;
+  }
 
-  abstract useSuperPower(attacker: Hero, opponent: Hero);
+  abstract useSuperPower(attacker: Hero, opponent: Hero): void;
+  abstract checkBoost(whoUsedBoost: Hero, opponent: Hero): boolean;
+  abstract useSuperPowerEffect(whoUsedBoost: Hero, opponent: Hero): void;
 }
