@@ -13,7 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "inquirer": "^8.2.0",
-    "ts-jest": "^27.1.2"
+    "ts-jest": "^27.1.2",
+    "prompts":  "^2.4.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",

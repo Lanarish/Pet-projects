@@ -5,9 +5,10 @@ import { Knight } from './Heroes/Knight';
 import { Wizard } from './Heroes/Wizard';
 import { Logger } from './Logger';
 import { HeroTypes } from './HeroTypes';
+import { Farmer } from './Heroes/Farmer';
 
 export class Generator {
-  private arrayOfHeroes: string[] = [HeroTypes.Archer, HeroTypes.Wizard, HeroTypes.Knight];
+  private arrayOfHeroes: string[] = [HeroTypes.Archer, HeroTypes.Knight, HeroTypes.Wizard, HeroTypes.Farmer];
   private arrayOfNames: string[] = [
     'Vesemir',
     'Geralt',
@@ -55,12 +56,6 @@ export class Generator {
       const health: number = this.initRandomHeroHealth();
       const newHero = this.initHeroType(type, name, lastName, power, health);
 
-      newHero.Type = type;
-      newHero.FirstName = name;
-      newHero.LastName = lastName;
-      newHero.Power = power;
-      newHero.Health = health;
-
       heroList.push(newHero);
     }
     return heroList;
@@ -77,8 +72,10 @@ export class Generator {
       case HeroTypes.Knight:
         completeHero = new Knight(type, name, lastName, power, health, this.logger);
         break;
+      case HeroTypes.Farmer:
+        completeHero = new Farmer(type, name, lastName, power, health);
+        break;
     }
-
     return completeHero;
   }
   initRandomHeroType(): string {

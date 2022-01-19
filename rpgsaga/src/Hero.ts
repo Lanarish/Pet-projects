@@ -52,10 +52,16 @@ export class Hero {
   }
 
   getDamage(power: number) {
+    if (!power) {
+      throw new Error('powerError');
+    }
     this.Health -= power;
   }
   restoreHealth() {
     this.Health = this.StartHealth;
+    if (!this.superPower) {
+      return;
+    }
     this.superPower.SuperPowerInRoundStatus = false;
     this.superPower.SuperPowerJustNow = false;
   }

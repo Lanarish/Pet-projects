@@ -2,6 +2,9 @@ import { Hero } from './Hero';
 import { HeroPairs } from './HeroPairs';
 
 export class Logger {
+  error(errorText: string) {
+    console.error(`ERROR!  ${errorText}`);
+  }
   startGame() {
     console.log(`Start game!`);
   }
@@ -25,6 +28,7 @@ export class Logger {
   firstTurn(fighter) {
     console.log(`${fighter.name} ${fighter.lastName} attacks first.`);
   }
+
   gameProcess(a: Hero, b: Hero) {
     console.log(
       `${a.toString()} struck a blow in ${a.Power} points => ${b.toString()}'s remaining health is ${b.Health} points.`,

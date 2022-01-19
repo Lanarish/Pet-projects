@@ -26,13 +26,29 @@ export class Duel {
     this.logger.firstTurn(this.firstFighter);
     let winner: Hero;
     while (this.firstFighter.Health && this.secondFighter.Health) {
-      this.attackChecker(this.firstFighter, this.secondFighter);
+      try {
+        this.attackChecker(this.firstFighter, this.secondFighter);
+      } catch (error) {
+        this.logger.error(
+          `${this.firstFighter.Type} ${this.firstFighter.toString()} can't attack. He quit from the game`,
+        );
+        this.logger.showWinner(this.secondFighter);
+        return this.secondFighter;
+      }
       if (this.secondFighter.Health <= 0) {
         winner = this.firstFighter;
         break;
       }
+      try {
+        this.attackChecker(this.secondFighter, this.firstFighter);
+      } catch (error) {
+        this.logger.error(
+          `${this.secondFighter.Type}  ${this.secondFighter.toString()} can't attack. He quit from the game`,
+        );
+        this.logger.showWinner(this.firstFighter);
+        return this.firstFighter;
+      }
 
-      this.attackChecker(this.secondFighter, this.firstFighter);
       if (this.firstFighter.Health <= 0) {
         winner = this.secondFighter;
         break;
@@ -41,17 +57,19 @@ export class Duel {
     this.logger.showWinner(winner);
     return winner;
   }
+
   whoIsFirst(): boolean {
     return Boolean(Math.floor(Math.random() * 2));
   }
+
   attackChecker(attacker: Hero, opponent: Hero) {
     if (opponent instanceof Wizard && opponent.superPower.SuperPowerJustNow) {
       this.logger.missTurn(attacker);
       opponent.superPower.SuperPowerJustNow = false;
-    } else {
-      this.attackPreparation(attacker, opponent);
     }
+    this.attackPreparation(attacker, opponent);
   }
+
   attackPreparation(attacker: Hero, opponent: Hero) {
     if (!attacker.superPower.SuperPowerInRoundStatus) {
       const chance: number = Math.floor(Math.random() * 3);
