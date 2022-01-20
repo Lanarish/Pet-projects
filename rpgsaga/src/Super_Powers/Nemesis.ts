@@ -15,10 +15,8 @@ export class Nemesis extends SuperPower {
 
     this.logger.useNemesis(whoUsedBoost, opponent);
   }
-  checkBoost() {
-    return false;
-  }
-  useSuperPowerEffect() {
+
+  useSuperPowerEffect(whoUsedBoost: Hero, opponent: Hero) {
     return false;
   }
 }

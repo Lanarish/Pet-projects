@@ -8,18 +8,12 @@ export class Attack {
   }
   checkAttack(attacker: Hero, opponent: Hero) {
     if (!opponent.superPower) {
-      return;
+      throw new Error('noSuperPower');
     }
     attacker.superPower.useSuperPowerEffect(attacker, opponent);
-    if (opponent.superPower.checkBoost(attacker, opponent)) {
-      return;
-    } else {
-      if (attacker.superPower.tryUseBoost(attacker, opponent)) {
-        return;
-      } else {
-        opponent.getDamage(attacker.Power);
-        this.logger.gameProcess(attacker, opponent);
-      }
+    if (!opponent.superPower.checkBoost(attacker) && !attacker.superPower.tryUseBoost(attacker, opponent)) {
+      opponent.getDamage(attacker.Power);
+      this.logger.gameProcess(attacker, opponent);
     }
   }
 }

@@ -18,9 +18,6 @@ export class FireArrows extends SuperPower {
       this.logger.usedFireArrowsEffect(opponent);
     }
   }
-  checkBoost(): boolean {
-    return false;
-  }
 
   tryUseBoost(attacker: Hero, opponent: Hero): boolean {
     if (!attacker.superPower.SuperPowerInRoundStatus) {
