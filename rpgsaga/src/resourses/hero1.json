@@ -1,0 +1,26 @@
+[
+  {
+    "type": "Knight",
+    "firstName": "Tom",
+    "lastName": "Took",
+    "power": 23,
+    "health": 90,
+    "startHealth": 90,
+    "superPower": {
+      "SuperPowerInRoundStatus": false,
+      "SuperPowerJustNow": false
+    }
+  },
+  {
+    "type": "Wizard",
+    "firstName": "Tim",
+    "lastName": "Green",
+    "power": 25,
+    "health": 80,
+    "startHealth": 80,
+    "superPower": {
+      "SuperPowerInRoundStatus": false,
+      "SuperPowerJustNow": false
+    }
+  }
+]

@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 import prompts = require('prompts');
 
 import { Hero } from './Hero';
@@ -5,6 +7,9 @@ import { Generator } from './Generator';
 import { Round } from './Round';
 import { Logger } from './Logger';
 import { Pair } from './Pair';
+import { ReadFromFile } from './ReadFromFile';
+
+// import { Knight } from './Heroes/Knight';
 
 export class Game {
   private heroList: Hero[];
@@ -12,6 +17,7 @@ export class Game {
   private random: Generator;
   private logger: Logger;
   private totalAmountOfHeroes: number;
+  private isGenerate: boolean;
 
   constructor() {
     this.logger = new Logger();
@@ -21,16 +27,36 @@ export class Game {
   }
 
   async run() {
-    await this.prompt();
+    await this.promptChoose();
+    if (this.isGenerate) {
+      await this.prompt();
+    }
     let i = 0;
     this.logger.startGame();
-    this.initHero();
+    this.initHero(this.isGenerate);
     while (this.heroList.length > 1) {
       this.populate();
       this.makeRound(i);
       i++;
     }
     this.gameEnd();
+  }
+  async promptChoose() {
+    const question = [
+      {
+        type: 'select',
+        name: 'value',
+        message: 'Please,choose game play',
+        choices: [
+          { title: 'Read from file', value: false },
+          { title: 'Random generate', value: true },
+        ],
+        initial: 1,
+      },
+    ];
+    const response = await prompts(question);
+    console.log(response);
+    this.isGenerate = response.value;
   }
 
   async prompt() {
@@ -73,9 +99,53 @@ export class Game {
       }
     }
   }
-  initHero() {
-    this.heroList = this.random.initHero(this.totalAmountOfHeroes);
+  initHero(isGenerate: boolean) {
+    if (isGenerate) {
+      console.log('Im here');
+      this.heroList = this.random.initHero(this.totalAmountOfHeroes);
+      console.log(' NOW HERE');
+      const list = JSON.stringify(this.heroList);
+      fs.writeFile('heroList.json', list, err => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('File written successfully\n');
+          console.log('The written has the following contents:');
+          console.log(fs.readFileSync('heroList.json', 'utf8'));
+        }
+      });
+    } else {
+      const readFromFile = new ReadFromFile();
+      this.heroList = readFromFile.makeList();
+    }
+
+    //   const readFromFile = new ReadFromFile();
+    //   this.heroList = readFromFile.makeList();
+    // let hero: Knight;
+    // const hero1 = JSON.parse('./src/resourses/hero1/');
+    // const dataArray = JSON.parse(fs.readFileSync('./src/resourses/', 'utf-8'));
+    // console.log(hero1);
+    //   const arr = [];
+    //   arr.push(hero1);
+    //   arr.push(hero2);
+    //   console.log(arr);
+    //   for (let elem of arr) {
+    //     const { type, name, lastName, power, health } = elem;
+    //     switch (type) {
+    //       case 'Knight':
+    //         elem = new Knight(type, name, lastName, power, health, this.logger);
+    //         break;
+    //       case 'Wizard':
+    //         elem = new Wizard(type, name, lastName, power, health, this.logger);
+    //         break;
+    //     }
+    //     this.heroList = arr;
+    //   }
   }
+
+  //   initHero() {
+  //     this.heroList = this.random.initHero(this.totalAmountOfHeroes);
+  //   }
   private populate() {
     this.pairsArray = this.random.makePairs(this.heroList);
   }
