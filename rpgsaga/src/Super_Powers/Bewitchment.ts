@@ -13,12 +13,12 @@ export class Bewitchment extends SuperPower {
     this.logger.useBewitchment(attacker);
   }
   checkBoost(attacker: Hero) {
-    if (attacker.missTurn) {
+    if (!attacker.missTurn) {
+      return false;
+    } else {
       this.logger.missTurn(attacker);
       attacker.missTurn = false;
       return true;
-    } else {
-      return false;
     }
   }
   tryUseBoost(attacker: Hero, opponent: Hero): boolean {
