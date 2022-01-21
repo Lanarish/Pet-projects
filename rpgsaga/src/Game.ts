@@ -55,6 +55,7 @@ export class Game {
           throw new Error('ErrorInvalidNumber');
         }
         this.totalAmountOfHeroes = Number(response.value);
+        this.logger.numberOfHeroes(this.totalAmountOfHeroes);
       } catch (error) {
         switch (error.message) {
           case 'ErrorInvalidNumber':
@@ -81,8 +82,8 @@ export class Game {
   }
   private makeRound(i: number) {
     const round: Round = new Round(i, this.logger);
-
     this.heroList = round.runRound(this.pairsArray);
+    this.logger.roundEnd();
     this.heroList.forEach((hero: Hero) => {
       hero.restoreHealth();
     });

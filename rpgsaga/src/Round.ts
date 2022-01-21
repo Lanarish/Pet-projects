@@ -17,7 +17,7 @@ export class Round {
       return;
     }
     this.logger.roundNumber(this.roundNumber);
-
+    this.logger.roundStart();
     pairsArray.forEach((pair, index) => {
       if (!pair?.first || !pair?.second) {
         return;

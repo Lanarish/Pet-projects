@@ -1,24 +1,37 @@
+import { createLogger, transports } from 'winston';
+
 import { Hero } from './Hero';
 import { Pair } from './Pair';
 
+const logger = createLogger({
+  transports: [
+    new transports.File({
+      filename: 'logger.log',
+      options: { flags: 'w' },
+    }),
+  ],
+});
 export class Logger {
   error(errorText: string) {
-    console.error(`ERROR!  ${errorText}`);
+    logger.error(`ERROR!  ${errorText}`);
   }
   startGame() {
-    console.log(`Start game!`);
+    logger.info(`Start game!`);
+  }
+  numberOfHeroes(number: number) {
+    logger.info(`The number of heroes for game is ${number}`);
   }
   infoAboutPair(pairsArray: Pair<Hero>, index: number) {
-    console.log(`
+    logger.info(`
     There are pairs of heroes:`);
-    console.log(
+    logger.info(
       `Pair №${index + 1} is ${pairsArray.first.Type} ${pairsArray.first.toString()}  vs ${
         pairsArray.second.Type
       } ${pairsArray.second.toString()}`,
     );
   }
   duelStart(a, b) {
-    console.log(
+    logger.info(
       `     
       | The duel between ${a.type} ${a.name} ${a.lastName} and ${b.type} ${b.name} ${b.lastName} has started! |
                                                                                                    
@@ -26,43 +39,49 @@ export class Logger {
     );
   }
   firstTurn(fighter) {
-    console.log(`${fighter.name} ${fighter.lastName} attacks first.`);
+    logger.info(`${fighter.name} ${fighter.lastName} attacks first.`);
   }
 
   gameProcess(a: Hero, b: Hero) {
-    console.log(
+    logger.info(
       `${a.toString()} struck a blow in ${a.Power} points => ${b.toString()}'s remaining health is ${b.Health} points.`,
     );
   }
 
   showWinner(a: Hero) {
-    console.log(` -------------------------------
+    logger.info(` -------------------------------
     ${a.toString()} has won!
                                                          `);
   }
 
   showWinnerList(winnerList) {
-    console.log(`THE WINNER OF THE GAME IS ${winnerList[0].toString()}! CONGRADULATIONS!!!`);
+    logger.info(`THE WINNER OF THE GAME IS ${winnerList[0].toString()}! CONGRATULATIONS!!!`);
   }
 
   roundNumber(number: number) {
-    console.log(`ROUND #${[number + 1]}`);
+    logger.info(`ROUND #${[number + 1]}`);
+  }
+  roundStart() {
+    logger.info(`ROUND START!`);
   }
 
+  roundEnd() {
+    logger.info(`ROUND END!`);
+  }
   useBewitchment(fighter: Hero) {
-    console.log(`* ${fighter.toString()} use Bewitchment! *`);
+    logger.info(`* ${fighter.toString()} use Bewitchment! *`);
   }
   missTurn(fighter: Hero) {
-    console.log(`* ${fighter.toString()} miss turn *`);
+    logger.info(`* ${fighter.toString()} miss turn *`);
   }
   useFireArrows(fighter: Hero) {
-    console.log(`* ${fighter.toString()} use FireArrows! *`);
+    logger.info(`* ${fighter.toString()} use FireArrows! *`);
   }
   useNemesis(fighter: Hero, opponent: Hero) {
-    console.log(`* ${fighter.toString()} use Nemesis! ${opponent.toString()} remaining health is ${opponent.Health} *`);
+    logger.info(`* ${fighter.toString()} use Nemesis! ${opponent.toString()} remaining health is ${opponent.Health} *`);
   }
   usedFireArrowsEffect(fighter: Hero) {
-    console.log(
+    logger.info(
       `* ${fighter.toString()} lost his health becouse of FireArrows! His health is ${fighter.Health} now. *`,
     );
   }
