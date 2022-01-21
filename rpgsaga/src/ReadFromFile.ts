@@ -1,17 +1,18 @@
+import { Archer } from './Heroes/Archer';
+import { Farmer } from './Heroes/Farmer';
 import { Knight } from './Heroes/Knight';
 import { Wizard } from './Heroes/Wizard';
 import { Logger } from './Logger';
-import hero1 from './resourses/hero1.json';
-// import hero2 from './resourses/hero2.json';
+import readyHeroList from './resourses/readyHeroList.json';
 
 export class ReadFromFile {
-  logger = new Logger();
+  private logger: Logger;
+  constructor(logger: Logger) {
+    this.logger = logger;
+  }
+
   makeList() {
-    // const arr = [];
-    // arr.push(hero1);
-    // arr.push(hero2);
-    // console.log(arr);
-    const arr2 = hero1.map(elem => {
+    const arrayOfHeroes = readyHeroList.map(elem => {
       const { type, firstName, lastName, power, health } = elem;
       switch (type) {
         case 'Knight':
@@ -20,9 +21,14 @@ export class ReadFromFile {
         case 'Wizard':
           return new Wizard(type, firstName, lastName, power, health, this.logger);
           break;
+        case 'Archer':
+          return new Archer(type, firstName, lastName, power, health, this.logger);
+          break;
+        case 'Farmer':
+          return new Farmer(type, firstName, lastName, power, health);
+          break;
       }
     });
-    console.log(arr2);
-    return arr2;
+    return arrayOfHeroes;
   }
 }

@@ -1,1 +1,56 @@
-[{"type":"Wizard","name":"Meriadoc","lastName":"Brandybuck","power":18,"health":100,"startHealth":100,"superPower":{"superPowerUsedInRound":false,"superPowerJustUsed":false,"logger":{}}},{"type":"Wizard","name":"Frodo","lastName":"Prier","power":23,"health":81,"startHealth":81,"superPower":{"superPowerUsedInRound":false,"superPowerJustUsed":false,"logger":{}}},{"type":"Archer","name":"Aragorn","lastName":"Bushe","power":29,"health":91,"startHealth":91,"superPower":{"superPowerUsedInRound":false,"superPowerJustUsed":false,"logger":{}}},{"type":"Archer","name":"Sam","lastName":"Jackson","power":27,"health":90,"startHealth":90,"superPower":{"superPowerUsedInRound":false,"superPowerJustUsed":false,"logger":{}}}]
+{
+  "heroList": [
+    {
+      "type": "Wizard",
+      "name": "Frodo",
+      "lastName": "Brandybuck",
+      "power": 17,
+      "health": 77,
+      "startHealth": 77,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {}
+      }
+    },
+    {
+      "type": "Wizard",
+      "name": "Boromir",
+      "lastName": "Took",
+      "power": 29,
+      "health": 87,
+      "startHealth": 87,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {}
+      }
+    },
+    {
+      "type": "Archer",
+      "name": "Boromir",
+      "lastName": "Gramm",
+      "power": 17,
+      "health": 70,
+      "startHealth": 70,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {}
+      }
+    },
+    {
+      "type": "Wizard",
+      "name": "Boromir",
+      "lastName": "Prier",
+      "power": 16,
+      "health": 96,
+      "startHealth": 96,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {}
+      }
+    }
+  ]
+}

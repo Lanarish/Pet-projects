@@ -9,8 +9,6 @@ import { Logger } from './Logger';
 import { Pair } from './Pair';
 import { ReadFromFile } from './ReadFromFile';
 
-// import { Knight } from './Heroes/Knight';
-
 export class Game {
   private heroList: Hero[];
   private pairsArray: Pair<Hero>[];
@@ -55,7 +53,6 @@ export class Game {
       },
     ];
     const response = await prompts(question);
-    console.log(response);
     this.isGenerate = response.value;
   }
 
@@ -101,10 +98,8 @@ export class Game {
   }
   initHero(isGenerate: boolean) {
     if (isGenerate) {
-      console.log('Im here');
       this.heroList = this.random.initHero(this.totalAmountOfHeroes);
-      console.log(' NOW HERE');
-      const list = JSON.stringify(this.heroList);
+      const list = JSON.stringify({ heroList: this.heroList }, null, 2);
       fs.writeFile('heroList.json', list, err => {
         if (err) {
           console.log(err);
@@ -115,37 +110,11 @@ export class Game {
         }
       });
     } else {
-      const readFromFile = new ReadFromFile();
+      const readFromFile = new ReadFromFile(this.logger);
       this.heroList = readFromFile.makeList();
     }
-
-    //   const readFromFile = new ReadFromFile();
-    //   this.heroList = readFromFile.makeList();
-    // let hero: Knight;
-    // const hero1 = JSON.parse('./src/resourses/hero1/');
-    // const dataArray = JSON.parse(fs.readFileSync('./src/resourses/', 'utf-8'));
-    // console.log(hero1);
-    //   const arr = [];
-    //   arr.push(hero1);
-    //   arr.push(hero2);
-    //   console.log(arr);
-    //   for (let elem of arr) {
-    //     const { type, name, lastName, power, health } = elem;
-    //     switch (type) {
-    //       case 'Knight':
-    //         elem = new Knight(type, name, lastName, power, health, this.logger);
-    //         break;
-    //       case 'Wizard':
-    //         elem = new Wizard(type, name, lastName, power, health, this.logger);
-    //         break;
-    //     }
-    //     this.heroList = arr;
-    //   }
   }
 
-  //   initHero() {
-  //     this.heroList = this.random.initHero(this.totalAmountOfHeroes);
-  //   }
   private populate() {
     this.pairsArray = this.random.makePairs(this.heroList);
   }
