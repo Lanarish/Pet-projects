@@ -10,7 +10,7 @@ export class Logger {
   }
   infoAboutPair(pairsArray: Pair<Hero>, index: number) {
     console.log(`
-    There are pair of heroes:`);
+    There is pair of heroes:`);
     console.log(
       `Pair №${index + 1} is ${pairsArray.first.Type} ${pairsArray.first.toString()}  vs ${
         pairsArray.second.Type

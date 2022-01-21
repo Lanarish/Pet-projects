@@ -10,6 +10,9 @@ export class Attack {
     if (!opponent.superPower) {
       throw new Error('noSuperPower');
     }
+    if (!attacker.superPower) {
+      throw new Error('noSuperPower2');
+    }
     attacker.superPower.useSuperPowerEffect(attacker, opponent);
     if (!opponent.superPower.checkBoost(attacker) && !attacker.superPower.tryUseBoost(attacker, opponent)) {
       opponent.getDamage(attacker.Power);

@@ -28,24 +28,26 @@ export class Duel {
       try {
         attack.checkAttack(this.firstFighter, this.secondFighter);
       } catch (error) {
-        this.logger.error(
-          `${this.firstFighter.Type} ${this.firstFighter.toString()} can't attack. He quit from the game`,
-        );
-        this.logger.showWinner(this.secondFighter);
-        return this.secondFighter;
+        if (error.message === 'noSuperPower') {
+          this.logger.error(
+            `${this.secondFighter.Type} ${this.secondFighter.toString()} is Farmer. He quit from the game`,
+          );
+          this.logger.showWinner(this.firstFighter);
+          return this.firstFighter;
+        } else {
+          this.logger.error(
+            `${this.firstFighter.Type} ${this.firstFighter.toString()} can't attack. He quit from the game`,
+          );
+          this.logger.showWinner(this.secondFighter);
+          return this.secondFighter;
+        }
       }
       if (this.secondFighter.Health <= 0) {
         winner = this.firstFighter;
         break;
       }
 
-      try {
-        attack.checkAttack(this.secondFighter, this.firstFighter);
-      } catch (error) {
-        this.logger.error(` ${this.secondFighter.toString()} is just Farmer. He quit from the game`);
-        this.logger.showWinner(this.firstFighter);
-        return this.firstFighter;
-      }
+      attack.checkAttack(this.secondFighter, this.firstFighter);
       if (this.firstFighter.Health <= 0) {
         winner = this.secondFighter;
         break;
