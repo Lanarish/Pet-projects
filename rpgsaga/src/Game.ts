@@ -1,5 +1,3 @@
-import fs from 'fs';
-
 import prompts = require('prompts');
 
 import { Hero } from './Hero';
@@ -7,7 +5,7 @@ import { Generator } from './Generator';
 import { Round } from './Round';
 import { Logger } from './Logger';
 import { Pair } from './Pair';
-import { ReadFromFile } from './ReadFromFile';
+import { WorkWithFile } from './WorkWithFile';
 
 export class Game {
   private heroList: Hero[];
@@ -15,7 +13,6 @@ export class Game {
   private random: Generator;
   private logger: Logger;
   private totalAmountOfHeroes: number;
-  private isGenerate: boolean;
 
   constructor() {
     this.logger = new Logger();
@@ -25,13 +22,13 @@ export class Game {
   }
 
   async run() {
-    await this.promptChoose();
-    if (this.isGenerate) {
+    const isGenerate = await this.promptChoose();
+    if (isGenerate) {
       await this.prompt();
     }
     let i = 0;
     this.logger.startGame();
-    this.initHero(this.isGenerate);
+    this.initHero(isGenerate);
     while (this.heroList.length > 1) {
       this.populate();
       this.makeRound(i);
@@ -53,7 +50,7 @@ export class Game {
       },
     ];
     const response = await prompts(question);
-    this.isGenerate = response.value;
+    return response.value;
   }
 
   async prompt() {
@@ -97,22 +94,12 @@ export class Game {
     }
   }
   initHero(isGenerate: boolean) {
-    if (isGenerate) {
-      this.heroList = this.random.initHero(this.totalAmountOfHeroes);
-      const list = JSON.stringify({ heroList: this.heroList }, null, 2);
-      fs.writeFile('heroList.json', list, err => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log('File written successfully\n');
-          console.log('The written has the following contents:');
-          console.log(fs.readFileSync('heroList.json', 'utf8'));
-        }
-      });
-    } else {
-      const readFromFile = new ReadFromFile(this.logger);
-      this.heroList = readFromFile.makeList();
+    if (!isGenerate) {
+      this.heroList = WorkWithFile.readFromFile('./resourses/readyHeroList.json', this.logger);
+      return;
     }
+    this.heroList = this.random.initHero(this.totalAmountOfHeroes);
+    WorkWithFile.outputFile('./resourses/heroList.json', this.heroList, this.logger);
   }
 
   private populate() {

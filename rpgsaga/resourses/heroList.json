@@ -1,0 +1,51 @@
+{
+  "heroList": [
+    {
+      "type": "Knight",
+      "name": "Legolas",
+      "lastName": "Took",
+      "power": 18,
+      "health": 81,
+      "startHealth": 81,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {}
+      }
+    },
+    {
+      "type": "Farmer",
+      "name": "Gimli",
+      "lastName": "Oakenshield",
+      "power": 0,
+      "health": 97,
+      "startHealth": 97
+    },
+    {
+      "type": "Archer",
+      "name": "Faramir",
+      "lastName": "Merigold",
+      "power": 20,
+      "health": 71,
+      "startHealth": 71,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {}
+      }
+    },
+    {
+      "type": "Wizard",
+      "name": "Sam",
+      "lastName": "Prier",
+      "power": 23,
+      "health": 95,
+      "startHealth": 95,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {}
+      }
+    }
+  ]
+}
