@@ -25,7 +25,7 @@ export class Game {
     const isGenerate = await this.promptChoose();
     let i = 0;
     await this.initHero(isGenerate);
-    this.logger.startGame();
+    this.logger.info(`Start game!`);
     while (this.heroList.length > 1) {
       this.populate();
       this.makeRound(i);
@@ -83,6 +83,7 @@ export class Game {
           throw new Error('ErrorInvalidNumber');
         }
         this.totalAmountOfHeroes = Number(response.value);
+        this.logger.info(`The number of heroes for game is ${this.totalAmountOfHeroes}`);
       } catch (error) {
         switch (error.message) {
           case 'ErrorInvalidNumber':
@@ -117,14 +118,16 @@ export class Game {
   }
   private makeRound(i: number) {
     const round: Round = new Round(i, this.logger);
-
     this.heroList = round.runRound(this.pairsArray);
+    this.logger.info(`ROUND END!`);
     this.heroList.forEach((hero: Hero) => {
       hero.restoreHealth();
     });
   }
 
   private gameEnd() {
-    this.logger.showWinnerList(this.heroList);
+    console.log(` -------------------------------
+     Game successfully over!`);
+    this.logger.info(`THE WINNER OF THE GAME IS ${this.heroList[0].toString()}! CONGRATULATIONS!!!`);
   }
 }

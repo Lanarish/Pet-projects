@@ -20,8 +20,10 @@ export class Duel {
     }
   }
   startDuel(): Hero {
-    this.logger.duelStart(this.firstFighter, this.secondFighter);
-    this.logger.firstTurn(this.firstFighter);
+    this.logger.info(`     
+    | The duel between ${this.firstFighter.Type} ${this.firstFighter.FirstName} ${this.firstFighter.LastName} and ${this.secondFighter.Type} ${this.secondFighter.FirstName} ${this.secondFighter.LastName} has started! |                                                                                            
+    `);
+    this.logger.info(`${this.firstFighter.FirstName} ${this.firstFighter.LastName} attacks first.`);
     let winner: Hero;
     const attack: Attack = new Attack(this.logger);
     while (this.firstFighter.Health && this.secondFighter.Health) {
@@ -32,13 +34,17 @@ export class Duel {
           this.logger.error(
             `${this.secondFighter.Type} ${this.secondFighter.toString()} is Farmer. He quit from the game`,
           );
-          this.logger.showWinner(this.firstFighter);
+          this.logger.info(` -------------------------------
+          ${this.firstFighter.toString()} has won!
+                                                               `);
           return this.firstFighter;
         } else {
           this.logger.error(
             `${this.firstFighter.Type} ${this.firstFighter.toString()} can't attack. He quit from the game`,
           );
-          this.logger.showWinner(this.secondFighter);
+          this.logger.info(` -------------------------------
+          ${this.secondFighter.toString()} has won!
+                                                               `);
           return this.secondFighter;
         }
       }
@@ -53,7 +59,9 @@ export class Duel {
         break;
       }
     }
-    this.logger.showWinner(winner);
+    this.logger.info(` -------------------------------
+    ${winner.toString()} has won!
+                                                         `);
     return winner;
   }
 

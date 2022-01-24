@@ -16,13 +16,17 @@ export class Round {
     if (!pairsArray) {
       return;
     }
-    this.logger.roundNumber(this.roundNumber);
-
+    this.logger.info(`ROUND #${[this.roundNumber + 1]}`);
+    this.logger.info(`ROUND START!`);
     pairsArray.forEach((pair, index) => {
       if (!pair?.first || !pair?.second) {
         return;
       }
-      this.logger.infoAboutPair(pair, index);
+      this.logger.info(
+        `There are pairs of heroes:Pair №${index + 1} is ${pair.first.Type} ${pair.first.toString()}  vs ${
+          pair.second.Type
+        } ${pair.second.toString()}`,
+      );
       const duel: Duel = new Duel(pair, this.logger);
       const winnerHero = duel.startDuel();
       this.winnersList.push(winnerHero);

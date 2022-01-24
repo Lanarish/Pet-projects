@@ -10,13 +10,13 @@ export class Bewitchment extends SuperPower {
   useSuperPower(attacker: Hero, opponent: Hero) {
     attacker.superPower.SuperPowerInRoundStatus = true;
     opponent.missTurn = true;
-    this.logger.useBewitchment(attacker);
+    this.logger.info(`* ${attacker.toString()} use Bewitchment! *`);
   }
   checkBoost(attacker: Hero) {
     if (!attacker.missTurn) {
       return false;
     }
-    this.logger.missTurn(attacker);
+    this.logger.info(`* ${attacker.toString()} miss turn *`);
     attacker.missTurn = false;
     return true;
   }

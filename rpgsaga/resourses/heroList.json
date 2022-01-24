@@ -2,21 +2,73 @@
   "heroList": [
     {
       "missTurn": false,
-      "type": "Farmer",
-      "name": "Frodo",
-      "lastName": "Jonson",
-      "power": 0,
-      "health": 86,
-      "startHealth": 86
+      "type": "Archer",
+      "name": "Boromir",
+      "lastName": "Brandybuck",
+      "power": 20,
+      "health": 74,
+      "startHealth": 74,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {
+          "logger": {
+            "levels": {
+              "labels": {
+                "10": "trace",
+                "20": "debug",
+                "30": "info",
+                "40": "warn",
+                "50": "error",
+                "60": "fatal"
+              },
+              "values": {
+                "trace": 10,
+                "debug": 20,
+                "info": 30,
+                "warn": 40,
+                "error": 50,
+                "fatal": 60
+              }
+            }
+          }
+        }
+      }
     },
     {
       "missTurn": false,
-      "type": "Farmer",
+      "type": "Wizard",
       "name": "Thorin",
-      "lastName": "Gramm",
-      "power": 0,
-      "health": 96,
-      "startHealth": 96
+      "lastName": "Jonson",
+      "power": 15,
+      "health": 92,
+      "startHealth": 92,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {
+          "logger": {
+            "levels": {
+              "labels": {
+                "10": "trace",
+                "20": "debug",
+                "30": "info",
+                "40": "warn",
+                "50": "error",
+                "60": "fatal"
+              },
+              "values": {
+                "trace": 10,
+                "debug": 20,
+                "info": 30,
+                "warn": 40,
+                "error": 50,
+                "fatal": 60
+              }
+            }
+          }
+        }
+      }
     }
   ]
 }

@@ -13,7 +13,9 @@ export class Nemesis extends SuperPower {
     opponent.Health = opponent.Health - damage;
     whoUsedBoost.superPower.SuperPowerJustNow = true;
 
-    this.logger.useNemesis(whoUsedBoost, opponent);
+    this.logger.info(
+      `* ${whoUsedBoost.toString()} use Nemesis! ${opponent.toString()} remaining health is ${opponent.Health} *`,
+    );
   }
 
   useSuperPowerEffect(whoUsedBoost: Hero, opponent: Hero) {
