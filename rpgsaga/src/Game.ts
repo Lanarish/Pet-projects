@@ -12,7 +12,7 @@ export class Game {
   private pairsArray: Pair<Hero>[];
   private random: Generator;
   private logger: Logger;
-  private totalAmountOfHeroes = 8;
+  private totalAmountOfHeroes: number;
 
   constructor() {
     this.logger = new Logger();
@@ -23,12 +23,9 @@ export class Game {
 
   async run() {
     const isGenerate = await this.promptChoose();
-    if (isGenerate) {
-      await this.prompt();
-    }
     let i = 0;
+    await this.initHero(isGenerate);
     this.logger.startGame();
-    this.initHero(isGenerate);
     while (this.heroList.length > 1) {
       this.populate();
       this.makeRound(i);
@@ -47,6 +44,17 @@ export class Game {
           { title: 'Random generate', value: true },
         ],
         initial: 1,
+      },
+    ];
+    const response = await prompts(question);
+    return response.value;
+  }
+  async promptFile() {
+    const question = [
+      {
+        type: 'text',
+        name: 'value',
+        message: 'Please, enter path of file',
       },
     ];
     const response = await prompts(question);
@@ -93,11 +101,13 @@ export class Game {
       }
     }
   }
-  initHero(isGenerate: boolean) {
+  async initHero(isGenerate: boolean) {
     if (!isGenerate) {
-      this.heroList = WorkWithFile.readFromFile('./resourses/readyHeroList.json', this.logger);
+      const path = await this.promptFile();
+      this.heroList = WorkWithFile.readFromFile(path, this.logger);
       return;
     }
+    await this.prompt();
     this.heroList = this.random.initHero(this.totalAmountOfHeroes);
     WorkWithFile.outputFile('./resourses/heroList.json', this.heroList, this.logger);
   }
