@@ -2,30 +2,72 @@
   "heroList": [
     {
       "missTurn": false,
-      "type": "Knight",
+      "type": "Archer",
       "name": "Boromir",
-      "lastName": "Prier",
-      "power": 21,
-      "health": 86,
-      "startHealth": 86,
+      "lastName": "Brandybuck",
+      "power": 20,
+      "health": 74,
+      "startHealth": 74,
       "superPower": {
         "superPowerUsedInRound": false,
         "superPowerJustUsed": false,
-        "logger": {}
+        "logger": {
+          "logger": {
+            "levels": {
+              "labels": {
+                "10": "trace",
+                "20": "debug",
+                "30": "info",
+                "40": "warn",
+                "50": "error",
+                "60": "fatal"
+              },
+              "values": {
+                "trace": 10,
+                "debug": 20,
+                "info": 30,
+                "warn": 40,
+                "error": 50,
+                "fatal": 60
+              }
+            }
+          }
+        }
       }
     },
     {
       "missTurn": false,
-      "type": "Knight",
-      "name": "Lyutik",
-      "lastName": "Bushe",
-      "power": 30,
-      "health": 70,
-      "startHealth": 70,
+      "type": "Wizard",
+      "name": "Thorin",
+      "lastName": "Jonson",
+      "power": 15,
+      "health": 92,
+      "startHealth": 92,
       "superPower": {
         "superPowerUsedInRound": false,
         "superPowerJustUsed": false,
-        "logger": {}
+        "logger": {
+          "logger": {
+            "levels": {
+              "labels": {
+                "10": "trace",
+                "20": "debug",
+                "30": "info",
+                "40": "warn",
+                "50": "error",
+                "60": "fatal"
+              },
+              "values": {
+                "trace": 10,
+                "debug": 20,
+                "info": 30,
+                "warn": 40,
+                "error": 50,
+                "fatal": 60
+              }
+            }
+          }
+        }
       }
     }
   ]

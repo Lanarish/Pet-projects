@@ -10,12 +10,14 @@ export class FireArrows extends SuperPower {
   }
   useSuperPower(whoUsedBoost: Hero) {
     whoUsedBoost.superPower.SuperPowerInRoundStatus = true;
-    this.logger.useFireArrows(whoUsedBoost);
+    this.logger.info(`* ${whoUsedBoost.toString()} use FireArrows! *`);
   }
   useSuperPowerEffect(whoUsedBoost: Hero, opponent: Hero) {
     if (whoUsedBoost.superPower.SuperPowerInRoundStatus) {
       opponent.Health = opponent.Health - ADD_DAMAGE;
-      this.logger.usedFireArrowsEffect(opponent);
+      this.logger.info(
+        `* ${opponent.toString()} lost his health becouse of FireArrows! His health is ${opponent.Health} now. *`,
+      );
     }
   }
 

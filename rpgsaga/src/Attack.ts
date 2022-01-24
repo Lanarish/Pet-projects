@@ -16,7 +16,11 @@ export class Attack {
     attacker.superPower.useSuperPowerEffect(attacker, opponent);
     if (!opponent.superPower.checkBoost(attacker) && !attacker.superPower.tryUseBoost(attacker, opponent)) {
       opponent.getDamage(attacker.Power);
-      this.logger.gameProcess(attacker, opponent);
+      this.logger.info(
+        `${attacker.toString()} struck a blow in ${
+          attacker.Power
+        } points => ${opponent.toString()}'s remaining health is ${opponent.Health} points.`,
+      );
     }
   }
 }
