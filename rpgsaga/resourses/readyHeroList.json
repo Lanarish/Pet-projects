@@ -1,0 +1,98 @@
+[
+  {
+    "type": "Knight",
+    "firstName": "Tom",
+    "lastName": "Took",
+    "power": 23,
+    "health": 90,
+    "startHealth": 90,
+    "superPower": {
+      "SuperPowerInRoundStatus": false,
+      "SuperPowerJustNow": false
+    }
+  },
+  {
+    "type": "Wizard",
+    "firstName": "Tim",
+    "lastName": "Green",
+    "power": 25,
+    "health": 80,
+    "startHealth": 80,
+    "superPower": {
+      "SuperPowerInRoundStatus": false,
+      "SuperPowerJustNow": false
+    }
+  },
+  {
+    "type": "Archer",
+    "firstName": "Geralt",
+    "lastName": "Prier",
+    "power": 30,
+    "health": 75,
+    "startHealth": 75,
+    "superPower": {
+      "SuperPowerInRoundStatus": false,
+      "SuperPowerJustNow": false
+    }
+  },
+  {
+    "type": "Farmer",
+    "firstName": "Frodo",
+    "lastName": "Bushe",
+    "power": 0,
+    "health": 79,
+    "startHealth": 79,
+    "superPower": {
+      "SuperPowerInRoundStatus": false,
+      "SuperPowerJustNow": false
+    }
+  },
+  {
+    "type": "Wizard",
+    "firstName": "Sam",
+    "lastName": "Elrond",
+    "power": 27,
+    "health": 90,
+    "startHealth": 90,
+    "superPower": {
+      "SuperPowerInRoundStatus": false,
+      "SuperPowerJustNow": false
+    }
+  },
+  {
+    "type": "Archer",
+    "firstName": "Radagast",
+    "lastName": "Gramm",
+    "power": 30,
+    "health": 70,
+    "startHealth": 70,
+    "superPower": {
+      "SuperPowerInRoundStatus": false,
+      "SuperPowerJustNow": false
+    }
+  },
+  {
+    "type": "Knight",
+    "firstName": "Faramir",
+    "lastName": "Tudor",
+    "power": 28,
+    "health": 85,
+    "startHealth": 85,
+    "superPower": {
+      "SuperPowerInRoundStatus": false,
+      "SuperPowerJustNow": false
+    }
+  },
+  {
+    "type": "Farmer",
+    "firstName": "Peregrin",
+    "lastName": "Merigold",
+    "power": 0,
+    "health": 79,
+    "startHealth": 79,
+    "superPower": {
+      "SuperPowerInRoundStatus": false,
+      "SuperPowerJustNow": false
+    }
+  }
+]

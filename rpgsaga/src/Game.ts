@@ -5,13 +5,14 @@ import { Generator } from './Generator';
 import { Round } from './Round';
 import { Logger } from './Logger';
 import { Pair } from './Pair';
+import { WorkWithFile } from './WorkWithFile';
 
 export class Game {
   private heroList: Hero[];
   private pairsArray: Pair<Hero>[];
   private random: Generator;
   private logger: Logger;
-  private totalAmountOfHeroes = 8;
+  private totalAmountOfHeroes: number;
 
   constructor() {
     this.logger = new Logger();
@@ -21,16 +22,43 @@ export class Game {
   }
 
   async run() {
-    await this.prompt();
+    const isGenerate = await this.promptChoose();
     let i = 0;
+    await this.initHero(isGenerate);
     this.logger.startGame();
-    this.initHero();
     while (this.heroList.length > 1) {
       this.populate();
       this.makeRound(i);
       i++;
     }
     this.gameEnd();
+  }
+  async promptChoose() {
+    const question = [
+      {
+        type: 'select',
+        name: 'value',
+        message: 'Please,choose game play',
+        choices: [
+          { title: 'Read from file', value: false },
+          { title: 'Random generate', value: true },
+        ],
+        initial: 1,
+      },
+    ];
+    const response = await prompts(question);
+    return response.value;
+  }
+  async promptFile() {
+    const question = [
+      {
+        type: 'text',
+        name: 'value',
+        message: 'Please, enter path of file',
+      },
+    ];
+    const response = await prompts(question);
+    return response.value;
   }
 
   async prompt() {
@@ -74,9 +102,17 @@ export class Game {
       }
     }
   }
-  initHero() {
+  async initHero(isGenerate: boolean) {
+    if (!isGenerate) {
+      const path = await this.promptFile();
+      this.heroList = WorkWithFile.readFromFile(path, this.logger);
+      return;
+    }
+    await this.prompt();
     this.heroList = this.random.initHero(this.totalAmountOfHeroes);
+    WorkWithFile.outputFile('./resourses/heroList.json', this.heroList, this.logger);
   }
+
   private populate() {
     this.pairsArray = this.random.makePairs(this.heroList);
   }

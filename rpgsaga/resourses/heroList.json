@@ -1,0 +1,32 @@
+{
+  "heroList": [
+    {
+      "missTurn": false,
+      "type": "Knight",
+      "name": "Boromir",
+      "lastName": "Prier",
+      "power": 21,
+      "health": 86,
+      "startHealth": 86,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {}
+      }
+    },
+    {
+      "missTurn": false,
+      "type": "Knight",
+      "name": "Lyutik",
+      "lastName": "Bushe",
+      "power": 30,
+      "health": 70,
+      "startHealth": 70,
+      "superPower": {
+        "superPowerUsedInRound": false,
+        "superPowerJustUsed": false,
+        "logger": {}
+      }
+    }
+  ]
+}

@@ -54,23 +54,30 @@ export class Generator {
       const lastName: string = this.initRandomHeroLastName();
       const power: number = this.initRandomHeroPower();
       const health: number = this.initRandomHeroHealth();
-      const newHero = this.initHeroType(type, name, lastName, power, health);
+      const newHero = Generator.initHeroType(type, name, lastName, power, health, this.logger);
 
       heroList.push(newHero);
     }
     return heroList;
   }
-  initHeroType(type: string, name: string, lastName: string, power: number, health: number): Hero {
+  static initHeroType(
+    type: string,
+    name: string,
+    lastName: string,
+    power: number,
+    health: number,
+    logger: Logger,
+  ): Hero {
     let completeHero: Hero;
     switch (type) {
       case HeroTypes.Wizard:
-        completeHero = new Wizard(type, name, lastName, power, health, this.logger);
+        completeHero = new Wizard(type, name, lastName, power, health, logger);
         break;
       case HeroTypes.Archer:
-        completeHero = new Archer(type, name, lastName, power, health, this.logger);
+        completeHero = new Archer(type, name, lastName, power, health, logger);
         break;
       case HeroTypes.Knight:
-        completeHero = new Knight(type, name, lastName, power, health, this.logger);
+        completeHero = new Knight(type, name, lastName, power, health, logger);
         break;
       case HeroTypes.Farmer:
         completeHero = new Farmer(type, name, lastName, power, health);
@@ -118,5 +125,11 @@ export class Generator {
   }
   mathRandom(array: number[]): number {
     return Math.floor(Math.random() * array.length);
+  }
+  static makeList(readyHeroList, logger: Logger): Hero[] {
+    const arrayOfHeroes = readyHeroList.map(elem =>
+      Generator.initHeroType(elem.type, elem.firstName, elem.lastName, elem.power, elem.health, logger),
+    );
+    return arrayOfHeroes;
   }
 }
