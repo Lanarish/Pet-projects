@@ -11,7 +11,7 @@ export class Game {
   private pairsArray: Pair<Hero>[];
   private random: Generator;
   private logger: Logger;
-  private totalAmountOfHeroes: number;
+  private totalAmountOfHeroes = 8;
 
   constructor() {
     this.logger = new Logger();
