@@ -8,6 +8,7 @@ export class Hero {
   private health: number;
   private startHealth: number;
   superPower: SuperPower;
+  missTurn = false;
 
   constructor(type: string, name: string, lastName: string, power: number, health: number) {
     this.type = type;

@@ -8,8 +8,15 @@ export class Nemesis extends SuperPower {
   constructor(logger: Logger) {
     super(logger);
   }
-  useSuperPower(attacker: Hero, opponent: Hero) {
-    opponent.Health -= Math.floor(attacker.Power * ADD_DAMAGE);
-    this.logger.useNemesis(attacker, opponent);
+  useSuperPower(whoUsedBoost: Hero, opponent: Hero) {
+    const damage = Math.floor(whoUsedBoost.Power * ADD_DAMAGE);
+    opponent.Health = opponent.Health - damage;
+    whoUsedBoost.superPower.SuperPowerJustNow = true;
+
+    this.logger.useNemesis(whoUsedBoost, opponent);
+  }
+
+  useSuperPowerEffect(whoUsedBoost: Hero, opponent: Hero) {
+    return false;
   }
 }
