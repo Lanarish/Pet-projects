@@ -11,5 +11,20 @@
     "url": "https://gitlab.akvelon.net:9443/bootcamp/projects/svetlana-maliugina.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@nestjs/common": "^8.2.6",
+    "@nestjs/testing": "^8.2.6",
+    "@nestjs/typeorm": "^8.0.3",
+    "@testing-library/react": "^12.1.2",
+    "@types/jest": "^27.4.0",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "@types/supertest": "^2.0.11",
+    "supertest": "^6.2.2"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }
