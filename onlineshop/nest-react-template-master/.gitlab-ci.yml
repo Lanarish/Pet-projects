@@ -1,0 +1,17 @@
+image: node
+
+stages:
+  - lint
+
+eslint:
+  tags:
+    - docker
+  stage: lint
+  script:
+    - cd ./source/server/
+    - npm ci
+    - npm run lint
+    - cd ../../
+    - cd ./source/client/
+    - npm ci
+    - npm run lint
