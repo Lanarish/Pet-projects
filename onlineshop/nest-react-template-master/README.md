@@ -1,2 +1,0 @@
-# Nest React Template
-
