@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-// eslint-disable-next-line no-restricted-imports
 import { Product } from '../entity/product.entity';
 
 import { CreateProductDto } from './dto/create-product.dto';

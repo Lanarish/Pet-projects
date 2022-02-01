@@ -52,12 +52,6 @@ module.exports = {
         enforceForRenamedProperties: false,
       },
     ],
-    'no-restricted-imports': [
-      'error',
-      {
-        patterns: ['../*'],
-      },
-    ],
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -87,7 +81,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/ban-types': ['error'],
-    "@typescript-eslint/no-shadow": ["error"],
+    '@typescript-eslint/no-shadow': ['error'],
     '@typescript-eslint/naming-convention': [
       'error',
       {
@@ -130,7 +124,7 @@ module.exports = {
         paths: ['./'],
         extensions: ['.ts'],
       },
-      typescript: {} // this loads <rootdir>/tsconfig.json to eslint
+      typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
     },
   },
 };

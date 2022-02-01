@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
-// eslint-disable-next-line no-restricted-imports
 import { Product } from '../entity/product.entity';
 
 import { CreateProductDto } from './dto/create-product.dto';
