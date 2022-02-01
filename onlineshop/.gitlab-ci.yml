@@ -5,11 +5,11 @@ eslint:
     - docker
   stage: build_shop
   script:
-    - cd ./source/server/
+    - cd ./onlineshop/source/server/
     - npm ci
     - npm run lint
     - cd ../../
-    - cd ./source/client/
+    - cd ./onlineshop/source/client/
     - npm ci
     - npm run lint
   rules:
