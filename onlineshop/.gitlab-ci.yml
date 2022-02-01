@@ -1,12 +1,9 @@
 image: node
 
-stages:
-  - lint
-
 eslint:
   tags:
     - docker
-  stage: lint
+  stage: build_shop
   script:
     - cd ./source/server/
     - npm ci
@@ -15,13 +12,7 @@ eslint:
     - cd ./source/client/
     - npm ci
     - npm run lint
-
-    build-shop:
-  stage: build_shop
-  script:
-    - echo "Hello onlineshop steps"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes:
         - onlineshop/**/*
-
