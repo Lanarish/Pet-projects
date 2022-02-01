@@ -28,7 +28,12 @@ export class ProductsController {
   }
 
   @Put(':id')
-  update(@Body() updateProductDto: UpdateProductDto, @Param('id') id: string) {
-    return this.productService.update(id, updateProductDto);
+  async update(@Body() updateProductDto: UpdateProductDto, @Param('id') id: string) {
+    const model = await this.productService.findOne(id); // проверить,что модель существует.
+    if (model) {
+      model.name = updateProductDto.name;
+      return this.productService.update(id, model);
+    }
+    return;
   }
 }

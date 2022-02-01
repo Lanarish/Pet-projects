@@ -16,16 +16,15 @@ import { ProductsModule } from 'products/products.module';
       username: 'postgres',
       password: 'postgres',
       database: 'shop',
-      entities:[Product],
+      entities: [Product],
       synchronize: true,
       logging: true,
       autoLoadEntities: true,
     }),
     RestModule,
     SeedingModule,
-    ProductsModule
+    ProductsModule,
   ],
-  
 })
 export class AppModule implements OnApplicationBootstrap {
   constructor(private readonly seedingService: SeedingService) {}
