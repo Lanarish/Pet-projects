@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+// eslint-disable-next-line no-restricted-imports
 import { Product } from '../entity/product.entity';
 
 import { CreateProductDto } from './dto/create-product.dto';
@@ -30,7 +31,7 @@ export class ProductsService {
     await this.productsRepository.delete(id);
   }
 
-  async update(id: string, dto: UpdateProductDto): Promise<any> {
+  async update(id: string, dto: UpdateProductDto) {
     return this.productsRepository.update(id, dto);
   }
 }
