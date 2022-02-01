@@ -9,7 +9,7 @@ eslint:
     - npm ci
     - npm run lint
     - cd ../../
-    - cd ./onlineshop/source/client/
+    - cd ./source/client/
     - npm ci
     - npm run lint
   rules:
