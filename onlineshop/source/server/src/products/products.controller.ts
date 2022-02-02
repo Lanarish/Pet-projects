@@ -29,10 +29,15 @@ export class ProductsController {
   @Put(':id')
   async update(@Body() createProductDto: CreateProductDto, @Param('id') id: string) {
     const model = await this.productService.findOne(id);
-    if (model) {
-      model.name = createProductDto.name;
-      return this.productService.update(id, model);
+    if (!model) {
+      throw new Error("This element doesn't exist");
     }
-    return;
+    model.name = createProductDto.name;
+    model.description = createProductDto.description;
+    model.color = createProductDto.color;
+    model.price = createProductDto.price;
+    model.size = createProductDto.size;
+    model.categoryId = createProductDto.categoryId;
+    return this.productService.update(model);
   }
 }
