@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 
 import { Product } from '../entity/product.entity';
 
-import { CreateProductDto } from './dto/create-product.dto';
+import { ProductDto } from './dto/productDto.dto';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -17,7 +17,7 @@ export class ProductsController {
     return this.productService.findOne(id);
   }
   @Post()
-  create(@Body() createProductDto: CreateProductDto): Promise<Product> {
+  create(@Body() createProductDto: ProductDto): Promise<Product> {
     return this.productService.create(createProductDto);
   }
 
@@ -27,7 +27,7 @@ export class ProductsController {
   }
 
   @Put(':id')
-  async update(@Body() createProductDto: CreateProductDto, @Param('id') id: string) {
+  async update(@Body() createProductDto: ProductDto, @Param('id') id: string) {
     const model = await this.productService.findOne(id);
     if (!model) {
       throw new Error("This element doesn't exist");
