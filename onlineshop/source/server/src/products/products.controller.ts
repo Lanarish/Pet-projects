@@ -3,7 +3,6 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { Product } from '../entity/product.entity';
 
 import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -28,10 +27,10 @@ export class ProductsController {
   }
 
   @Put(':id')
-  async update(@Body() updateProductDto: UpdateProductDto, @Param('id') id: string) {
-    const model = await this.productService.findOne(id); // проверить,что модель существует.
+  async update(@Body() createProductDto: CreateProductDto, @Param('id') id: string) {
+    const model = await this.productService.findOne(id);
     if (model) {
-      model.name = updateProductDto.name;
+      model.name = createProductDto.name;
       return this.productService.update(id, model);
     }
     return;
