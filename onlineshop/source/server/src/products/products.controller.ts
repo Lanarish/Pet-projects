@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 
 import { Product } from '../entity/product.entity';
 
@@ -22,7 +22,11 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
+    const model = await this.productService.findOne(id);
+    if (!model) {
+      throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
+    }
     return this.productService.remove(id);
   }
 
@@ -30,7 +34,7 @@ export class ProductsController {
   async update(@Body() createProductDto: ProductDto, @Param('id') id: string) {
     const model = await this.productService.findOne(id);
     if (!model) {
-      throw new Error("This element doesn't exist");
+      throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
     }
     model.name = createProductDto.name;
     model.description = createProductDto.description;
