@@ -17,7 +17,7 @@
     "paths": {
       "@shop-domain/*": ["domain/*"],
       "@shop-rest/*": ["rest/*"],
-      "@shop-storage/*": ["storage/*"],
+      "@shop-storage/*": ["storage/*"]
     }
   }
 }
