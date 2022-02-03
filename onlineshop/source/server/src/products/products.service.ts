@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Product } from '../entity/product.entity';
+import { size } from '../constant';
 
 import { ProductDto } from './dto/productDto.dto';
 
@@ -17,16 +18,15 @@ export class ProductsService {
     return this.productsRepository.find();
   }
 
-  async findOne(id: string): Promise<Product | undefined> {
+  async findOne(id: string): Promise<Product> {
     const model = await this.productsRepository.findOne(id);
     if (!model) {
       throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
     }
-    return this.productsRepository.findOne(id);
+    return model;
   }
 
   async create(dto: ProductDto): Promise<Product> {
-    const size = ['S', 'M', 'L'];
     if (!size.includes(dto.size.toUpperCase())) {
       throw new HttpException(`Size value is not valid`, HttpStatus.BAD_REQUEST);
     }

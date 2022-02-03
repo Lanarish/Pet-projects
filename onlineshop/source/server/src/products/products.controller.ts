@@ -15,7 +15,7 @@ export class ProductsController {
   }
 
   @Get(':id')
-  async getOne(@Param('id') id: string): Promise<Product | undefined> {
+  async getOne(@Param('id') id: string): Promise<Product> {
     return this.productService.findOne(id);
   }
 
