@@ -11,28 +11,48 @@ export class ProductsController {
 
   @Get()
   getAll(): Promise<Product[]> {
-    return this.productService.findAll();
+    try {
+      return this.productService.findAll();
+    } catch (error) {
+      throw error.message;
+    }
   }
 
   @Get(':id')
   async getOne(@Param('id') id: string): Promise<Product> {
-    return this.productService.findOne(id);
+    try {
+      return this.productService.findOne(id);
+    } catch (error) {
+      throw error.message;
+    }
   }
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() productDto: ProductDto): Promise<Product> {
-    return this.productService.create(productDto);
+    try {
+      return this.productService.create(productDto);
+    } catch (error) {
+      throw error.message;
+    }
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.productService.remove(id);
+    try {
+      return this.productService.remove(id);
+    } catch (error) {
+      throw error.message;
+    }
   }
 
   @Put(':id')
   @UsePipes(new ValidationPipe({ transform: true }))
   async update(@Body() productDto: ProductDto, @Param('id') id: string): Promise<Product> {
-    return this.productService.update(productDto, id);
+    try {
+      return this.productService.update(productDto, id);
+    } catch (error) {
+      throw error.message;
+    }
   }
 }

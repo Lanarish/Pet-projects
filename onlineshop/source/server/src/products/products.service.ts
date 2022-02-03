@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Product } from '../entity/product.entity';
-import { size } from '../constant';
+import { SIZE } from '../constant';
 
 import { ProductDto } from './dto/productDto.dto';
 
@@ -27,7 +27,7 @@ export class ProductsService {
   }
 
   async create(dto: ProductDto): Promise<Product> {
-    if (!size.includes(dto.size.toUpperCase())) {
+    if (!SIZE.includes(dto.size.toUpperCase())) {
       throw new HttpException(`Size value is not valid`, HttpStatus.BAD_REQUEST);
     }
     return await this.productsRepository.save(dto);
@@ -46,12 +46,15 @@ export class ProductsService {
     if (!model) {
       throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
     }
-    model.name = dto.name;
-    model.description = dto.description;
-    model.color = dto.color;
-    model.price = dto.price;
-    model.size = dto.size;
-    model.categoryId = dto.categoryId;
+    function rewriteProduct() {
+      for (const key in model) {
+        if (key in dto) {
+          (model as any)[key] = (dto as any)[key];
+        }
+      }
+    }
+    rewriteProduct();
+
     return this.productsRepository.save(model);
   }
 }
