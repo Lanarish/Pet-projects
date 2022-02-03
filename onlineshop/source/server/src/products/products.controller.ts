@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 
 import { Product } from '../entity/product.entity';
 
@@ -8,40 +8,51 @@ import { ProductsService } from './products.service';
 @Controller('products')
 export class ProductsController {
   constructor(private productService: ProductsService) {}
+
   @Get()
   getAll(): Promise<Product[]> {
-    return this.productService.findAll();
+    try {
+      return this.productService.findAll();
+    } catch (error) {
+      throw error.message;
+    }
   }
+
   @Get(':id')
-  getOne(@Param('id') id: string) {
-    return this.productService.findOne(id);
+  async getOne(@Param('id') id: string): Promise<Product> {
+    try {
+      return this.productService.findOne(id);
+    } catch (error) {
+      throw error.message;
+    }
   }
+
   @Post()
-  create(@Body() createProductDto: ProductDto): Promise<Product> {
-    return this.productService.create(createProductDto);
+  @UsePipes(new ValidationPipe({ transform: true }))
+  create(@Body() productDto: ProductDto): Promise<Product> {
+    try {
+      return this.productService.create(productDto);
+    } catch (error) {
+      throw error.message;
+    }
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    const model = await this.productService.findOne(id);
-    if (!model) {
-      throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
+    try {
+      return this.productService.remove(id);
+    } catch (error) {
+      throw error.message;
     }
-    return this.productService.remove(id);
   }
 
   @Put(':id')
-  async update(@Body() createProductDto: ProductDto, @Param('id') id: string) {
-    const model = await this.productService.findOne(id);
-    if (!model) {
-      throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async update(@Body() productDto: ProductDto, @Param('id') id: string): Promise<Product> {
+    try {
+      return this.productService.update(productDto, id);
+    } catch (error) {
+      throw error.message;
     }
-    model.name = createProductDto.name;
-    model.description = createProductDto.description;
-    model.color = createProductDto.color;
-    model.price = createProductDto.price;
-    model.size = createProductDto.size;
-    model.categoryId = createProductDto.categoryId;
-    return this.productService.update(model);
   }
 }

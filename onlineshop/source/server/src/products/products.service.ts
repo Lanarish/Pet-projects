@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Product } from '../entity/product.entity';
+import { SIZE } from '../constant';
 
 import { ProductDto } from './dto/productDto.dto';
 
@@ -17,19 +18,43 @@ export class ProductsService {
     return this.productsRepository.find();
   }
 
-  async findOne(id: string): Promise<Product | undefined> {
-    return this.productsRepository.findOne(id);
+  async findOne(id: string): Promise<Product> {
+    const model = await this.productsRepository.findOne(id);
+    if (!model) {
+      throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
+    }
+    return model;
   }
 
   async create(dto: ProductDto): Promise<Product> {
-    const product = await this.productsRepository.save(dto);
-    return product;
+    if (!SIZE.includes(dto.size.toUpperCase())) {
+      throw new HttpException(`Size value is not valid`, HttpStatus.BAD_REQUEST);
+    }
+    return await this.productsRepository.save(dto);
   }
+
   async remove(id: string): Promise<void> {
+    const model = await this.productsRepository.findOne(id);
+    if (!model) {
+      throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
+    }
     await this.productsRepository.delete(id);
   }
 
-  async update(dto: Product): Promise<Product> {
-    return this.productsRepository.save(dto);
+  async update(dto: ProductDto, id: string): Promise<Product> {
+    const model = await this.productsRepository.findOne(id);
+    if (!model) {
+      throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
+    }
+    function rewriteProduct() {
+      for (const key in model) {
+        if (key in dto) {
+          (model as any)[key] = (dto as any)[key];
+        }
+      }
+    }
+    rewriteProduct();
+
+    return this.productsRepository.save(model);
   }
 }
