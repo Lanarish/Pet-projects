@@ -33,12 +33,12 @@ export class ProductsService {
     return await this.productsRepository.save(dto);
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: string): Promise<Product> {
     const model = await this.productsRepository.findOne(id);
     if (!model) {
       throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
     }
-    await this.productsRepository.delete(id);
+    return await this.productsRepository.remove(model);
   }
 
   async update(dto: ProductDto, id: string): Promise<Product> {
