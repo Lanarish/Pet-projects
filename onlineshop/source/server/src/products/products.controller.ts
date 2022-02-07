@@ -7,8 +7,10 @@ import { ProductsService } from './products.service';
 
 @Controller('products')
 export class ProductsController {
-  private readonly logger = new Logger(ProductsController.name);
-  constructor(private productService: ProductsService) {}
+  private logger: Logger;
+  constructor(private productService: ProductsService) {
+    this.logger = new Logger(ProductsController.name);
+  }
 
   @Get()
   getAll(): Promise<Product[]> {

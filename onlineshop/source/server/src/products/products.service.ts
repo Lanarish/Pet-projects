@@ -48,13 +48,13 @@ export class ProductsService {
   }
 
   async update(dto: ProductDto, id: number): Promise<Product> {
-    const prodId = await this.productsRepository.findOne(id);
-    if (!prodId) {
+    const model = await this.productsRepository.findOne(id);
+    if (!model) {
       this.logger.warn(`Element with id:${id} does not exist`);
       throw new HttpException(`Element with ${id} does not exist`, HttpStatus.NOT_FOUND);
     }
-    const product = products[id];
-    const updateProduct = { ...product, ...dto };
+    // const product = products[id];
+    const updateProduct = { ...model, ...dto };
     products[id] = updateProduct;
     this.logger.log(`The product has been updated! id: ${updateProduct.productId}`);
     return this.productsRepository.save(updateProduct);
