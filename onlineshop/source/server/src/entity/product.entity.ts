@@ -39,4 +39,3 @@ export class Product {
     this.categoryId = categoryId;
   }
 }
-export const products = [new Product('1', 'Leather jacket', 'Some text', 'S', 'black', 1000, 1)];
