@@ -17,7 +17,7 @@ export class ProductsController {
     this.logger.log('The all products have been downloaded');
     return this.productService.findAll();
   }
-
+  @Get(':id')
   async getOne(@Param('id') id: string): Promise<Product> {
     this.logger.log(`The product id:${id} has successfully found`);
     return this.productService.findOne(id);

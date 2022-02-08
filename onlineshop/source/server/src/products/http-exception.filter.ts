@@ -14,20 +14,26 @@ export class AllExceptionFilter implements ExceptionFilter {
     let responseBody: any = { message: 'Internal server error' };
     let statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 
-    if (exception instanceof HttpException) {
-      responseBody = exception.getResponse();
-      statusCode = exception.getStatus();
-    } else if (exception instanceof QueryFailedError) {
-      statusCode = HttpStatus.BAD_REQUEST;
-      responseBody = {
-        statusCode: statusCode,
-        message: exception.message,
-      };
-    } else if (exception instanceof Error) {
-      responseBody = {
-        statusCode: statusCode,
-        message: exception.stack,
-      };
+    switch (exception.constructor) {
+      case HttpException:
+        statusCode = HttpStatus.BAD_REQUEST;
+        responseBody = {
+          statusCode: statusCode,
+          message: exception.message,
+        };
+        break;
+      case QueryFailedError:
+        statusCode = HttpStatus.BAD_REQUEST;
+        responseBody = {
+          statusCode: statusCode,
+          message: exception.message,
+        };
+        break;
+      case Error:
+        responseBody = {
+          statusCode: statusCode,
+          message: exception.stack,
+        };
     }
 
     response.status(statusCode).json(responseBody);
@@ -46,13 +52,15 @@ export class AllExceptionFilter implements ExceptionFilter {
 
   private handleMessage(exception: HttpException | QueryFailedError | Error): void {
     let message = 'Internal Server Error';
-
-    if (exception instanceof HttpException) {
-      message = JSON.stringify(exception.getResponse());
-    } else if (exception instanceof QueryFailedError) {
-      message = exception.toString();
-    } else if (exception instanceof Error) {
-      message = exception.toString();
+    switch (exception.constructor) {
+      case HttpException:
+        message = JSON.stringify((exception as HttpException).getResponse());
+        break;
+      case QueryFailedError:
+        message = exception.toString();
+        break;
+      case Error:
+        message = exception.toString();
     }
 
     this.logger.error(message);
