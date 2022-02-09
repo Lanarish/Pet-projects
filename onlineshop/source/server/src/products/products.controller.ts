@@ -14,32 +14,48 @@ export class ProductsController {
 
   @Get()
   getAll(): Promise<Product[]> {
-    this.logger.log('The all products have been downloaded');
-    return this.productService.findAll();
+    try {
+      return this.productService.findAll();
+    } catch (error) {
+      throw Error(error.message);
+    }
   }
   @Get(':id')
   async getOne(@Param('id') id: string): Promise<Product> {
-    this.logger.log(`The product id:${id} has successfully found`);
-    return this.productService.findOne(id);
+    try {
+      return this.productService.findOne(id);
+    } catch (error) {
+      throw Error(error);
+    }
   }
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() productDto: ProductDto): Promise<Product> {
-    this.logger.log(`Start creating product... `);
-    return this.productService.create(productDto);
+    try {
+      return this.productService.create(productDto);
+    } catch (error) {
+      throw Error(error);
+    }
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    this.logger.log(`Start removal process... `);
-    return this.productService.remove(id);
+    try {
+      return this.productService.remove(id);
+    } catch (error) {
+      throw Error(error);
+    }
   }
 
   @Put(':id')
   @UsePipes(new ValidationPipe({ transform: true }))
   async update(@Body() productDto: ProductDto, @Param('id') id: string): Promise<Product> {
-    this.logger.log(`Update product id:${id} `);
-    return this.productService.update(productDto, Number(id));
+    try {
+      return this.productService.update(productDto, Number(id));
+    } catch (error) {
+      this.logger.error(error.message);
+      throw Error(error);
+    }
   }
 }

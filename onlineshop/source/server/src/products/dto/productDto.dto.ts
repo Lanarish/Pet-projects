@@ -1,10 +1,11 @@
-import { IsNotEmpty, IsPositive, IsUppercase, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsPositive, IsUppercase, Matches, MaxLength } from 'class-validator';
 
 export class ProductDto {
   @IsNotEmpty()
   @MaxLength(20, {
     message: 'Title is too long',
   })
+  @Matches(RegExp(/[a-zA-Z0-9_-]/))
   name: string;
   @IsNotEmpty()
   @MaxLength(200, {
