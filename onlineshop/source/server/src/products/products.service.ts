@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -18,41 +18,43 @@ export class ProductsService {
   }
 
   async findAll(): Promise<Product[]> {
+    let findAllProducts;
     try {
-      const findAllProducts = this.productsRepository.find();
-      this.logger.log('The all products have been downloaded');
-      return findAllProducts;
+      findAllProducts = this.productsRepository.find();
     } catch (error) {
       this.logger.error(error.message);
       throw Error(error.message);
     }
+    this.logger.log('The all products have been downloaded');
+    return findAllProducts;
   }
 
   async findOne(id: string): Promise<Product> {
+    let model;
     try {
-      const model = await this.productsRepository.findOne(id);
-
-      if (!model) {
-        this.logger.error(`id:${id}`, ELEMENT_NOT_FOUND);
-        throw new HttpException(ELEMENT_NOT_FOUND, HttpStatus.NOT_FOUND);
-      }
-      this.logger.log(`The product id:${id} has successfully found`);
-      return model;
+      model = await this.productsRepository.findOne(id);
     } catch (error) {
       this.logger.error(error.message);
       throw Error(error);
     }
+    if (!model) {
+      this.logger.error(`id:${id}`, ELEMENT_NOT_FOUND);
+      throw Error(ELEMENT_NOT_FOUND);
+    }
+    this.logger.log(`The product id:${id} has successfully found`);
+    return model;
   }
 
   async create(dto: ProductDto): Promise<Product> {
+    this.logger.log(`Start creating product... `);
+    if (!SIZE.includes(dto.size.toUpperCase())) {
+      this.logger.error(`Size value is not valid`);
+      throw Error(`Size value is not valid. Use 'S','M','L'.`);
+    }
     try {
-      this.logger.log(`Start creating product... `);
-      if (!SIZE.includes(dto.size.toUpperCase())) {
-        this.logger.error(`Size value is not valid`);
-        throw new HttpException(`Size value is not valid. Use 'S','M','L'.`, HttpStatus.BAD_REQUEST);
-      }
+      const createNewProduct = await this.productsRepository.save(dto);
       this.logger.log(`A new product has been created! Product: ${dto.name}`);
-      return await this.productsRepository.save(dto);
+      return createNewProduct;
     } catch (error) {
       this.logger.error(error.message);
       throw Error(error.message);
@@ -60,36 +62,38 @@ export class ProductsService {
   }
 
   async remove(id: string): Promise<void> {
+    let model;
+    this.logger.log(`Start removal process... `);
     try {
-      this.logger.log(`Start removal process... `);
-      const model = await this.productsRepository.findOne(id);
-      if (!model) {
-        this.logger.error(`id:${id}`, ELEMENT_NOT_FOUND);
-        throw new HttpException(ELEMENT_NOT_FOUND, HttpStatus.NOT_FOUND);
-      }
-      this.logger.log(`The product has been removed! id: ${id}`);
-      await this.productsRepository.delete(id);
+      model = await this.productsRepository.findOne(id);
     } catch (error) {
       this.logger.error(error.message);
       throw Error(error.message);
     }
+    if (!model) {
+      this.logger.error(`id:${id}`, ELEMENT_NOT_FOUND);
+      throw Error(ELEMENT_NOT_FOUND);
+    }
+    this.logger.log(`The product has been removed! id: ${id}`);
+    await this.productsRepository.delete(id);
   }
 
   async update(dto: ProductDto, id: number): Promise<Product> {
+    let model;
+    this.logger.log(`Start update process... `);
     try {
-      this.logger.log(`Start update process... `);
-      const model = await this.productsRepository.findOne(id);
-      if (!model) {
-        this.logger.error(`id:${id}`, ELEMENT_NOT_FOUND);
-        throw new HttpException(ELEMENT_NOT_FOUND, HttpStatus.NOT_FOUND);
-      }
-      this.logger.log(`Update product id:${id}... `);
-      const updateProduct = { ...model, ...dto };
-      this.logger.log(`The product has been updated! id: ${updateProduct.productId}`);
-      return this.productsRepository.save(updateProduct);
+      model = await this.productsRepository.findOne(id);
     } catch (error) {
       this.logger.error(error.message);
-      throw Error(error);
+      throw Error(error.message);
     }
+    if (!model) {
+      this.logger.error(`id:${id}`, ELEMENT_NOT_FOUND);
+      throw Error(ELEMENT_NOT_FOUND);
+    }
+    this.logger.log(`Update product id:${id}... `);
+    const updateProduct = { ...model, ...dto };
+    this.logger.log(`The product has been updated! id: ${updateProduct.productId}`);
+    return this.productsRepository.save(updateProduct);
   }
 }
