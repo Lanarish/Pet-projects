@@ -35,7 +35,7 @@ export class ProductsController {
     }
   }
   @Get(':id')
-  async getOne(@Param('id') id: string): Promise<Product> {
+  async getOne(@Param('id') id: string) {
     try {
       return this.productService.findOne(id);
     } catch (error) {
