@@ -1,37 +1,32 @@
-import { IsNotEmpty, IsPositive, IsUppercase, Matches, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Column, PrimaryGeneratedColumn } from 'typeorm';
 
-export class ProductDto {
+export class CreateResponse {
+  @ApiProperty({ example: '1', description: 'Unique identificator of product' })
+  @PrimaryGeneratedColumn()
+  productId: string;
+
   @ApiProperty({ example: 'Leather jacket', description: 'Product name' })
-  @IsNotEmpty()
-  @MaxLength(20, {
-    message: 'Title is too long',
-  })
-  @Matches(RegExp(/[a-zA-Z0-9_-]/))
+  @Column()
   name: string;
 
   @ApiProperty({ example: 'Some text', description: 'Description of product' })
-  @IsNotEmpty()
-  @MaxLength(200, {
-    message: 'Description is too long',
-  })
+  @Column()
   description: string;
 
   @ApiProperty({ example: 'S', description: 'Size of product' })
-  @IsNotEmpty()
-  @IsUppercase()
+  @Column()
   size: string;
 
   @ApiProperty({ example: 'Black', description: 'Color of product' })
-  @IsNotEmpty()
+  @Column()
   color: string;
 
   @ApiProperty({ example: '10000', description: 'Price of product' })
-  @IsNotEmpty()
-  @IsPositive()
+  @Column()
   price: number;
 
   @ApiProperty({ example: '1', description: 'Unique identificator of category' })
-  @IsNotEmpty()
+  @Column()
   categoryId: number;
 }
