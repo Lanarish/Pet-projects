@@ -1,4 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Logger,
+  Param,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 
 import { Product } from '../entity/product.entity';
 
@@ -7,23 +20,27 @@ import { ProductsService } from './products.service';
 
 @Controller('products')
 export class ProductsController {
-  constructor(private productService: ProductsService) {}
+  private logger: Logger;
+  constructor(private productService: ProductsService) {
+    this.logger = new Logger(ProductsController.name);
+  }
 
   @Get()
   getAll(): Promise<Product[]> {
     try {
       return this.productService.findAll();
     } catch (error) {
-      throw error.message;
+      this.logger.error(error.message);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
   @Get(':id')
-  async getOne(@Param('id') id: string): Promise<Product> {
+  async getOne(@Param('id') id: string) {
     try {
       return this.productService.findOne(id);
     } catch (error) {
-      throw error.message;
+      this.logger.error(error.message);
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
 
@@ -33,7 +50,8 @@ export class ProductsController {
     try {
       return this.productService.create(productDto);
     } catch (error) {
-      throw error.message;
+      this.logger.error(error.message);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -42,7 +60,8 @@ export class ProductsController {
     try {
       return this.productService.remove(id);
     } catch (error) {
-      throw error.message;
+      this.logger.error(error.message);
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
 
@@ -50,9 +69,10 @@ export class ProductsController {
   @UsePipes(new ValidationPipe({ transform: true }))
   async update(@Body() productDto: ProductDto, @Param('id') id: string): Promise<Product> {
     try {
-      return this.productService.update(productDto, id);
+      return this.productService.update(productDto, Number(id));
     } catch (error) {
-      throw error.message;
+      this.logger.error(error.message);
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
 }
