@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -12,12 +13,19 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 
 import { Product } from '../entity/product.entity';
 
 import { ProductDto } from './dto/productDto.dto';
 import { ProductsService } from './products.service';
 
+import { NotFoundResponse } from 'responses/notFoundResponse';
+import { NotAcceptableResponse } from 'responses/notAcceptableResponse';
+import { BadRequestResponse } from 'responses/badRequestResponse';
+import { CreateResponse } from 'responses/createdResponse';
+
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   private logger: Logger;
@@ -26,6 +34,8 @@ export class ProductsController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all products' })
+  @ApiResponse({ status: 200, type: [Product] })
   getAll(): Promise<Product[]> {
     try {
       return this.productService.findAll();
@@ -34,7 +44,11 @@ export class ProductsController {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
   @Get(':id')
+  @ApiOperation({ summary: 'Get one product by id' })
+  @ApiResponse({ status: 200, type: Product })
+  @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   async getOne(@Param('id') id: string) {
     try {
       return this.productService.findOne(id);
@@ -45,6 +59,12 @@ export class ProductsController {
   }
 
   @Post()
+  @ApiOperation({ summary: 'Create product' })
+  @ApiResponse({ status: 200, type: Product })
+  @ApiResponse({ status: 201, type: CreateResponse, description: 'Created product' })
+  @ApiResponse({ status: 406, type: NotAcceptableResponse, description: 'Not valid value' })
+  @ApiResponse({ status: 400, type: BadRequestResponse, description: 'Not valid value' })
+  @ApiBody({ type: ProductDto })
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() productDto: ProductDto): Promise<Product> {
     try {
@@ -56,6 +76,9 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Remove product' })
+  @ApiResponse({ status: 200 })
+  @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   async remove(@Param('id') id: string) {
     try {
       return this.productService.remove(id);
@@ -66,6 +89,10 @@ export class ProductsController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update product' })
+  @ApiResponse({ status: 200, type: Product })
+  @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
+  @ApiBody({ type: ProductDto })
   @UsePipes(new ValidationPipe({ transform: true }))
   async update(@Body() productDto: ProductDto, @Param('id') id: string): Promise<Product> {
     try {
