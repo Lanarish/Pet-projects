@@ -1,5 +1,7 @@
 import { IsNotEmpty, IsPositive, IsUppercase, Matches, MaxLength } from 'class-validator';
 
+import { Category } from 'entity/category.entity';
+
 export class ProductDto {
   @IsNotEmpty()
   @MaxLength(20, {
@@ -21,5 +23,5 @@ export class ProductDto {
   @IsPositive()
   price: number;
   @IsNotEmpty()
-  categoryId: number;
+  categoryId: Category;
 }

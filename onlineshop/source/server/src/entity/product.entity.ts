@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+
+import { Category } from './category.entity';
 
 @Entity()
 export class Product {
@@ -19,8 +21,9 @@ export class Product {
   @Column()
   price: number;
 
-  @Column()
-  categoryId: number;
+  @ManyToOne(() => Category, category => category.products)
+  categoryId: Category;
+
   constructor(
     productId: string,
     name: string,
@@ -28,7 +31,7 @@ export class Product {
     size: string,
     color: string,
     price: number,
-    categoryId: number,
+    categoryId: Category,
   ) {
     this.productId = productId;
     this.name = name;
