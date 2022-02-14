@@ -20,7 +20,7 @@ export class ProductsService {
   async findAll(): Promise<Product[]> {
     let findAllProducts;
     try {
-      findAllProducts = await this.productsRepository.find();
+      findAllProducts = await this.productsRepository.find({ relations: ['categoryId'] });
     } catch (error) {
       this.logger.error(error.message);
       throw new Error(error.message);
