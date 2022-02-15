@@ -36,7 +36,7 @@ export class ProductsService {
   async findOne(id: string): Promise<Product> {
     let model;
     try {
-      model = await this.productsRepository.findOne(id);
+      model = await this.productsRepository.findOne(id, { relations: ['categoryId'] });
     } catch (error) {
       this.logger.error(error.message);
       throw new Error(error);

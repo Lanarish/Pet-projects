@@ -1,11 +1,14 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
   Logger,
+  Param,
   Post,
+  Put,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -40,6 +43,26 @@ export class CategoryController {
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    try {
+      return this.categoryService.remove(id);
+    } catch (error) {
+      this.logger.error(error.message);
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  @Put(':id')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async update(@Body() dto: CategoryDto, @Param('id') id: string): Promise<Category> {
+    try {
+      return this.categoryService.update(dto, Number(id));
+    } catch (error) {
+      this.logger.error(error.message);
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
 }

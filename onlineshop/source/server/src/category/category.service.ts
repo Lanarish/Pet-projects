@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CategoryDto } from './dto/categoryDto';
 
 import { Category } from 'entity/category.entity';
+import { ELEMENT_NOT_FOUND, FAILED_DELETE, FAILED_UPDATED } from 'constant';
 
 @Injectable()
 export class CategoryService {
@@ -42,5 +43,51 @@ export class CategoryService {
       this.logger.log('Empty file');
     }
     return findAllCategories;
+  }
+  async remove(id: string): Promise<void> {
+    let model;
+    this.logger.log(`Start removal process... `);
+    try {
+      model = await this.categoryRepository.findOne(id);
+    } catch (error) {
+      this.logger.error(error.message);
+      throw Error(error.message);
+    }
+    if (!model) {
+      this.logger.error(`id:${id}`, ELEMENT_NOT_FOUND);
+      throw Error(ELEMENT_NOT_FOUND);
+    }
+    try {
+      await this.categoryRepository.delete(id);
+      this.logger.log(`The category has been removed! id: ${id}`);
+    } catch (error) {
+      this.logger.error(FAILED_DELETE);
+      throw new Error(FAILED_DELETE);
+    }
+  }
+
+  async update(dto: CategoryDto, id: number): Promise<Category> {
+    let model;
+    this.logger.log(`Start update process... `);
+    try {
+      model = await this.categoryRepository.findOne(id);
+    } catch (error) {
+      this.logger.error(error.message);
+      throw Error(error.message);
+    }
+    if (!model) {
+      this.logger.error(`id:${id}`, ELEMENT_NOT_FOUND);
+      throw Error(ELEMENT_NOT_FOUND);
+    }
+    this.logger.log(`Update category ${model.name}... `);
+    const updateCategory = { ...model, ...dto };
+    try {
+      const updatedCategory = this.categoryRepository.save(updateCategory);
+      this.logger.log(`The Category has been updated! id: ${updateCategory.categoryId}`);
+      return updatedCategory;
+    } catch (error) {
+      this.logger.error(FAILED_UPDATED);
+      throw new Error(FAILED_UPDATED);
+    }
   }
 }
