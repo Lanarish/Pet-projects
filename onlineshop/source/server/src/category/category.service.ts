@@ -38,9 +38,9 @@ export class CategoryService {
       throw new Error(error.message);
     }
     if (findAllCategories.length > 0) {
-      this.logger.log('The all categories have been downloaded');
+      this.logger.log(`The all ${findAllCategories.length} categories have been downloaded `);
     } else {
-      this.logger.log('Empty file');
+      this.logger.log('Empty list');
     }
     return findAllCategories;
   }
@@ -81,13 +81,8 @@ export class CategoryService {
     }
     this.logger.log(`Update category ${model.name}... `);
     const updateCategory = { ...model, ...dto };
-    try {
-      const updatedCategory = this.categoryRepository.save(updateCategory);
-      this.logger.log(`The Category has been updated! id: ${updateCategory.categoryId}`);
-      return updatedCategory;
-    } catch (error) {
-      this.logger.error(FAILED_UPDATED);
-      throw new Error(FAILED_UPDATED);
-    }
+    const updatedCategory = this.categoryRepository.save(updateCategory);
+    this.logger.log(`The Category has been updated! id: ${updateCategory.categoryId}`);
+    return updatedCategory;
   }
 }

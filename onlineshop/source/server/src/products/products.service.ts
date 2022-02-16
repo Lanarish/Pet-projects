@@ -28,7 +28,7 @@ export class ProductsService {
     if (findAllProducts.length > 0) {
       this.logger.log('The all products have been downloaded');
     } else {
-      this.logger.log('Empty file');
+      this.logger.log('Empty list');
     }
     return findAllProducts;
   }
