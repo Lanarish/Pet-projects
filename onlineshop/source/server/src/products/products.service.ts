@@ -20,7 +20,7 @@ export class ProductsService {
   async findAll(): Promise<Product[]> {
     let findAllProducts;
     try {
-      findAllProducts = await this.productsRepository.find();
+      findAllProducts = await this.productsRepository.find({ relations: ['categoryId'] });
     } catch (error) {
       this.logger.error(error.message);
       throw new Error(error.message);
@@ -28,7 +28,7 @@ export class ProductsService {
     if (findAllProducts.length > 0) {
       this.logger.log('The all products have been downloaded');
     } else {
-      this.logger.log('Empty file');
+      this.logger.log('Empty list');
     }
     return findAllProducts;
   }
@@ -36,7 +36,7 @@ export class ProductsService {
   async findOne(id: string): Promise<Product> {
     let model;
     try {
-      model = await this.productsRepository.findOne(id);
+      model = await this.productsRepository.findOne(id, { relations: ['categoryId'] });
     } catch (error) {
       this.logger.error(error.message);
       throw new Error(error);

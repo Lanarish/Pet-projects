@@ -1,6 +1,8 @@
 import { IsNotEmpty, IsPositive, IsUppercase, Matches, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
+import { Category } from 'entity/category.entity';
+
 export class ProductDto {
   @ApiProperty({ example: 'Leather jacket', description: 'Product name' })
   @IsNotEmpty()
@@ -33,5 +35,5 @@ export class ProductDto {
 
   @ApiProperty({ example: '1', description: 'Unique identificator of category' })
   @IsNotEmpty()
-  categoryId: number;
+  categoryId: Category;
 }

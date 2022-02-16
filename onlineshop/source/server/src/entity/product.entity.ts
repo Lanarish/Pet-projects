@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { ApiProperty } from '@nestjs/swagger';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+
+import { Category } from './category.entity';
 
 @Entity()
 export class Product {
@@ -27,9 +28,8 @@ export class Product {
   @Column()
   price: number;
 
-  @ApiProperty({ example: '1', description: 'Unique identificator of category' })
-  @Column()
-  categoryId: number;
+  @ManyToOne(() => Category, category => category.products)
+  categoryId: Category;
 
   constructor(
     productId: string,
@@ -38,7 +38,7 @@ export class Product {
     size: string,
     color: string,
     price: number,
-    categoryId: number,
+    categoryId: Category,
   ) {
     this.productId = productId;
     this.name = name;
