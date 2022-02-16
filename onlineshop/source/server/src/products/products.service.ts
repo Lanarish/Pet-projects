@@ -7,6 +7,8 @@ import { SIZE, ELEMENT_NOT_FOUND, FAILED_DELETE, FAILED_UPDATED, INVALID_SIZE } 
 
 import { ProductDto } from './dto/productDto.dto';
 
+import { Category } from 'entity/category.entity';
+
 @Injectable()
 export class ProductsService {
   private logger: Logger;
@@ -47,6 +49,19 @@ export class ProductsService {
     }
     this.logger.log(`The product id:${id} has successfully found`);
     return model;
+  }
+
+  async getAllByCategory(categoryId: number, categories: Category[]): Promise<Product[]> {
+    this.logger.log(`Start getting products... `);
+    for (const currCategory of categories) {
+      if (currCategory.categoryId === categoryId) {
+        const findByCategory = await this.productsRepository.find({ categoryId: new Category(categoryId) });
+        this.logger.log(`The all products have been downloaded by category ${categoryId}`);
+        return findByCategory;
+      }
+    }
+    this.logger.error(`Category id:${categoryId}`, ELEMENT_NOT_FOUND);
+    throw new NotFoundException(ELEMENT_NOT_FOUND);
   }
 
   async create(dto: ProductDto): Promise<Product> {

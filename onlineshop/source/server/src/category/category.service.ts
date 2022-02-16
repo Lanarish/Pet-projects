@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -29,7 +29,7 @@ export class CategoryService {
     }
   }
 
-  async findAll(): Promise<Category[]> {
+  async findAllCategories(): Promise<Category[]> {
     let findAllCategories;
     try {
       findAllCategories = await this.categoryRepository.find();
@@ -43,6 +43,22 @@ export class CategoryService {
       this.logger.log('Empty list');
     }
     return findAllCategories;
+  }
+
+  async findOne(id: string): Promise<Category> {
+    let model;
+    try {
+      model = await this.categoryRepository.findOne(id);
+    } catch (error) {
+      this.logger.error(error.message);
+      throw new Error(error);
+    }
+    if (!model) {
+      this.logger.error(`id:${id}`, ELEMENT_NOT_FOUND);
+      throw new NotFoundException(ELEMENT_NOT_FOUND);
+    }
+    this.logger.log(`The product id:${id} has successfully found`);
+    return model;
   }
   async remove(id: string): Promise<void> {
     let model;

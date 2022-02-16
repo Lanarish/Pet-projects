@@ -12,4 +12,8 @@ export class Category {
 
   @OneToMany(() => Product, products => products.categoryId)
   products: Product[];
+
+  constructor(categoryId: number) {
+    this.categoryId = categoryId;
+  }
 }

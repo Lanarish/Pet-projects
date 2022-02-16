@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -18,18 +17,20 @@ import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 import { Product } from '../entity/product.entity';
 
 import { ProductDto } from './dto/productDto.dto';
+// eslint-disable-next-line import/namespace
 import { ProductsService } from './products.service';
 
 import { NotFoundResponse } from 'responses/notFoundResponse';
 import { NotAcceptableResponse } from 'responses/notAcceptableResponse';
 import { BadRequestResponse } from 'responses/badRequestResponse';
 import { CreateResponse } from 'responses/createdResponse';
+import { CategoryService } from 'category/category.service';
 
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   private logger: Logger;
-  constructor(private productService: ProductsService) {
+  constructor(private productService: ProductsService, private categoryService: CategoryService) {
     this.logger = new Logger(ProductsController.name);
   }
 
@@ -58,6 +59,20 @@ export class ProductsController {
     }
   }
 
+  @Get('productsByCategory/:categoryId')
+  @ApiOperation({ summary: 'Get products by category' })
+  @ApiResponse({ status: 200, type: Product })
+  @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
+  @ApiBody({ type: ProductDto })
+  async findAllByCategory(@Param('categoryId') categoryId: string) {
+    try {
+      const category = await this.categoryService.findAllCategories();
+      return this.productService.getAllByCategory(Number(categoryId), category);
+    } catch (error) {
+      this.logger.error(error.message);
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
   @Post()
   @ApiOperation({ summary: 'Create product' })
   @ApiResponse({ status: 200, type: Product })
