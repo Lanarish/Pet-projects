@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { CategoryDto } from './dto/categoryDto';
 
 import { Category } from 'entity/category.entity';
-import { ELEMENT_NOT_FOUND, FAILED_DELETE, FAILED_UPDATED } from 'constant';
+import { ELEMENT_NOT_FOUND, FAILED_DELETE } from 'constant';
 
 @Injectable()
 export class CategoryService {

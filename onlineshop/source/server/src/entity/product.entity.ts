@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { Category } from './category.entity';
 
