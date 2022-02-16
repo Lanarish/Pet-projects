@@ -1,9 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+import { Column, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Category } from './category.entity';
-
-@Entity()
-export class Product {
+export class CreateResponse {
   @ApiProperty({ example: '1', description: 'Unique identificator of product' })
   @PrimaryGeneratedColumn()
   productId: string;
@@ -28,24 +26,7 @@ export class Product {
   @Column()
   price: number;
 
-  @ManyToOne(() => Category, category => category.products)
-  categoryId: Category;
-
-  constructor(
-    productId: string,
-    name: string,
-    description: string,
-    size: string,
-    color: string,
-    price: number,
-    categoryId: Category,
-  ) {
-    this.productId = productId;
-    this.name = name;
-    this.description = description;
-    this.size = size;
-    this.color = color;
-    this.price = price;
-    this.categoryId = categoryId;
-  }
+  @ApiProperty({ example: '1', description: 'Unique identificator of category' })
+  @Column()
+  categoryId: number;
 }
