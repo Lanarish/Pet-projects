@@ -35,5 +35,5 @@ export class ProductDto {
 
   @ApiProperty({ example: '1', description: 'Unique identificator of category' })
   @IsNotEmpty()
-  categoryId: Category;
+  category: Category;
 }

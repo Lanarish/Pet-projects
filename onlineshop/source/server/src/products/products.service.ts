@@ -7,8 +7,6 @@ import { SIZE, ELEMENT_NOT_FOUND, FAILED_DELETE, FAILED_UPDATED, INVALID_SIZE } 
 
 import { ProductDto } from './dto/productDto.dto';
 
-import { Category } from 'entity/category.entity';
-
 @Injectable()
 export class ProductsService {
   private logger: Logger;
@@ -22,7 +20,7 @@ export class ProductsService {
   async findAll(): Promise<Product[]> {
     let findAllProducts;
     try {
-      findAllProducts = await this.productsRepository.find({ relations: ['categoryId'] });
+      findAllProducts = await this.productsRepository.find({ relations: ['category'] });
     } catch (error) {
       this.logger.error(error.message);
       throw new Error(error.message);
@@ -38,7 +36,7 @@ export class ProductsService {
   async findOne(id: string): Promise<Product> {
     let model;
     try {
-      model = await this.productsRepository.findOne(id, { relations: ['categoryId'] });
+      model = await this.productsRepository.findOne(id, { relations: ['category'] });
     } catch (error) {
       this.logger.error(error.message);
       throw new Error(error);
@@ -51,11 +49,23 @@ export class ProductsService {
     return model;
   }
 
-  async getAllByCategory(category: Category): Promise<Product[]> {
+  async getAllByCategory(categoryId: string): Promise<Product[]> {
     this.logger.log(`Start getting products... `);
-
-    const findByCategory = await this.productsRepository.find({ category });
-    this.logger.log(`The all products have been downloaded by category ${category.categoryId}`);
+    let findByCategory: Product[];
+    try {
+      findByCategory = await this.productsRepository.find({
+        where: { category: categoryId },
+        relations: ['category'],
+      });
+    } catch (error) {
+      this.logger.error(error.message);
+      throw new Error(error.message);
+    }
+    if (!findByCategory.length) {
+      this.logger.error(`id:${categoryId}`, ELEMENT_NOT_FOUND);
+      throw new NotFoundException(ELEMENT_NOT_FOUND);
+    }
+    this.logger.log(`The all products have been downloaded by category ${categoryId}`);
     return findByCategory;
   }
 

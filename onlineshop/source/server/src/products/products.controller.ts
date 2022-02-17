@@ -65,8 +65,7 @@ export class ProductsController {
   @ApiBody({ type: ProductDto })
   async findAllByCategory(@Param('categoryId') categoryId: string) {
     try {
-      const category = await this.categoryService.findOne(categoryId);
-      return this.productService.getAllByCategory(category);
+      return this.productService.getAllByCategory(categoryId);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
