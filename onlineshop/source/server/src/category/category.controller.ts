@@ -28,13 +28,21 @@ export class CategoryController {
   @Get()
   getAll(): Promise<Category[]> {
     try {
-      return this.categoryService.findAll();
+      return this.categoryService.findAllCategories();
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
+  @Get(':id')
+  async getOne(@Param('id') id: string) {
+    try {
+      return this.categoryService.findOne(id);
+    } catch (error) {
+      this.logger.error(error.message);
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() dto: CategoryDto): Promise<Category> {

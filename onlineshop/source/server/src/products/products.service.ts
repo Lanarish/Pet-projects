@@ -20,7 +20,7 @@ export class ProductsService {
   async findAll(): Promise<Product[]> {
     let findAllProducts;
     try {
-      findAllProducts = await this.productsRepository.find({ relations: ['categoryId'] });
+      findAllProducts = await this.productsRepository.find({ relations: ['category'] });
     } catch (error) {
       this.logger.error(error.message);
       throw new Error(error.message);
@@ -36,7 +36,7 @@ export class ProductsService {
   async findOne(id: string): Promise<Product> {
     let model;
     try {
-      model = await this.productsRepository.findOne(id, { relations: ['categoryId'] });
+      model = await this.productsRepository.findOne(id, { relations: ['category'] });
     } catch (error) {
       this.logger.error(error.message);
       throw new Error(error);
@@ -47,6 +47,27 @@ export class ProductsService {
     }
     this.logger.log(`The product id:${id} has successfully found`);
     return model;
+  }
+
+  async getAllByCategory(categoryId: string): Promise<Product[]> {
+    this.logger.log(`Start getting products... `);
+    let findByCategory: Product[];
+    try {
+      findByCategory = await this.productsRepository.find({
+        where: { category: categoryId },
+        relations: ['category'],
+      });
+    } catch (error) {
+      this.logger.error(error.message);
+      throw new Error(error.message);
+    }
+
+    if (!findByCategory?.length) {
+      this.logger.error(`id:${categoryId}`, ELEMENT_NOT_FOUND);
+      throw new NotFoundException(ELEMENT_NOT_FOUND);
+    }
+    this.logger.log(`The all products have been downloaded by category ${categoryId}`);
+    return findByCategory;
   }
 
   async create(dto: ProductDto): Promise<Product> {

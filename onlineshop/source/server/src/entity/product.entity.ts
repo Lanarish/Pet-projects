@@ -7,7 +7,7 @@ import { Category } from './category.entity';
 export class Product {
   @ApiProperty({ example: '1', description: 'Unique identificator of product' })
   @PrimaryGeneratedColumn()
-  productId: string;
+  productId: number;
 
   @ApiProperty({ example: 'Leather jacket', description: 'Product name' })
   @Column()
@@ -30,16 +30,16 @@ export class Product {
   price: number;
 
   @ManyToOne(() => Category, category => category.products)
-  categoryId: Category;
+  category: Category;
 
   constructor(
-    productId: string,
+    productId: number,
     name: string,
     description: string,
     size: string,
     color: string,
     price: number,
-    categoryId: Category,
+    category: Category,
   ) {
     this.productId = productId;
     this.name = name;
@@ -47,6 +47,6 @@ export class Product {
     this.size = size;
     this.color = color;
     this.price = price;
-    this.categoryId = categoryId;
+    this.category = category;
   }
 }
