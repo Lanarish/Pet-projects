@@ -30,7 +30,7 @@ export class Product {
   price: number;
 
   @ManyToOne(() => Category, category => category.products)
-  categoryId: Category;
+  category: Category;
 
   constructor(
     productId: string,
@@ -39,7 +39,7 @@ export class Product {
     size: string,
     color: string,
     price: number,
-    categoryId: Category,
+    category: Category,
   ) {
     this.productId = productId;
     this.name = name;
@@ -47,6 +47,6 @@ export class Product {
     this.size = size;
     this.color = color;
     this.price = price;
-    this.categoryId = categoryId;
+    this.category = category;
   }
 }

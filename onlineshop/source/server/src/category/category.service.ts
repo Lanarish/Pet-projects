@@ -57,7 +57,7 @@ export class CategoryService {
       this.logger.error(`id:${id}`, ELEMENT_NOT_FOUND);
       throw new NotFoundException(ELEMENT_NOT_FOUND);
     }
-    this.logger.log(`The product id:${id} has successfully found`);
+    this.logger.log(`The category id:${id} has successfully found`);
     return model;
   }
   async remove(id: string): Promise<void> {

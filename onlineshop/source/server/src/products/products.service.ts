@@ -51,17 +51,12 @@ export class ProductsService {
     return model;
   }
 
-  async getAllByCategory(categoryId: number, categories: Category[]): Promise<Product[]> {
+  async getAllByCategory(category: Category): Promise<Product[]> {
     this.logger.log(`Start getting products... `);
-    for (const currCategory of categories) {
-      if (currCategory.categoryId === categoryId) {
-        const findByCategory = await this.productsRepository.find({ categoryId: new Category(categoryId) });
-        this.logger.log(`The all products have been downloaded by category ${categoryId}`);
-        return findByCategory;
-      }
-    }
-    this.logger.error(`Category id:${categoryId}`, ELEMENT_NOT_FOUND);
-    throw new NotFoundException(ELEMENT_NOT_FOUND);
+
+    const findByCategory = await this.productsRepository.find({ category });
+    this.logger.log(`The all products have been downloaded by category ${category.categoryId}`);
+    return findByCategory;
   }
 
   async create(dto: ProductDto): Promise<Product> {

@@ -17,7 +17,7 @@ import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 import { Product } from '../entity/product.entity';
 
 import { ProductDto } from './dto/productDto.dto';
-// eslint-disable-next-line import/namespace
+
 import { ProductsService } from './products.service';
 
 import { NotFoundResponse } from 'responses/notFoundResponse';
@@ -66,8 +66,8 @@ export class ProductsController {
   @ApiBody({ type: ProductDto })
   async findAllByCategory(@Param('categoryId') categoryId: string) {
     try {
-      const category = await this.categoryService.findAllCategories();
-      return this.productService.getAllByCategory(Number(categoryId), category);
+      const category = await this.categoryService.findOne(categoryId);
+      return this.productService.getAllByCategory(category);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
