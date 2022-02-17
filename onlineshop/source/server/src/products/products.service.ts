@@ -61,7 +61,8 @@ export class ProductsService {
       this.logger.error(error.message);
       throw new Error(error.message);
     }
-    if (!findByCategory.length) {
+
+    if (!findByCategory?.length) {
       this.logger.error(`id:${categoryId}`, ELEMENT_NOT_FOUND);
       throw new NotFoundException(ELEMENT_NOT_FOUND);
     }
