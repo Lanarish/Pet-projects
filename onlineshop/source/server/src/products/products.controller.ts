@@ -62,7 +62,6 @@ export class ProductsController {
   @ApiOperation({ summary: 'Get products by category' })
   @ApiResponse({ status: 200, type: Product })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
-  @ApiBody({ type: ProductDto })
   async findAllByCategory(@Param('categoryId') categoryId: string) {
     try {
       return this.productService.getAllByCategory(Number(categoryId));
