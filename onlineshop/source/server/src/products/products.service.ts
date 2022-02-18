@@ -33,7 +33,7 @@ export class ProductsService {
     return findAllProducts;
   }
 
-  async findOne(id: string): Promise<Product> {
+  async findOne(id: number): Promise<Product> {
     let model;
     try {
       model = await this.productsRepository.findOne(id, { relations: ['category'] });
@@ -49,7 +49,7 @@ export class ProductsService {
     return model;
   }
 
-  async getAllByCategory(categoryId: string): Promise<Product[]> {
+  async getAllByCategory(categoryId: number): Promise<Product[]> {
     this.logger.log(`Start getting products... `);
     let findByCategory: Product[];
     try {
@@ -86,7 +86,7 @@ export class ProductsService {
     }
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
     let model;
     this.logger.log(`Start removal process... `);
     try {

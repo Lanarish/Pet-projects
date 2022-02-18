@@ -51,7 +51,7 @@ export class ProductsController {
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   async getOne(@Param('id') id: string) {
     try {
-      return this.productService.findOne(id);
+      return this.productService.findOne(Number(id));
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -65,7 +65,7 @@ export class ProductsController {
   @ApiBody({ type: ProductDto })
   async findAllByCategory(@Param('categoryId') categoryId: string) {
     try {
-      return this.productService.getAllByCategory(categoryId);
+      return this.productService.getAllByCategory(Number(categoryId));
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -94,7 +94,7 @@ export class ProductsController {
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   async remove(@Param('id') id: string) {
     try {
-      return this.productService.remove(id);
+      return this.productService.remove(Number(id));
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
