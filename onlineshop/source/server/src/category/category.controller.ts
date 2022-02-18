@@ -12,12 +12,18 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CategoryService } from './category.service';
 import { CategoryDto } from './dto/categoryDto';
 
 import { Category } from 'entity/category.entity';
+import { NotFoundResponse } from 'responses/notFoundResponse';
+import { CreateResponse } from 'responses/createdResponse';
+import { NotAcceptableResponse } from 'responses/notAcceptableResponse';
+import { BadRequestResponse } from 'responses/badRequestResponse';
 
+@ApiTags('Category')
 @Controller('category')
 export class CategoryController {
   private logger: Logger;
@@ -26,6 +32,8 @@ export class CategoryController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all category' })
+  @ApiResponse({ status: 200, type: [Category] })
   getAll(): Promise<Category[]> {
     try {
       return this.categoryService.findAllCategories();
@@ -35,6 +43,9 @@ export class CategoryController {
     }
   }
   @Get(':id')
+  @ApiOperation({ summary: 'Get one category by id' })
+  @ApiResponse({ status: 200, type: Category })
+  @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found category by this id' })
   async getOne(@Param('id') id: string) {
     try {
       return this.categoryService.findOne(id);
@@ -44,6 +55,12 @@ export class CategoryController {
     }
   }
   @Post()
+  @ApiOperation({ summary: 'Create category' })
+  @ApiResponse({ status: 200, type: Category })
+  @ApiResponse({ status: 201, type: CreateResponse, description: 'Created product' })
+  @ApiResponse({ status: 406, type: NotAcceptableResponse, description: 'Not valid value' })
+  @ApiResponse({ status: 400, type: BadRequestResponse, description: 'Not valid value' })
+  @ApiBody({ type: CategoryDto })
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() dto: CategoryDto): Promise<Category> {
     try {
@@ -54,6 +71,9 @@ export class CategoryController {
     }
   }
   @Delete(':id')
+  @ApiOperation({ summary: 'Remove category' })
+  @ApiResponse({ status: 200 })
+  @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found category by this id' })
   async remove(@Param('id') id: string) {
     try {
       return this.categoryService.remove(id);
@@ -64,6 +84,10 @@ export class CategoryController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update category' })
+  @ApiResponse({ status: 200, type: Category })
+  @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
+  @ApiBody({ type: CategoryDto })
   @UsePipes(new ValidationPipe({ transform: true }))
   async update(@Body() dto: CategoryDto, @Param('id') id: string): Promise<Category> {
     try {
