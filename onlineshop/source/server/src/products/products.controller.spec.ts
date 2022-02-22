@@ -15,9 +15,10 @@ describe('ProductsController', () => {
 
   const mockProductsRepository = {
     create: jest.fn().mockImplementation(dto => dto),
-    save: jest.fn().mockImplementation(product => Promise.resolve({ id: Date.now(), ...product })),
-    findOne: jest.fn().mockImplementation(obj => {
-      if (obj.where.productId === 2) {
+    save: jest.fn().mockImplementation(product => Promise.resolve({ productId: Date.now(), ...product })),
+    // update: jest.fn().mockImplementation((dto: ProductDto, id: number) => Promise.resolve({ id, ...dto })),
+    findOne: jest.fn().mockImplementation((id: number) => {
+      if (id === 2) {
         return {
           productId: 2,
           name: 'Jacket',
@@ -55,7 +56,7 @@ describe('ProductsController', () => {
       };
 
       expect(await controller.create(productDto)).toEqual({
-        id: expect.any(Number),
+        productId: Date.now(),
         ...productDto,
       });
     });
@@ -71,7 +72,7 @@ describe('ProductsController', () => {
         category: new Category(),
       };
       expect(await controller.update(productDto, 2)).toEqual({
-        id: 2,
+        productId: 2,
         ...productDto,
       });
     });
