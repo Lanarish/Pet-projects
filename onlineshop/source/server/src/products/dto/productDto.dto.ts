@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsPositive, IsUppercase, Matches, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Category } from 'entity/category.entity';
+import { Category } from '../../entity/category.entity';
 
 export class ProductDto {
   @ApiProperty({ example: 'Leather jacket', description: 'Product name' })

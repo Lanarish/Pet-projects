@@ -2,10 +2,10 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { CategoryDto } from './dto/categoryDto';
+import { Category } from '../entity/category.entity';
+import { ELEMENT_NOT_FOUND, FAILED_DELETE } from '../constant';
 
-import { Category } from 'entity/category.entity';
-import { ELEMENT_NOT_FOUND, FAILED_DELETE } from 'constant';
+import { CategoryDto } from './dto/categoryDto';
 
 @Injectable()
 export class CategoryService {
