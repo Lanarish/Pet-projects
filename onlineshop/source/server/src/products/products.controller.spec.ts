@@ -1,92 +1,102 @@
-import { Test, TestingModule } from '@nestjs/testing';
+// import { Test, TestingModule } from '@nestjs/testing';
 
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+
+import { Category } from '../entity/category.entity';
+import { Product } from '../entity/product.entity';
+
+import { ProductDto } from './dto/productDto.dto';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
 
 describe('ProductsController', () => {
   let controller: ProductsController;
 
-  const mockProductService = {
-    create: jest.fn(dto => ({
-      id: Date.now(),
-      ...dto,
-    })),
+  const mockProductsRepository = {
+    create: jest.fn().mockImplementation(dto => dto),
+    save: jest.fn().mockImplementation(product => Promise.resolve({ id: Date.now(), ...product })),
+    findOne: jest.fn().mockImplementation(obj => {
+      if (obj.where.productId === 2) {
+        return {
+          productId: 2,
+          name: 'Jacket',
+          description: 'TestDescription',
+          color: 'Black',
+          size: 'S',
+          price: 1000000,
+          category: new Category(),
+        };
+      }
+      return null;
+    }),
   };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProductsController],
-      providers: [ProductsService],
-    })
-      .overrideProvider(ProductsService)
-      .useValue(mockProductService)
-      .compile();
-
+      providers: [ProductsService, { provide: getRepositoryToken(Product), useValue: mockProductsRepository }],
+    }).compile();
     controller = module.get<ProductsController>(ProductsController);
   });
 
-  it('should create a product', () => {
-    const dto = {
-      name: 'Leather jacket',
-      description: 'Some text',
-      size: 'S',
-      color: 'Black',
-      price: 10000,
-      category: 1,
-    };
-    expect(controller.create(dto)).toEqual({
-      productId: expect.any(Number),
-      name: dto.name,
-      description: dto.description,
-      size: dto.size,
-      color: dto.color,
-      price: dto.price,
-      category: dto.category,
+  describe('create', () => {
+    it('should be defined', () => {
+      expect(controller).toBeDefined();
     });
-    expect(mockProductService.create).toHaveBeenCalledWith(dto);
+    it('should create a product', async () => {
+      const productDto: ProductDto = {
+        name: 'Jacket',
+        description: 'TestDescription',
+        color: 'Black',
+        size: 'S',
+        price: 1000000,
+        category: new Category(),
+      };
+
+      expect(await controller.create(productDto)).toEqual({
+        id: expect.any(Number),
+        ...productDto,
+      });
+    });
   });
+  describe('update', () => {
+    it('should update a product', async () => {
+      const productDto: ProductDto = {
+        name: 'Jacket3',
+        description: 'TestDescription',
+        color: 'Black',
+        size: 'S',
+        price: 1000000,
+        category: new Category(),
+      };
+      expect(await controller.update(productDto, 2)).toEqual({
+        id: 2,
+        ...productDto,
+      });
+    });
+  });
+  //   describe('get', () => {
+  //     it('should be defined', () => {
+  //       expect(controller).toBeDefined();
+  //     });
+
+  //     it('should return a product', async () => {
+  //       expect(await controller.getOne(2)).toEqual(new GetBookDto(mockBooksDatabase[0]));
+  //     });
+
+  //     it('should return all books', async () => {
+  //       const result = mockBooksDatabase.filter(book => {
+  //         if (!book.isRemoved) {
+  //           return book;
+  //         }
+  //       });
+
+  //       expect(await controller.findAll()).toEqual(result.map(book => new GetBookDto(book)));
+  //     });
+
+  //     it('should throw the exception that book not found', async () => {
+  //       expect(async () => await controller.findOne('3')).rejects.toThrow('BOOK NOT FOUND');
+  //     });
+  //   });
 });
-// import { Test } from '@nestjs/testing';
-// import { async } from 'rxjs';
-
-// import { ProductsController } from '../products/products.controller';
-// import { ProductsService } from '../products/products.service';
-
-// describe('ProductsController', () => {
-//   let productsController: ProductsController;
-//   let productsService: ProductsService;
-
-//   beforeEach(async () => {
-//     const moduleRef = await Test.createTestingModule({
-//       controllers: [ProductsController],
-//       providers: [ProductsService],
-//     }).compile();
-
-//     productsService = moduleRef.get<ProductsService>(ProductsService);
-//     productsController = moduleRef.get<ProductsController>(ProductsController);
-//   });
-//   it('should be defined', () => {
-//     expect(productsController).toBeDefined();
-//   });
-//   describe('findAll', () => {
-//     it('should return an array of products', async () => {
-//       const result = [
-//         {
-//           productId: 1,
-//           name: 'Jacket',
-//           description: 'Some text',
-//           size: 'S',
-//           color: 'Black',
-//           price: 10000,
-//           category: {
-//             categoryId: 1,
-//             name: 'Jackets',
-//           },
-//         },
-//       ];
-//       console.log(productsController.getAll());
-//       jest.spyOn(productsService, 'findAll').mockImplementation(async () => result);
-
-//       expect(await productsController.getAll()).toBe(result);
-//     });
-//   });
-// });

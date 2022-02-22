@@ -19,7 +19,6 @@ import { NotFoundResponse } from '../responses/notFoundResponse';
 import { NotAcceptableResponse } from '../responses/notAcceptableResponse';
 import { BadRequestResponse } from '../responses/badRequestResponse';
 import { CreateResponse } from '../responses/createdResponse';
-import { CategoryService } from '../category/category.service';
 
 import { ProductsService } from './products.service';
 import { ProductDto } from './dto/productDto.dto';
@@ -28,7 +27,7 @@ import { ProductDto } from './dto/productDto.dto';
 @Controller('products')
 export class ProductsController {
   private logger: Logger;
-  constructor(private productService: ProductsService, private categoryService: CategoryService) {
+  constructor(private productService: ProductsService) {
     this.logger = new Logger(ProductsController.name);
   }
 

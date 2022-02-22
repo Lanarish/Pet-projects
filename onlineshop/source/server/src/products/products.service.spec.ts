@@ -30,16 +30,14 @@ describe('ProductsService', () => {
     expect(service).toBeDefined();
   });
   it('should create a product and return that', async () => {
-    const dto = [
-      {
-        name: 'Jacket',
-        description: 'Some text',
-        size: 'S',
-        color: 'Black',
-        price: 10000,
-        category: 1,
-      },
-    ];
+    const dto = {
+      name: 'Jacket',
+      description: 'Some text',
+      size: 'S',
+      color: 'Black',
+      price: 10000,
+      category: 1,
+    };
     expect(await service.create(dto)).toEqual({ id: expect.any(Number), ...dto });
   });
   //   describe('Test getAll function', () => {
