@@ -1,11 +1,12 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import './App.css';
+import Shop from './pages/Shop';
 
 const App: React.FC = () => (
-  <div className="App">
-    <header className="App-header">Hello!</header>
-  </div>
+  <BrowserRouter>
+    <Shop />
+  </BrowserRouter>
 );
 
 export default App;
