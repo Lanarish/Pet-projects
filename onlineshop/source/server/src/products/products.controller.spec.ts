@@ -1,10 +1,9 @@
-// import { Test, TestingModule } from '@nestjs/testing';
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { Category } from '../entity/category.entity';
 import { Product } from '../entity/product.entity';
+import { mockProductsRepository } from '../__mocks__/mockProductRepository.mock';
 
 import { ProductDto } from './dto/productDto.dto';
 import { ProductsController } from './products.controller';
@@ -12,26 +11,6 @@ import { ProductsService } from './products.service';
 
 describe('ProductsController', () => {
   let controller: ProductsController;
-
-  const mockProductsRepository = {
-    create: jest.fn().mockImplementation(dto => dto),
-    save: jest.fn().mockImplementation(product => Promise.resolve({ productId: Date.now(), ...product })),
-    // update: jest.fn().mockImplementation((dto: ProductDto, id: number) => Promise.resolve({ id, ...dto })),
-    findOne: jest.fn().mockImplementation((id: number) => {
-      if (id === 2) {
-        return {
-          productId: 2,
-          name: 'Jacket',
-          description: 'TestDescription',
-          color: 'Black',
-          size: 'S',
-          price: 1000000,
-          category: new Category(),
-        };
-      }
-      return null;
-    }),
-  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -42,62 +21,92 @@ describe('ProductsController', () => {
   });
 
   describe('create', () => {
-    it('should be defined', () => {
-      expect(controller).toBeDefined();
-    });
-    it('should create a product', async () => {
-      const productDto: ProductDto = {
+    let productDto: ProductDto;
+    beforeEach(async () => {
+      productDto = {
         name: 'Jacket',
         description: 'TestDescription',
         color: 'Black',
         size: 'S',
-        price: 1000000,
+        price: 10000,
         category: new Category(),
       };
-
+    });
+    it('should be defined', () => {
+      expect(controller).toBeDefined();
+    });
+    it('should create a product', async () => {
       expect(await controller.create(productDto)).toEqual({
-        productId: Date.now(),
+        productId: 2,
         ...productDto,
       });
     });
   });
   describe('update', () => {
-    it('should update a product', async () => {
-      const productDto: ProductDto = {
-        name: 'Jacket3',
+    let productDto: ProductDto;
+    beforeEach(async () => {
+      productDto = {
+        name: 'Jacket',
         description: 'TestDescription',
         color: 'Black',
         size: 'S',
-        price: 1000000,
+        price: 10000,
         category: new Category(),
       };
+    });
+    it('should update a product', async () => {
       expect(await controller.update(productDto, 2)).toEqual({
         productId: 2,
         ...productDto,
       });
     });
   });
-  //   describe('get', () => {
-  //     it('should be defined', () => {
-  //       expect(controller).toBeDefined();
-  //     });
+  describe('get', () => {
+    let product: Product;
+    let products: Product[];
+    beforeEach(async () => {
+      product = {
+        productId: 2,
+        name: 'Jacket',
+        description: 'TestDescription',
+        color: 'Black',
+        size: 'S',
+        price: 10000,
+        category: new Category(),
+      };
+      products = [
+        {
+          productId: 2,
+          name: 'Jacket',
+          description: 'TestDescription',
+          color: 'Black',
+          size: 'S',
+          price: 10000,
+          category: new Category(),
+        },
+      ];
+    });
 
-  //     it('should return a product', async () => {
-  //       expect(await controller.getOne(2)).toEqual(new GetBookDto(mockBooksDatabase[0]));
-  //     });
+    it('should be defined', () => {
+      expect(controller).toBeDefined();
+    });
 
-  //     it('should return all books', async () => {
-  //       const result = mockBooksDatabase.filter(book => {
-  //         if (!book.isRemoved) {
-  //           return book;
-  //         }
-  //       });
+    it('should return a product', async () => {
+      expect(await controller.getOne(2)).toEqual(product);
+    });
 
-  //       expect(await controller.findAll()).toEqual(result.map(book => new GetBookDto(book)));
-  //     });
+    it('should return all products', async () => {
+      expect(await controller.getAll()).toEqual(products);
+    });
 
-  //     it('should throw the exception that book not found', async () => {
-  //       expect(async () => await controller.findOne('3')).rejects.toThrow('BOOK NOT FOUND');
-  //     });
-  //   });
+    it('should throw the exception that product not found', async () => {
+      expect(async () => await controller.getOne(3)).rejects.toThrow('Element does not exist');
+    });
+  });
+  describe('delete', () => {
+    it('should return not found exception after we delete our product', async () => {
+      await controller.remove(2);
+      expect(async () => await controller.getOne(2)).rejects.toThrow('FAILED_DELETE');
+    });
+  });
 });

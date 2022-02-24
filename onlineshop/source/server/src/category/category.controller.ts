@@ -35,7 +35,7 @@ export class CategoryController {
     }
   }
   @Get(':id')
-  async getOne(@Param('id') id: string) {
+  async getOne(@Param('id') id: number) {
     try {
       return this.categoryService.findOne(id);
     } catch (error) {
@@ -54,7 +54,7 @@ export class CategoryController {
     }
   }
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: number) {
     try {
       return this.categoryService.remove(id);
     } catch (error) {
@@ -65,9 +65,9 @@ export class CategoryController {
 
   @Put(':id')
   @UsePipes(new ValidationPipe({ transform: true }))
-  async update(@Body() dto: CategoryDto, @Param('id') id: string): Promise<Category> {
+  async update(@Body() dto: CategoryDto, @Param('id') id: number): Promise<Category> {
     try {
-      return this.categoryService.update(dto, Number(id));
+      return this.categoryService.update(dto, id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
