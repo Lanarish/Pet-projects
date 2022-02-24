@@ -8,17 +8,16 @@ import Typography from '@mui/material/Typography';
 
 import image from 'src/assets/picture/Leather_jacket.jpg';
 import { IProps } from 'src/interfaces';
+import './../styles/ProductCard.css';
 
 const ProductCard: React.FC<IProps> = ({ name, description, color, size, price, categoryId }) => (
-  <Card sx={{ width: 345, height: 400, boxShadow: 2 }}>
-    <CardMedia className="photo" component="img" height="300" image={image} alt="Leather jacket" />
+  <Card className="card">
+    <CardMedia className="photo" component="img" image={image} alt="Leather jacket" />
     <CardContent>
-      <Typography gutterBottom variant="h5" component="div">
+      <Typography gutterBottom variant="h6" component="div">
         {name}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
-        {description}
-      </Typography>
+      <Typography color="text.secondary">{description}</Typography>
       <Typography variant="body2" color="text.secondary">
         Price: {price}
       </Typography>

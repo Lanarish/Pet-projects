@@ -1,8 +1,8 @@
-import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 import ProductCard from 'src/components/ProductCard';
 import { IProduct } from 'src/interfaces/index';
+import './../styles/Shop.css';
 
 function Shop() {
   const [products, setProducts] = useState([]);
@@ -26,7 +26,7 @@ function Shop() {
     getAllProducts();
   }, []);
   return (
-    <Grid xs={4}>
+    <div className="container">
       <div className="list">
         {products?.length &&
           products.map((product: IProduct) => (
@@ -41,7 +41,7 @@ function Shop() {
             />
           ))}
       </div>
-    </Grid>
+    </div>
   );
 }
 export default Shop;

@@ -1,3 +1,21 @@
+.card {
+  width: 210px;
+  height: 410px;
+  margin-bottom: 20px;
+}
+
 .photo {
-  width: 100px;
+  width: 210px;
+  height: 200px;
+}
+@media screen and (max-width: 890px) {
+  .card {
+    width: 310px;
+    height: 520px;
+    margin-bottom: 20px;
+  }
+  .photo {
+    width: 210px;
+    height: 300px;
+  }
 }
