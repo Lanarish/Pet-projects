@@ -1,83 +1,65 @@
 import React from 'react';
 import './../styles/NavBar.scss';
+import { Link } from 'react-router-dom';
+
+import cart from 'src/assets/picture/icons8-корзина-64 (1).jpg';
+import reg from 'src/assets/picture/icons8-мужчина-64.jpg';
+import image from 'src/assets/picture/1794_oooo.plus.jpg';
 
 function NavBar() {
   return (
-    <nav id="menu">
-      <div className="menu-item">
-        <div className="menu-text">
-          <a href="#">About us</a>
-        </div>
-        <div className="sub-menu">
-          <div className="icon-box">
-            <div className="text">
-              <div className="title">
-                Our manufacture <i className="far fa-arrow-right" />
-              </div>
-            </div>
+    <div className="nav-top">
+      <nav className="nav">
+        <div className="icons_block">
+          <div className="language">
+            <div>RU</div>
+            <div>EN</div>
           </div>
-          <div className="icon-box">
-            <div className="text">
-              <div className="title">
-                Our materials and suppliers <i className="far fa-arrow-right" />
+          <div className="icons">
+            <Link to="">
+              <div>
+                <img className="icons_reg" src={reg} />
               </div>
-            </div>
-          </div>
-          <div className="icon-box">
-            <div className="text">
-              <div className="title">
-                Location <i className="far fa-arrow-right" />
+            </Link>
+            <Link to="">
+              <div>
+                <img className="icons_cart" src={cart} />
               </div>
-            </div>
+            </Link>
           </div>
         </div>
-      </div>
-      <div className="menu-item highlight">
-        <div className="menu-text">
-          <a href="#">Products</a>
-        </div>
-        <div className="sub-menu double">
-          <div className="icon-box gb a">
-            <div className="text">
-              <div className="title">
-                Jackets <i className="far fa-arrow-right" />
-              </div>
-              <div className="sub-text">An enternal classic of your wardrobe</div>
-            </div>
-          </div>
-          <div className="icon-box gb b">
-            <div className="text">
-              <div className="title">
-                Treanch coats <i className="far fa-arrow-right" />
-              </div>
-              <div className="sub-text">Trendy coats for your outfit</div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="menu-item highlight">
-        <div className="menu-text">
-          <a href="#">Support</a>
-        </div>
-        <div className="sub-menu triple">
-          <div className="box">
-            <h3>Support</h3>
-            <a href="#">Delivery</a>
-            <a href="#">Payment</a>
-            <a href="#">Terms of return</a>
+        <ul className="links">
+          <li>
+            <Link to="/shop" className="links_li">
+              Products
+            </Link>
+          </li>
+          <li>
+            <Link to="/" className="links_li">
+              About us
+            </Link>
+          </li>
+          <div>
+            <Link to="/" className="logo">
+              <div>
+                <img className="logo_icon" src={image} />
+              </div>
+            </Link>
           </div>
-        </div>
-      </div>
-      <div className="menu-item">
-        <div className="menu-text">
-          <a href="#">Sigh in</a>
-        </div>
-      </div>
-      <div id="sub-menu-container">
-        <div id="sub-menu-holder" />
-      </div>
-    </nav>
+          <li>
+            <Link to="/table" className="links_li">
+              Delivery
+            </Link>
+          </li>
+          <li>
+            <Link to="/table" className="links_li">
+              Support
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </div>
   );
 }
 

@@ -8,32 +8,20 @@ import Typography from '@mui/material/Typography';
 
 import image from 'src/assets/picture/Leather_jacket.jpg';
 import { IProps } from 'src/interfaces';
-import './../styles/ProductCard.css';
+import './../styles/ProductCard.scss';
 
-const ProductCard: React.FC<IProps> = ({ name, description, color, size, price, categoryId }) => (
+const ProductCard: React.FC<IProps> = ({ name, price }) => (
   <Card className="card">
     <CardMedia className="photo" component="img" image={image} alt="Leather jacket" />
-    <CardContent>
-      <Typography gutterBottom variant="h6" component="div">
+    <CardContent className="card_content">
+      <Typography className="title" gutterBottom variant="h6" component="div">
         {name}
       </Typography>
-      <Typography color="text.secondary">{description}</Typography>
-      <Typography variant="body2" color="text.secondary">
-        Price: {price}
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-        Color: {color}
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-        Size: {size}
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-        Catery: {categoryId.name}
-      </Typography>
+      <Typography>Price: {price} RUB</Typography>
     </CardContent>
     <CardActions>
-      <Button size="small">Share</Button>
-      <Button size="small">Learn More</Button>
+      <Button className="button_buy">BUY</Button>
+      <Button className="button_more">LEARN MORE</Button>
     </CardActions>
   </Card>
 );

@@ -1,0 +1,45 @@
+.card {
+  width: 210px;
+  height: 350px;
+  margin-bottom: 20px;
+
+  .photo {
+    width: 210px;
+    height: 200px;
+  }
+  .card_content {
+    color: rgba(0, 0, 0, 0.473);
+
+    .title {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 700;
+      color: #ac6e5bfa;
+    }
+  }
+  .button_buy {
+    background-color: #ac7b6cb6;
+    color: #f0ede8e5;
+  }
+  .button_buy:hover,
+  .button_more:hover {
+    background-color: #ac7b6cb6;
+    color: white;
+    font-weight: 600;
+  }
+  .button_more {
+    background-color: #ac7b6cb6;
+    color: #f0ede8e5;
+  }
+}
+
+@media screen and (max-width: 890px) {
+  .card {
+    width: 310px;
+    height: 520px;
+    margin-bottom: 20px;
+  }
+  .photo {
+    width: 210px;
+    height: 300px;
+  }
+}
