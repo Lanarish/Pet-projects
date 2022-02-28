@@ -6,18 +6,23 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+// eslint-disable-next-line import/order
 import image from 'src/assets/picture/Leather_jacket.jpg';
-import { IProps } from 'src/interfaces';
-import './../styles/ProductCard.scss';
 
-const ProductCard: React.FC<IProps> = ({ name, price }) => (
+import './../styles/ProductCard.scss';
+import { IProduct } from 'src/interfaces';
+
+interface IProps {
+  product: IProduct;
+}
+const ProductCard: React.FC<IProps> = ({ product }) => (
   <Card className="card">
     <CardMedia className="photo" component="img" image={image} alt="Leather jacket" />
     <CardContent className="card_content">
       <Typography className="title" gutterBottom variant="h6" component="div">
-        {name}
+        {product.name}
       </Typography>
-      <Typography>Price: {price} RUB</Typography>
+      <Typography>Price: {product.price} RUB</Typography>
     </CardContent>
     <CardActions>
       <Button className="button_buy">BUY</Button>

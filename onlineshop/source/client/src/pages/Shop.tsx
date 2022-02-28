@@ -28,18 +28,7 @@ function Shop() {
   return (
     <div className="container">
       <div className="list">
-        {products?.length &&
-          products.map((product: IProduct) => (
-            <ProductCard
-              key={product.id}
-              name={product.name}
-              description={product.description}
-              color={product.color}
-              size={product.size}
-              price={product.price}
-              categoryId={product.categoryId}
-            />
-          ))}
+        {products?.length && products.map((product: IProduct) => <ProductCard key={product.id} product={product} />)}
       </div>
     </div>
   );
