@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import ProductCard from 'src/components/ProductCard';
 import { IProduct } from 'src/interfaces/index';
-import './../styles/Shop.css';
+import './../styles/Shop.scss';
 
 function Shop() {
   const [products, setProducts] = useState([]);
