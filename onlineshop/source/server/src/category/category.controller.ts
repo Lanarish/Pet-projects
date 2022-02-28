@@ -14,14 +14,14 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+import { Category } from '../entity/category.entity';
+import { NotFoundResponse } from '../responses/notFoundResponse';
+import { CreateResponse } from '../responses/createdResponse';
+import { NotAcceptableResponse } from '../responses/notAcceptableResponse';
+import { BadRequestResponse } from '../responses/badRequestResponse';
+
 import { CategoryService } from './category.service';
 import { CategoryDto } from './dto/categoryDto';
-
-import { Category } from 'entity/category.entity';
-import { NotFoundResponse } from 'responses/notFoundResponse';
-import { CreateResponse } from 'responses/createdResponse';
-import { NotAcceptableResponse } from 'responses/notAcceptableResponse';
-import { BadRequestResponse } from 'responses/badRequestResponse';
 
 @ApiTags('Category')
 @Controller('category')
@@ -48,7 +48,7 @@ export class CategoryController {
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found category by this id' })
   async getOne(@Param('id') id: string) {
     try {
-      return this.categoryService.findOne(id);
+      return this.categoryService.findOne(Number(id));
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -76,7 +76,7 @@ export class CategoryController {
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found category by this id' })
   async remove(@Param('id') id: string) {
     try {
-      return this.categoryService.remove(id);
+      return this.categoryService.remove(Number(id));
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);

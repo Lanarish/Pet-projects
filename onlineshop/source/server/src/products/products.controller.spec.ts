@@ -19,7 +19,9 @@ describe('ProductsController', () => {
     }).compile();
     controller = module.get<ProductsController>(ProductsController);
   });
-
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+  });
   describe('create', () => {
     let productDto: ProductDto;
     beforeEach(async () => {
@@ -32,12 +34,10 @@ describe('ProductsController', () => {
         category: new Category(),
       };
     });
-    it('should be defined', () => {
-      expect(controller).toBeDefined();
-    });
+
     it('should create a product', async () => {
       expect(await controller.create(productDto)).toEqual({
-        productId: 4,
+        productId: 3,
         ...productDto,
       });
     });
@@ -46,7 +46,7 @@ describe('ProductsController', () => {
     let productDto: ProductDto;
     beforeEach(async () => {
       productDto = {
-        name: 'Leather Jacket',
+        name: 'Jacket',
         description: 'TestDescription',
         color: 'Black',
         size: 'S',
@@ -55,7 +55,7 @@ describe('ProductsController', () => {
       };
     });
     it('should update a product', async () => {
-      expect(await controller.update(productDto, 2)).toEqual({ productId: mockList[0].productId, ...productDto });
+      expect(await controller.update(productDto, 1)).toEqual({ productId: mockList[0].productId, ...productDto });
     });
     it('should throw the exception that product not found', async () => {
       expect(async () => await controller.getOne(7)).rejects.toThrow('Element does not exist');
@@ -63,7 +63,7 @@ describe('ProductsController', () => {
   });
   describe('get', () => {
     let product: Product;
-    let products: Product[];
+
     beforeEach(async () => {
       product = {
         productId: 2,
@@ -74,7 +74,6 @@ describe('ProductsController', () => {
         price: 10000,
         category: new Category(),
       };
-      products = [product];
     });
 
     it('should be defined', () => {
@@ -82,11 +81,12 @@ describe('ProductsController', () => {
     });
 
     it('should return a product', async () => {
-      expect(await controller.getOne(mockList[0].productId)).toEqual(product);
+      expect(await controller.getOne(2)).toEqual(product);
     });
 
     it('should return all products', async () => {
-      expect(await controller.getAll()).toEqual(products);
+      const products = await controller.getAll();
+      expect(products.length).toEqual(3);
     });
 
     it('should throw the exception that product not found', async () => {
