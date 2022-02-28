@@ -49,7 +49,7 @@ export class ProductsService {
     return model;
   }
 
-  async getAllByCategory(categoryId: string): Promise<Product[]> {
+  async getAllByCategory(categoryId: number): Promise<Product[]> {
     this.logger.log(`Start getting products... `);
     let findByCategory: Product[];
     try {
