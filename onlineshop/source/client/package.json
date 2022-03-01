@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.4.3",
     "@mui/styles": "^5.4.2",
+    "@mui/system": "^5.4.4",
     "axios": "^0.26.0",
     "mobx": "^6.4.1",
     "mobx-react": "^7.3.0",
