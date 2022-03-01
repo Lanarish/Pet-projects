@@ -1,35 +1,26 @@
 import React, { useEffect, useState } from 'react';
 
 import ProductCard from 'src/components/ProductCard';
-import { IProduct } from 'src/interfaces/index';
+import { IProduct } from 'src/interfaces/products';
 import './../styles/Shop.scss';
+import { getAllProducts } from 'src/api/productsAPI';
 
 function Shop() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<[IProduct] | []>([]);
+
+  const getProducts = async () => {
+    const response = await getAllProducts();
+    setProducts(response);
+  };
 
   useEffect(() => {
-    const getAllProducts = async (): Promise<void> => {
-      try {
-        const response = await fetch('http://localhost:3001/api/products', {
-          method: 'GET',
-        });
-        if (response.ok) {
-          const json = await response.json();
-          setProducts(json);
-        } else {
-          throw new Error('Something went wrong ...');
-        }
-      } catch (error) {
-        throw new Error('ERROR');
-      }
-    };
-    getAllProducts();
+    getProducts();
   }, []);
   return (
-    <div className="container">
-      <div className="list">
-        {products?.length && products.map((product: IProduct) => <ProductCard key={product.id} product={product} />)}
-      </div>
+    <div className="list">
+      {products?.map((product: IProduct) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
     </div>
   );
 }

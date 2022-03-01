@@ -17,14 +17,10 @@ function NavBar() {
           </div>
           <div className="icons">
             <Link to="">
-              <div>
-                <img className="icons_reg" src={reg} />
-              </div>
+              <img className="icons_reg" src={reg} />
             </Link>
             <Link to="">
-              <div>
-                <img className="icons_cart" src={cart} />
-              </div>
+              <img className="icons_cart" src={cart} />
             </Link>
           </div>
         </div>
@@ -42,9 +38,7 @@ function NavBar() {
           </li>
           <div>
             <Link to="/" className="logo">
-              <div>
-                <img className="logo_icon" src={image} />
-              </div>
+              <img className="logo_icon" src={image} />
             </Link>
           </div>
           <li>
