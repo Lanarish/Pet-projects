@@ -1,0 +1,17 @@
+.singleProductCard {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 800px;
+  height: 500px;
+  margin-bottom: 30px;
+}
+.photo {
+  width: 500px;
+}
+.description {
+  text-align: center;
+
+  color: rgba(102, 101, 100, 0.808);
+}

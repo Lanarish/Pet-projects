@@ -5,7 +5,6 @@ import { styled } from '@mui/system';
 import image from 'src/assets/picture/1794_oooo.plus.jpg';
 
 const FooterContainer = styled('footer')({
-  position: 'relative',
   width: '100%',
   margin: 'auto 0 0 0',
   padding: '0 0 30px 0',

@@ -17,6 +17,7 @@
     }
   }
   .button_buy {
+    text-decoration: none;
     background-color: #ac7b6cb6;
     color: #f0ede8e5;
   }
@@ -27,8 +28,10 @@
     font-weight: 600;
   }
   .button_more {
+    margin-left: 10px;
     background-color: #ac7b6cb6;
     color: #f0ede8e5;
+   
   }
 }
 

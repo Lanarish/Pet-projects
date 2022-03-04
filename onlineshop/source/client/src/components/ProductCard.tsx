@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 import image from 'src/assets/picture/Leather_jacket.jpg';
 import './../styles/ProductCard.scss';
@@ -24,7 +25,10 @@ const ProductCard: React.FC<IProductProps> = ({ product }) => (
     </CardContent>
     <CardActions>
       <Button className="button_buy">BUY</Button>
-      <Button className="button_more">LEARN MORE</Button>
+
+      <Link key={product.productId} to={`/products/${product.productId}`} style={{ textDecoration: 'none' }}>
+        <Button className="button_more">LEARN MORE</Button>
+      </Link>
     </CardActions>
   </Card>
 );
