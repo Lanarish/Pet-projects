@@ -15,11 +15,11 @@ function NavBar() {
             <div>EN</div>
           </div>
           <div className="icons">
-            <Link to="">
-              <Person sx={{ color: '#666564ce', fontSize: '40px', marginTop: '5px' }} />
+            <Link to="/admin">
+              <Person sx={{ color: '#666564ce', fontSize: '38px', marginTop: '5px' }} />
             </Link>
-            <Link to="">
-              <ShoppingBasketOutlined sx={{ color: '#666564ce', fontSize: '40px', marginTop: '5px' }} />
+            <Link to="/cart">
+              <ShoppingBasketOutlined sx={{ color: '#666564ce', fontSize: '38px', marginTop: '5px' }} />
             </Link>
           </div>
         </div>
@@ -41,12 +41,12 @@ function NavBar() {
             </Link>
           </div>
           <li>
-            <Link to="/table" className="links_li">
+            <Link to="/delivery" className="links_li">
               Delivery
             </Link>
           </li>
           <li>
-            <Link to="/table" className="links_li">
+            <Link to="/support" className="links_li">
               Support
             </Link>
           </li>
