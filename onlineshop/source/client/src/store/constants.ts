@@ -1,1 +1,2 @@
-export const API = 'http://localhost:3001/api/products/';
+const API = 'http://localhost:3001/api/';
+export const PRODUCTS_API = `${API}products/`;
