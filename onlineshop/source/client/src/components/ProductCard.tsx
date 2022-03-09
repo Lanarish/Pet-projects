@@ -23,7 +23,7 @@ const ProductCard: React.FC<IProductProps> = ({ product }) => (
       </Typography>
       <Typography>Price: {product.price} RUB</Typography>
     </CardContent>
-    <CardActions>
+    <CardActions className="button-container">
       <Button className="button_buy">BUY</Button>
       <Link key={product.productId} to={`/products/${product.productId}`} className="link">
         <Button className="button_more">LEARN MORE</Button>

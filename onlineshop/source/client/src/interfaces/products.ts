@@ -7,5 +7,5 @@ export interface IProduct {
   color: string;
   size: string;
   price: number;
-  categoryId: ICategory;
+  category: ICategory;
 }

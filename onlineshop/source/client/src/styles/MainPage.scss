@@ -3,7 +3,7 @@
   justify-content: space-between;
 }
 
-.photo {
+.main-photo {
   max-width: 600px;
 
   height: 650px;
@@ -14,4 +14,30 @@
   text-align: center;
   color: rgba(102, 101, 100, 0.808);
   font-size: 60px;
+}
+
+@media screen and (max-width: 736px) {
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-photo {
+    margin: 0 auto;
+    max-width: 300px;
+
+    max-height: 350px;
+  }
+  .text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: rgba(102, 101, 100, 0.808);
+    font-size: 56px;
+  }
 }

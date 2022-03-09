@@ -33,6 +33,7 @@ const ProductPage = () => {
   if (error) {
     return <NotFoundPage />;
   }
+
   return (
     <div>
       {loading ? (
@@ -40,7 +41,7 @@ const ProductPage = () => {
       ) : (
         product && (
           <Card className="singleProductCard">
-            <Grid item xs={6}>
+            <Grid item md={6} xs={12}>
               <CardMedia className="photo" component="img" image={image} alt="Leather jacket" />
             </Grid>
             <Grid item xs={6} className="description">
@@ -53,7 +54,7 @@ const ProductPage = () => {
               <Typography>Description: {product.description} </Typography>
               <Typography>Size: {product.size} </Typography>
               <Typography>Color: {product.color} </Typography>
-              <Typography>Category: {product.categoryId.name} </Typography>
+              <Typography>Category: {product.category.name} </Typography>
             </Grid>
           </Card>
         )

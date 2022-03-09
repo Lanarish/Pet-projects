@@ -37,14 +37,20 @@
   }
 }
 
-@media screen and (max-width: 890px) {
+@media screen and (max-width: 736px) {
   .card {
-    width: 210px;
-    height: 350px;
+    width: 100%;
+    height: auto;
     margin-bottom: 20px;
+    text-align: center;
+
+    .photo {
+      width: 100%;
+      height: auto;
+    }
   }
-  .photo {
-    width: 210px;
-    height: 300px;
+  .button-container {
+    display: flex;
+    justify-content: center;
   }
 }
