@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 import './../styles/Footer.scss';
 import image from 'src/assets/picture/1794_oooo.plus.jpg';
