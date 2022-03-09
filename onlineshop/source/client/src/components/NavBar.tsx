@@ -1,9 +1,8 @@
 import React from 'react';
 import './../styles/NavBar.scss';
 import { Link } from 'react-router-dom';
+import { ShoppingBasketOutlined, Person } from '@mui/icons-material';
 
-import cart from 'src/assets/picture/icons8-корзина-64 (1).jpg';
-import reg from 'src/assets/picture/icons8-мужчина-64.jpg';
 import image from 'src/assets/picture/1794_oooo.plus.jpg';
 
 function NavBar() {
@@ -16,23 +15,23 @@ function NavBar() {
             <div>EN</div>
           </div>
           <div className="icons">
-            <Link to="">
-              <img className="icons_reg" src={reg} />
+            <Link to="/admin">
+              <Person sx={{ color: '#666564ce', fontSize: '38px', marginTop: '5px' }} />
             </Link>
-            <Link to="">
-              <img className="icons_cart" src={cart} />
+            <Link to="/cart">
+              <ShoppingBasketOutlined sx={{ color: '#666564ce', fontSize: '38px', marginTop: '5px' }} />
             </Link>
           </div>
         </div>
 
         <ul className="links">
           <li>
-            <Link to="/shop" className="links_li">
+            <Link to="/products" className="links_li">
               Products
             </Link>
           </li>
           <li>
-            <Link to="/" className="links_li">
+            <Link to="/about" className="links_li">
               About us
             </Link>
           </li>
@@ -42,12 +41,12 @@ function NavBar() {
             </Link>
           </div>
           <li>
-            <Link to="/table" className="links_li">
+            <Link to="/delivery" className="links_li">
               Delivery
             </Link>
           </li>
           <li>
-            <Link to="/table" className="links_li">
+            <Link to="/support" className="links_li">
               Support
             </Link>
           </li>

@@ -1,0 +1,17 @@
+.mainContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.photo {
+  max-width: 600px;
+
+  height: 650px;
+}
+.text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: rgba(102, 101, 100, 0.808);
+  font-size: 60px;
+}
