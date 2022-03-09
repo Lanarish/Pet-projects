@@ -6,12 +6,10 @@ import './../styles/MainPage.scss';
 
 function MainPage() {
   return (
-    <>
-      <div className="mainContainer">
-        <CardMedia className="photo" component="img" image={image} alt="Leather jacket" />
-        <div className="text">Premium quality for your outfit...</div>
-      </div>
-    </>
+    <div className="mainContainer">
+      <CardMedia className="photo" component="img" image={image} alt="Leather jacket" />
+      <div className="text">Premium quality for your outfit...</div>
+    </div>
   );
 }
 

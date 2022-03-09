@@ -1,8 +1,9 @@
 import { IProduct } from 'src/interfaces/products';
+import { API } from 'src/store/constants';
 
 export const getAllProducts = async (): Promise<[IProduct]> => {
   try {
-    const response = await fetch('http://localhost:3001/api/products', {
+    const response = await fetch(API, {
       method: 'GET',
     });
     if (response.ok) {
@@ -18,7 +19,7 @@ export const getAllProducts = async (): Promise<[IProduct]> => {
 
 export const getOneProduct = async (id?: string): Promise<IProduct> => {
   try {
-    const response = await fetch(`http://localhost:3001/api/products/${id}`, {
+    const response = await fetch(`${API}${id}`, {
       method: 'GET',
     });
 

@@ -10,7 +10,7 @@ import image from 'src/assets/picture/Leather_jacket.jpg';
 
 import NotFoundPage from './NotFoundPage';
 
-function ProductPage() {
+const ProductPage = () => {
   const { id } = useParams();
   const [error, setError] = useState<unknown>();
   const [loading, setLoading] = useState(false);
@@ -34,32 +34,32 @@ function ProductPage() {
     return <NotFoundPage />;
   }
   return (
-    <>
+    <div>
       {loading ? (
         <Loader />
       ) : (
-        <div>
+        product && (
           <Card className="singleProductCard">
             <Grid item xs={6}>
               <CardMedia className="photo" component="img" image={image} alt="Leather jacket" />
             </Grid>
             <Grid item xs={6} className="description">
               <Typography gutterBottom variant="h4" component="div">
-                {product?.name}
+                {product.name}
               </Typography>
               <Typography gutterBottom variant="h6">
-                Price: {product?.price} RUB{' '}
+                Price: {product.price} RUB{' '}
               </Typography>
-              <Typography>Description: {product?.description} </Typography>
-              <Typography>Size: {product?.size} </Typography>
-              <Typography>Color: {product?.color} </Typography>
-              <Typography>Category: {product?.categoryId.name} </Typography>
+              <Typography>Description: {product.description} </Typography>
+              <Typography>Size: {product.size} </Typography>
+              <Typography>Color: {product.color} </Typography>
+              <Typography>Category: {product.categoryId.name} </Typography>
             </Grid>
           </Card>
-        </div>
+        )
       )}
-    </>
+    </div>
   );
-}
+};
 
 export default ProductPage;
