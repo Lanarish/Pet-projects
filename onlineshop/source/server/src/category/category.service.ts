@@ -2,10 +2,10 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { CategoryDto } from './dto/categoryDto';
+import { Category } from '../entity/category.entity';
+import { ELEMENT_NOT_FOUND, FAILED_DELETE } from '../constant';
 
-import { Category } from 'entity/category.entity';
-import { ELEMENT_NOT_FOUND, FAILED_DELETE } from 'constant';
+import { CategoryDto } from './dto/categoryDto';
 
 @Injectable()
 export class CategoryService {
@@ -45,7 +45,7 @@ export class CategoryService {
     return findAllCategories;
   }
 
-  async findOne(id: string): Promise<Category> {
+  async findOne(id: number): Promise<Category> {
     let model;
     try {
       model = await this.categoryRepository.findOne(id);
@@ -60,7 +60,7 @@ export class CategoryService {
     this.logger.log(`The category id:${id} has successfully found`);
     return model;
   }
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
     let model;
     this.logger.log(`Start removal process... `);
     try {

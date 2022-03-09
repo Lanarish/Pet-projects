@@ -6,11 +6,12 @@ import { Product } from '../entity/product.entity';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
 
-import { CategoryModule } from 'category/category.module';
+import { CategoryService } from 'category/category.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Product]), CategoryModule],
-  providers: [ProductsService],
+  imports: [TypeOrmModule.forFeature([Product])],
+  providers: [ProductsService, CategoryService],
   controllers: [ProductsController],
+  exports: [ProductsService],
 })
 export class ProductsModule {}

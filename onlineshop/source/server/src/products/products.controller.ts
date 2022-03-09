@@ -15,21 +15,19 @@ import {
 import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 
 import { Product } from '../entity/product.entity';
+import { NotFoundResponse } from '../responses/notFoundResponse';
+import { NotAcceptableResponse } from '../responses/notAcceptableResponse';
+import { BadRequestResponse } from '../responses/badRequestResponse';
+import { CreateResponse } from '../responses/createdResponse';
 
-import { ProductDto } from './dto/productDto.dto';
 import { ProductsService } from './products.service';
-
-import { NotFoundResponse } from 'responses/notFoundResponse';
-import { NotAcceptableResponse } from 'responses/notAcceptableResponse';
-import { BadRequestResponse } from 'responses/badRequestResponse';
-import { CreateResponse } from 'responses/createdResponse';
-import { CategoryService } from 'category/category.service';
+import { ProductDto } from './dto/productDto.dto';
 
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   private logger: Logger;
-  constructor(private productService: ProductsService, private categoryService: CategoryService) {
+  constructor(private productService: ProductsService) {
     this.logger = new Logger(ProductsController.name);
   }
 
@@ -49,7 +47,7 @@ export class ProductsController {
   @ApiOperation({ summary: 'Get one product by id' })
   @ApiResponse({ status: 200, type: Product })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
-  async getOne(@Param('id') id: string) {
+  async getOne(@Param('id') id: number) {
     try {
       return this.productService.findOne(Number(id));
     } catch (error) {
@@ -91,7 +89,7 @@ export class ProductsController {
   @ApiOperation({ summary: 'Remove product' })
   @ApiResponse({ status: 200 })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: number) {
     try {
       return this.productService.remove(Number(id));
     } catch (error) {
@@ -106,9 +104,9 @@ export class ProductsController {
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   @ApiBody({ type: ProductDto })
   @UsePipes(new ValidationPipe({ transform: true }))
-  async update(@Body() productDto: ProductDto, @Param('id') id: string): Promise<Product> {
+  async update(@Body() productDto: ProductDto, @Param('id') id: number): Promise<Product> {
     try {
-      return this.productService.update(productDto, Number(id));
+      return this.productService.update(productDto, id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
