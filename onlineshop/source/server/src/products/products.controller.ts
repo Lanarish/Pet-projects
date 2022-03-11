@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   HttpException,
   HttpStatus,
   Logger,
@@ -34,6 +35,7 @@ export class ProductsController {
   @Get()
   @ApiOperation({ summary: 'Get all products' })
   @ApiResponse({ status: 200, type: [Product] })
+  @Header('x-total-count', '20')
   getAll(): Promise<Product[]> {
     try {
       return this.productService.findAll();
@@ -47,6 +49,7 @@ export class ProductsController {
   @ApiOperation({ summary: 'Get one product by id' })
   @ApiResponse({ status: 200, type: Product })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
+  @Header('x-total-count', '11')
   async getOne(@Param('id') id: number) {
     try {
       return this.productService.findOne(Number(id));
@@ -57,6 +60,7 @@ export class ProductsController {
   }
 
   @Get('productsByCategory/:categoryId')
+  @Header('x-total-count', '11')
   @ApiOperation({ summary: 'Get products by category' })
   @ApiResponse({ status: 200, type: Product })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
@@ -69,6 +73,7 @@ export class ProductsController {
     }
   }
   @Post()
+  @Header('x-total-count', '11')
   @ApiOperation({ summary: 'Create product' })
   @ApiResponse({ status: 200, type: Product })
   @ApiResponse({ status: 201, type: CreateResponse, description: 'Created product' })
@@ -86,6 +91,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @Header('x-total-count', '11')
   @ApiOperation({ summary: 'Remove product' })
   @ApiResponse({ status: 200 })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
@@ -99,6 +105,7 @@ export class ProductsController {
   }
 
   @Put(':id')
+  @Header('x-total-count', '11')
   @ApiOperation({ summary: 'Update product' })
   @ApiResponse({ status: 200, type: Product })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })

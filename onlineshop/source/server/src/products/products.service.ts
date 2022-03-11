@@ -125,7 +125,7 @@ export class ProductsService {
     const updateProduct = { ...model, ...dto };
     try {
       const updatedProduct = this.productsRepository.save(updateProduct);
-      this.logger.log(`The product has been updated! id: ${updateProduct.productId}`);
+      this.logger.log(`The product has been updated! id: ${updateProduct.id}`);
       return updatedProduct;
     } catch (error) {
       this.logger.error(FAILED_UPDATED);

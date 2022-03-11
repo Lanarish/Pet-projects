@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   HttpException,
   HttpStatus,
   Logger,
@@ -32,6 +33,7 @@ export class CategoryController {
   }
 
   @Get()
+  @Header('X-Total-Count', '11')
   @ApiOperation({ summary: 'Get all category' })
   @ApiResponse({ status: 200, type: [Category] })
   getAll(): Promise<Category[]> {
@@ -43,6 +45,7 @@ export class CategoryController {
     }
   }
   @Get(':id')
+  @Header('X-Total-Count', '11')
   @ApiOperation({ summary: 'Get one category by id' })
   @ApiResponse({ status: 200, type: Category })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found category by this id' })
@@ -55,6 +58,7 @@ export class CategoryController {
     }
   }
   @Post()
+  @Header('X-Total-Count', '11')
   @ApiOperation({ summary: 'Create category' })
   @ApiResponse({ status: 200, type: Category })
   @ApiResponse({ status: 201, type: CreateResponse, description: 'Created product' })
@@ -71,6 +75,7 @@ export class CategoryController {
     }
   }
   @Delete(':id')
+  @Header('X-Total-Count', '11')
   @ApiOperation({ summary: 'Remove category' })
   @ApiResponse({ status: 200 })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found category by this id' })
@@ -84,6 +89,7 @@ export class CategoryController {
   }
 
   @Put(':id')
+  @Header('X-Total-Count', '11')
   @ApiOperation({ summary: 'Update category' })
   @ApiResponse({ status: 200, type: Category })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
