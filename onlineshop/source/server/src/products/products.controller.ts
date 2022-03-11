@@ -36,6 +36,7 @@ export class ProductsController {
   @ApiOperation({ summary: 'Get all products' })
   @ApiResponse({ status: 200, type: [Product] })
   @Header('X-Total-Count', '11')
+  @Header('Access-Control-Expose-Headers', '11')
   getAll(): Promise<Product[]> {
     try {
       return this.productService.findAll();
