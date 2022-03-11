@@ -10,7 +10,7 @@ const ProductsList = (props: ListProps) => (
       <TextField source="size" />
       <TextField source="color" />
       <TextField source="price" />
-      <TextField source="category" />
+      <TextField source="category.name" />
       <EditButton basePath="/product" />
       <DeleteButton basePath="/product" />
     </Datagrid>
