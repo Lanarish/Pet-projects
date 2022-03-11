@@ -35,7 +35,7 @@ export class ProductsController {
   @Get()
   @ApiOperation({ summary: 'Get all products' })
   @ApiResponse({ status: 200, type: [Product] })
-  @Header('x-total-count', '20')
+  @Header('X-Total-Count', '11')
   getAll(): Promise<Product[]> {
     try {
       return this.productService.findAll();
