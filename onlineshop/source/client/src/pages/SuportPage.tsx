@@ -1,10 +1,15 @@
-import { Container } from '@mui/material';
+import { Button } from '@mui/material';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import AdminPanel from './AdminPanel';
+import './../styles/AdminPanel.scss';
 
 const SupportPage = () => (
-  <AdminPanel />
+  <>
+    <AdminPanel />
+  </>
+
   //   <Container>
   //     <h1>SupportPage</h1>
   //     <div>

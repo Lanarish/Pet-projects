@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import SupportPage from 'src/pages/SuportPage';
 import MainPage from 'src/pages/MainPage';
 import NotFoundPage from 'src/pages/NotFoundPage';
 import ProductPage from 'src/pages/SingleProductPage';
 import AboutPage from 'src/pages/AboutPage';
 import DeliveryPage from 'src/pages/DeliveryPage';
-import SupportPage from 'src/pages/SuportPage';
 import Shop from 'src/pages/Shop';
 
 import Footer from './Footer';

@@ -98,7 +98,7 @@ export class CategoryService {
     this.logger.log(`Update category ${model.name}... `);
     const updateCategory = { ...model, ...dto };
     const updatedCategory = this.categoryRepository.save(updateCategory);
-    this.logger.log(`The Category has been updated! id: ${updateCategory.categoryId}`);
+    this.logger.log(`The Category has been updated! id: ${updateCategory.id}`);
     return updatedCategory;
   }
 }

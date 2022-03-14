@@ -86,7 +86,7 @@ export class ProductsService {
     }
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number): Promise<any> {
     let model;
     this.logger.log(`Start removal process... `);
     try {
@@ -100,8 +100,9 @@ export class ProductsService {
       throw new NotFoundException(ELEMENT_NOT_FOUND);
     }
     try {
-      await this.productsRepository.delete(id);
+      const removedProduct = await this.productsRepository.delete(id);
       this.logger.log(`The product has been removed! id: ${id}`);
+      return removedProduct;
     } catch (error) {
       this.logger.error(FAILED_DELETE);
       throw new Error(FAILED_DELETE);
