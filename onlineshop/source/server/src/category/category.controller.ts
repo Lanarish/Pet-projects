@@ -51,7 +51,7 @@ export class CategoryController {
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found category by this id' })
   async getOne(@Param('id') id: string) {
     try {
-      return this.categoryService.findOne(Number(id));
+      return this.categoryService.findOne(id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -81,7 +81,7 @@ export class CategoryController {
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found category by this id' })
   async remove(@Param('id') id: string) {
     try {
-      return this.categoryService.remove(Number(id));
+      return this.categoryService.remove(id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -95,7 +95,7 @@ export class CategoryController {
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   @ApiBody({ type: CategoryDto })
   @UsePipes(new ValidationPipe({ transform: true }))
-  async update(@Body() dto: CategoryDto, @Param('id') id: number): Promise<Category> {
+  async update(@Body() dto: CategoryDto, @Param('id') id: string): Promise<Category> {
     try {
       return this.categoryService.update(dto, id);
     } catch (error) {

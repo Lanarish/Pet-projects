@@ -53,7 +53,7 @@ export class ProductsController {
   @Header('x-total-count', '11')
   async getOne(@Param('id') id: string) {
     try {
-      return this.productService.findOne(Number(id));
+      return this.productService.findOne(id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -67,7 +67,7 @@ export class ProductsController {
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   async findAllByCategory(@Param('categoryId') categoryId: string) {
     try {
-      return this.productService.getAllByCategory(Number(categoryId));
+      return this.productService.getAllByCategory(categoryId);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -97,7 +97,7 @@ export class ProductsController {
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   async remove(@Param('id') id: string) {
     try {
-      return this.productService.remove(Number(id));
+      return this.productService.remove(id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -113,7 +113,7 @@ export class ProductsController {
   @UsePipes(new ValidationPipe({ transform: true }))
   async update(@Body() productDto: ProductDto, @Param('id') id: string): Promise<Product> {
     try {
-      return this.productService.update(productDto, Number(id));
+      return this.productService.update(productDto, id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
