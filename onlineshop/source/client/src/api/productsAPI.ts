@@ -4,7 +4,6 @@ import { PRODUCTS_API } from 'src/store/constants';
 export const getAllProducts = async (): Promise<[IProduct]> => {
   try {
     const response = await fetch(PRODUCTS_API, {
-      // headers: { 'x-total-count': 'products 0-20/20' },
       method: 'GET',
     });
     if (response.ok) {
