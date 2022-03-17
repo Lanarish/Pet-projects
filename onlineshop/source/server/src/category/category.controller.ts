@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   HttpException,
   HttpStatus,
   Logger,
@@ -32,6 +33,7 @@ export class CategoryController {
   }
 
   @Get()
+  @Header('X-Total-Count', '11')
   @ApiOperation({ summary: 'Get all category' })
   @ApiResponse({ status: 200, type: [Category] })
   getAll(): Promise<Category[]> {
@@ -43,18 +45,20 @@ export class CategoryController {
     }
   }
   @Get(':id')
+  @Header('X-Total-Count', '11')
   @ApiOperation({ summary: 'Get one category by id' })
   @ApiResponse({ status: 200, type: Category })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found category by this id' })
   async getOne(@Param('id') id: string) {
     try {
-      return this.categoryService.findOne(Number(id));
+      return this.categoryService.findOne(id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
   @Post()
+  @Header('X-Total-Count', '11')
   @ApiOperation({ summary: 'Create category' })
   @ApiResponse({ status: 200, type: Category })
   @ApiResponse({ status: 201, type: CreateResponse, description: 'Created product' })
@@ -71,12 +75,13 @@ export class CategoryController {
     }
   }
   @Delete(':id')
+  @Header('X-Total-Count', '11')
   @ApiOperation({ summary: 'Remove category' })
   @ApiResponse({ status: 200 })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found category by this id' })
   async remove(@Param('id') id: string) {
     try {
-      return this.categoryService.remove(Number(id));
+      return this.categoryService.remove(id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -84,12 +89,13 @@ export class CategoryController {
   }
 
   @Put(':id')
+  @Header('X-Total-Count', '11')
   @ApiOperation({ summary: 'Update category' })
   @ApiResponse({ status: 200, type: Category })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   @ApiBody({ type: CategoryDto })
   @UsePipes(new ValidationPipe({ transform: true }))
-  async update(@Body() dto: CategoryDto, @Param('id') id: number): Promise<Category> {
+  async update(@Body() dto: CategoryDto, @Param('id') id: string): Promise<Category> {
     try {
       return this.categoryService.update(dto, id);
     } catch (error) {

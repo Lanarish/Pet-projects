@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { Category } from '../entity/category.entity';
 import { Product } from '../entity/product.entity';
-import { mockProductsRepository, mockList } from '../__mocks__/mockProductRepository.mock';
+import { mockProductsRepository, mockProductList } from '../__mocks__/mockProductRepository.mock';
 
 import { ProductDto } from './dto/productDto.dto';
 import { ProductsController } from './products.controller';
@@ -37,7 +37,7 @@ describe('ProductsController', () => {
 
     it('should create a product', async () => {
       expect(await controller.create(productDto)).toEqual({
-        productId: 3,
+        id: 3,
         ...productDto,
       });
     });
@@ -55,10 +55,10 @@ describe('ProductsController', () => {
       };
     });
     it('should update a product', async () => {
-      expect(await controller.update(productDto, 1)).toEqual({ productId: mockList[0].productId, ...productDto });
+      expect(await controller.update(productDto, '1')).toEqual({ id: mockProductList[0].id, ...productDto });
     });
     it('should throw the exception that product not found', async () => {
-      expect(async () => await controller.getOne(7)).rejects.toThrow('Element does not exist');
+      expect(async () => await controller.getOne('7')).rejects.toThrow('Element does not exist');
     });
   });
   describe('get', () => {
@@ -66,7 +66,7 @@ describe('ProductsController', () => {
 
     beforeEach(async () => {
       product = {
-        productId: 2,
+        id: '2',
         name: 'Jacket',
         description: 'TestDescription',
         color: 'Black',
@@ -81,7 +81,7 @@ describe('ProductsController', () => {
     });
 
     it('should return a product', async () => {
-      expect(await controller.getOne(2)).toEqual(product);
+      expect(await controller.getOne('2')).toEqual(product);
     });
 
     it('should return all products', async () => {
@@ -90,13 +90,14 @@ describe('ProductsController', () => {
     });
 
     it('should throw the exception that product not found', async () => {
-      expect(async () => await controller.getOne(7)).rejects.toThrow('Element does not exist');
+      expect(async () => await controller.getOne('7')).rejects.toThrow('Element does not exist');
     });
   });
   describe('delete', () => {
+    const idForDelete = '2';
     it('should return not found exception after we delete our product', async () => {
-      await controller.remove(2);
-      expect(async () => await controller.getOne(2)).rejects.toThrow('FAILED_DELETE');
+      await controller.remove(idForDelete);
+      expect(async () => await controller.getOne(idForDelete)).rejects.toThrow('FAILED_DELETE');
     });
   });
 });

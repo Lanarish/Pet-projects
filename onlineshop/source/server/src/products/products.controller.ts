@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   HttpException,
   HttpStatus,
   Logger,
@@ -34,6 +35,8 @@ export class ProductsController {
   @Get()
   @ApiOperation({ summary: 'Get all products' })
   @ApiResponse({ status: 200, type: [Product] })
+  @Header('X-Total-Count', '11')
+  @Header('Access-Control-Expose-Headers', '*')
   getAll(): Promise<Product[]> {
     try {
       return this.productService.findAll();
@@ -47,9 +50,10 @@ export class ProductsController {
   @ApiOperation({ summary: 'Get one product by id' })
   @ApiResponse({ status: 200, type: Product })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
-  async getOne(@Param('id') id: number) {
+  @Header('x-total-count', '11')
+  async getOne(@Param('id') id: string) {
     try {
-      return this.productService.findOne(Number(id));
+      return this.productService.findOne(id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -57,12 +61,13 @@ export class ProductsController {
   }
 
   @Get('productsByCategory/:categoryId')
+  @Header('x-total-count', '11')
   @ApiOperation({ summary: 'Get products by category' })
   @ApiResponse({ status: 200, type: Product })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   async findAllByCategory(@Param('categoryId') categoryId: string) {
     try {
-      return this.productService.getAllByCategory(Number(categoryId));
+      return this.productService.getAllByCategory(categoryId);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -86,12 +91,13 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @Header('x-total-count', '11')
   @ApiOperation({ summary: 'Remove product' })
   @ApiResponse({ status: 200 })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
-  async remove(@Param('id') id: number) {
+  async remove(@Param('id') id: string) {
     try {
-      return this.productService.remove(Number(id));
+      return this.productService.remove(id);
     } catch (error) {
       this.logger.error(error.message);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -99,12 +105,13 @@ export class ProductsController {
   }
 
   @Put(':id')
+  @Header('x-total-count', '11')
   @ApiOperation({ summary: 'Update product' })
   @ApiResponse({ status: 200, type: Product })
   @ApiResponse({ status: 404, type: NotFoundResponse, description: 'Not found product by this id' })
   @ApiBody({ type: ProductDto })
   @UsePipes(new ValidationPipe({ transform: true }))
-  async update(@Body() productDto: ProductDto, @Param('id') id: number): Promise<Product> {
+  async update(@Body() productDto: ProductDto, @Param('id') id: string): Promise<Product> {
     try {
       return this.productService.update(productDto, id);
     } catch (error) {

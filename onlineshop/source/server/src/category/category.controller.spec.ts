@@ -4,6 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Product } from '../entity/product.entity';
 import { Category } from '../entity/category.entity';
 import { mockCategoryRepository, mockList } from '../__mocks__/mockCategoryReposity.mock';
+import { mockProductList } from '../__mocks__/mockProductRepository.mock';
 
 import { CategoryController } from './category.controller';
 import { CategoryService } from './category.service';
@@ -19,7 +20,7 @@ describe('CategoryController', () => {
       providers: [CategoryService, { provide: getRepositoryToken(Category), useValue: mockCategoryRepository }],
     }).compile();
     controller = module.get<CategoryController>(CategoryController);
-    mockProduct = new Product(1, 'Jacket', 'TestDescription', 'Black', 'S', 10000, new Category());
+    mockProduct = mockProductList[0];
   });
 
   it('should be defined', () => {
@@ -35,7 +36,7 @@ describe('CategoryController', () => {
     });
     it('should create a category', async () => {
       expect(await controller.create(categoryDto)).toEqual({
-        categoryId: 3,
+        id: 3,
         name: 'Jackets',
         products: [],
       });
@@ -50,8 +51,8 @@ describe('CategoryController', () => {
       };
     });
     it('should update a category', async () => {
-      expect(await controller.update(categoryDto, 1)).toEqual({
-        categoryId: mockList[0].categoryId,
+      expect(await controller.update(categoryDto, '1')).toEqual({
+        id: mockList[0].id,
         ...categoryDto,
         products: [mockProduct],
       });
@@ -66,7 +67,7 @@ describe('CategoryController', () => {
 
     beforeEach(async () => {
       category = {
-        categoryId: 1,
+        id: '1',
         name: 'Jacket',
         products: [mockProduct],
       };

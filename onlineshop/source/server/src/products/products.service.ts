@@ -33,7 +33,7 @@ export class ProductsService {
     return findAllProducts;
   }
 
-  async findOne(id: number): Promise<Product> {
+  async findOne(id: string): Promise<Product> {
     let model;
     try {
       model = await this.productsRepository.findOne(id, { relations: ['category'] });
@@ -49,7 +49,7 @@ export class ProductsService {
     return model;
   }
 
-  async getAllByCategory(categoryId: number): Promise<Product[]> {
+  async getAllByCategory(categoryId: string): Promise<Product[]> {
     this.logger.log(`Start getting products... `);
     let findByCategory: Product[];
     try {
@@ -86,7 +86,7 @@ export class ProductsService {
     }
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: string): Promise<void> {
     let model;
     this.logger.log(`Start removal process... `);
     try {
@@ -100,15 +100,15 @@ export class ProductsService {
       throw new NotFoundException(ELEMENT_NOT_FOUND);
     }
     try {
-      await this.productsRepository.delete(id);
       this.logger.log(`The product has been removed! id: ${id}`);
+      await this.productsRepository.delete(id);
     } catch (error) {
       this.logger.error(FAILED_DELETE);
       throw new Error(FAILED_DELETE);
     }
   }
 
-  async update(dto: ProductDto, id: number): Promise<Product> {
+  async update(dto: ProductDto, id: string): Promise<Product> {
     let model;
     this.logger.log(`Start update process... `);
     try {
@@ -125,7 +125,7 @@ export class ProductsService {
     const updateProduct = { ...model, ...dto };
     try {
       const updatedProduct = this.productsRepository.save(updateProduct);
-      this.logger.log(`The product has been updated! id: ${updateProduct.productId}`);
+      this.logger.log(`The product has been updated! id: ${updateProduct.id}`);
       return updatedProduct;
     } catch (error) {
       this.logger.error(FAILED_UPDATED);

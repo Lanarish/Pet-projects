@@ -30,7 +30,6 @@ export class ProductDto {
 
   @ApiProperty({ example: '10000', description: 'Price of product' })
   @IsNotEmpty()
-  @IsPositive()
   price: number;
 
   @ApiProperty({ example: '1', description: 'Unique identificator of category' })

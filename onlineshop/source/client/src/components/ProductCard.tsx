@@ -25,7 +25,7 @@ const ProductCard: React.FC<IProductProps> = ({ product }) => (
     </CardContent>
     <CardActions className="button-container">
       <Button className="button_buy">BUY</Button>
-      <Link key={product.productId} to={`/products/${product.productId}`} className="link">
+      <Link key={product.id} to={`/products/${product.id}`} className="link">
         <Button className="button_more">LEARN MORE</Button>
       </Link>
     </CardActions>

@@ -7,7 +7,7 @@ import { Category } from './../entity/category.entity';
 export class Product {
   @ApiProperty({ example: '1', description: 'Unique identificator of product' })
   @PrimaryGeneratedColumn()
-  productId: number;
+  id: string;
 
   @ApiProperty({ example: 'Leather jacket', description: 'Product name' })
   @Column()
@@ -33,7 +33,7 @@ export class Product {
   category: Category;
 
   constructor(
-    productId: number,
+    id: string,
     name: string,
     description: string,
     size: string,
@@ -41,7 +41,7 @@ export class Product {
     price: number,
     category: Category,
   ) {
-    this.productId = productId;
+    this.id = id;
     this.name = name;
     this.description = description;
     this.size = size;
