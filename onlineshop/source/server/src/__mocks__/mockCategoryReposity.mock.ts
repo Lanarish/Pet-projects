@@ -1,16 +1,15 @@
-import { Product } from '../entity/product.entity';
-import { Category } from '../entity/category.entity';
+import { mockProductList } from './mockProductRepository.mock';
 
 export const mockList = [
   {
     id: '1',
     name: 'Jacket',
-    products: [new Product('1', 'Jacket', 'TestDescription', 'Black', 'S', 10000, new Category())],
+    products: [mockProductList[0]],
   },
   {
     id: '2',
     name: 'Trench coats',
-    products: [new Product('1', 'Jacket', 'TestDescription', 'Black', 'S', 10000, new Category())],
+    products: [mockProductList[0]],
   },
 ];
 export const mockCategoryRepository = {

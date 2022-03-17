@@ -4,6 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Product } from '../entity/product.entity';
 import { Category } from '../entity/category.entity';
 import { mockCategoryRepository, mockList } from '../__mocks__/mockCategoryReposity.mock';
+import { mockProductList } from '../__mocks__/mockProductRepository.mock';
 
 import { CategoryController } from './category.controller';
 import { CategoryService } from './category.service';
@@ -19,7 +20,7 @@ describe('CategoryController', () => {
       providers: [CategoryService, { provide: getRepositoryToken(Category), useValue: mockCategoryRepository }],
     }).compile();
     controller = module.get<CategoryController>(CategoryController);
-    mockProduct = new Product('1', 'Jacket', 'TestDescription', 'Black', 'S', 10000, new Category());
+    mockProduct = mockProductList[0];
   });
 
   it('should be defined', () => {

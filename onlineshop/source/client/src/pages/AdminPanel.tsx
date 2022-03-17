@@ -2,7 +2,6 @@ import React from 'react';
 import { Admin, Resource } from 'react-admin';
 import jsonServerProvider from 'ra-data-json-server';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
 
 import ProductsList from 'src/components/ProductsList';
 import ProductCreate from 'src/components/ProductCreate';

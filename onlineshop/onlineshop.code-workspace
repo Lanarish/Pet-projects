@@ -11,12 +11,6 @@
     {
       "name": "client",
       "path": "source/client"
-    },
-    {
-      "path": "../../../../Downloads/react-mui-theme-poc-master"
-    },
-    {
-      "path": "../../../../Downloads/Oceanic-MUI-Theme-master"
     }
   ],
   "settings": {

@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { Category } from '../entity/category.entity';
 import { Product } from '../entity/product.entity';
-import { mockProductsRepository, mockList } from '../__mocks__/mockProductRepository.mock';
+import { mockProductsRepository, mockProductList } from '../__mocks__/mockProductRepository.mock';
 
 import { ProductDto } from './dto/productDto.dto';
 import { ProductsController } from './products.controller';
@@ -55,7 +55,7 @@ describe('ProductsController', () => {
       };
     });
     it('should update a product', async () => {
-      expect(await controller.update(productDto, '1')).toEqual({ id: mockList[0].id, ...productDto });
+      expect(await controller.update(productDto, '1')).toEqual({ id: mockProductList[0].id, ...productDto });
     });
     it('should throw the exception that product not found', async () => {
       expect(async () => await controller.getOne('7')).rejects.toThrow('Element does not exist');
@@ -94,9 +94,10 @@ describe('ProductsController', () => {
     });
   });
   describe('delete', () => {
+    const idForDelete = '2';
     it('should return not found exception after we delete our product', async () => {
-      await controller.remove('2');
-      expect(async () => await controller.getOne('2')).rejects.toThrow('FAILED_DELETE');
+      await controller.remove(idForDelete);
+      expect(async () => await controller.getOne(idForDelete)).rejects.toThrow('FAILED_DELETE');
     });
   });
 });

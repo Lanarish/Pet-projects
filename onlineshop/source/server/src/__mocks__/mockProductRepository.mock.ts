@@ -1,6 +1,6 @@
 import { Category } from '../entity/category.entity';
 
-export const mockList = [
+export const mockProductList = [
   {
     id: '1',
     name: 'Jacket',
@@ -25,15 +25,15 @@ export const mockProductsRepository = {
   create: jest.fn().mockImplementation(dto => dto),
   save: jest.fn().mockImplementation(product => {
     if (!product.id) {
-      mockList.push({ id: mockList.length + 1, ...product });
-      return mockList[mockList.length - 1];
+      mockProductList.push({ id: mockProductList.length + 1, ...product });
+      return mockProductList[mockProductList.length - 1];
     }
-    const index = mockList.findIndex(item => item.id === product.id);
-    mockList[index] = product;
-    return mockList[index];
+    const index = mockProductList.findIndex(item => item.id === product.id);
+    mockProductList[index] = product;
+    return mockProductList[index];
   }),
-  findOne: jest.fn().mockImplementation((id: string) => mockList.find(el => el.id === id) || null),
+  findOne: jest.fn().mockImplementation((id: string) => mockProductList.find(el => el.id === id) || null),
 
-  find: jest.fn().mockImplementation(() => mockList),
+  find: jest.fn().mockImplementation(() => mockProductList),
   delete: jest.fn().mockImplementation(),
 };
